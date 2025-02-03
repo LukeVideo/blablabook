@@ -1,31 +1,31 @@
-version: '3.8'
 
 services:
   client :
       # On définit une image de Node.js comme base en indiquant la version utilisée
       container_name : Client
-      image: node:20-alpine
+      build:
+        context: ./client
+        dockerfile: ./dockerfile.client
 
-      # Créez un répertoire de travail dans le conteneur et définir l'utilisateur comme node
-      working_dir: /client
-
-      # Définir le volume client en tant que dossier de travail
-      volumes:
-        - ./client:/client
-
-      # Liaison entre le port 3000 de la machine et le port 3000 du conteneur  
-      ports:
-        - "3000:3000"
+      # commande a executer avant de lancer le serveur
+      # RUN npm install
 
       # Lancement du script "npm run dev" pour démarrer l'application
-      command: ["npm","run", "dev"]
+      # command : ["npm","run", "dev"]
+      volumes:
+        - ./client:/client
+        - /client/node_modules
+      command: npm run dev
       user: node
       environment:
         - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}    
       depends_on:
         - db
+      ports:
+      - "3000:3000"
 
   db:
+    container_name: database
     image: postgres:latest
     restart: always
     environment:
@@ -34,8 +34,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
+    
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - ./database/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
 
-volumes:
-  pgdata:
