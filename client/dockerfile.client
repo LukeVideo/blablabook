@@ -1,0 +1,21 @@
+# Dockerfile : sert à configurer le conteneur pour lancer l'application
+
+# Starting with an base image (already existing in Docker Hub) with alpine version
+FROM node:20-alpine
+
+# Working  directory /client inside the container
+WORKDIR /client
+
+# Copie de package.json et dans le conteneur
+COPY ./package*.json ./
+
+
+# On lance NPM pour l'installation des dépendances
+
+COPY  . .
+
+RUN npm install
+
+EXPOSE 3000
+
+
