@@ -5,7 +5,7 @@ services:
       container_name : Client
       build:
         context: ./client
-        dockerfile: ./client/dockerfile.client
+        dockerfile: ./dockerfile.client
 
       # commande a executer avant de lancer le serveur
       # RUN npm install
@@ -21,6 +21,8 @@ services:
         - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}    
       depends_on:
         - db
+      ports:
+      - "3000:3000"
 
   db:
     container_name: database

@@ -9,12 +9,12 @@ WORKDIR /client
 # Copie de package.json et dans le conteneur
 COPY ./package*.json ./
 
-
 # On lance NPM pour l'installation des dépendances
+RUN npm install
 
+# Copie du reste des fichiers du dossier client dans le conteneur
 COPY  . .
 
-RUN npm install
 
 EXPOSE 3000
 
