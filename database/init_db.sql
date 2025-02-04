@@ -65,12 +65,13 @@ CREATE author(
 
 CREATE book(
   id SERIAL AS PRIMARY KEY,
-  isbn TEXT,
-  title TEXT,
-  author INTEGER REFERENCES author(id),
-  category_id TEXT REFERENCES category(id),
+  isbn TEXT NOT NULL,
+  title TEXT NOT NULL,
+  author INTEGER REFERENCES author(id) NOT NULL,
+  book_cover TEXT NOT NULL, 
+  category_id TEXT REFERENCES category(id) NOT NULL,
   release_date TIMESTAMPTZ NOT NULL,
-  book_description TEXT,
+  book_description TEXT NOT NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 
@@ -80,6 +81,7 @@ CREATE TABLE user(
   id SERIAL AS PRIMARY KEY,
   firstname TEXT NOT NULL,
   lastname TEXT NOT NULL,
+  nickname TEXT NOT NULL UNIQUE,
   email email_type NOT NULL UNIQUE,
   user_password TEXT NOT NULL,
   user_role_id INTEGER NOT NULL REFERENCES user_role(id),

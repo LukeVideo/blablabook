@@ -7,9 +7,10 @@ const router = Router();
 // Définition des routes
 // Routes du mainController (concerne la navigation sur les pages d'accueil, login, register et compte utilisateur)
 router.get("/", mainController.renderHomePage);
-// router.get("/login", mainController.renderLoginPage);
-// // router.post("/login", mainController.handleLogin);
-// router.get("/register", mainController.renderRegisterPage);
+router.get("/login", mainController.renderLoginPage);
+router.post("/login", mainController.handleLogin);
+router.get("/register", mainController.renderRegisterPage);
+router.post("/register", mainController.handleRegister);
 // router.get("/user_account", mainController.renderAccountPage);
 // router.get("/contact", mainController.renderContactPage);
 
@@ -35,7 +36,7 @@ router.get("/", mainController.renderHomePage);
 
 
 router.use((req, res) => {
-  res.status(404).render("pages/not-found");
+  res.status(404).render("not_found");_
 });
 
 export default router;
