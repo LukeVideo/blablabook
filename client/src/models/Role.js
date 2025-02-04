@@ -1,11 +1,11 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = require('../database');
+import { Sequelize, DataTypes } from 'sequelize';
+import sequelize from '../../database/connexion_db.js';
 
 class Role extends Sequelize.Model {}
 
 Role.init(
     {
-        name: {
+        role_name: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
@@ -17,4 +17,4 @@ Role.init(
     }
 );
 
-module.exports = Role;
+export default Role;

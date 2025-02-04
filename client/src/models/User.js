@@ -1,7 +1,6 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../database');
-const Role = require('./Role.js');
-
+import { Model, DataTypes } from 'sequelize';
+import sequelize from '../../database/connexion_db.js';
+import Role from './Role.js';
 class User extends Model {}
 
 // Création d'une classe User avec les propriétés définies dans la base de données
@@ -67,6 +66,6 @@ User.init(
 });
 
 // Define the association with UserRole
-User.belongsTo(UserRole, { foreignKey: 'user_role_id' });
+User.belongsTo(Role, { foreignKey: 'user_role.id' });
 
-module.exports = User;
+export default User;
