@@ -2,6 +2,7 @@
 
 # Starting with an base image (already existing in Docker Hub) with alpine version
 FROM node:20-alpine
+# USER docker:docker
 
 # Working  directory /client inside the container
 WORKDIR /client

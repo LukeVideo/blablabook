@@ -19,6 +19,10 @@ app.set("views", "./src/views");
 // Configure assets routes (static folder)
 app.use(express.static("./src/public"));
 
+// Use built-in middleware to parse URL-encoded data
+app.use(express.urlencoded({ extended: true }));
+
+
 // Favicon static route
 app.use("/favicon.ico", express.static("./public/images/logo.svg"));
 
