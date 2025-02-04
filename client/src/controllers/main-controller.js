@@ -1,6 +1,7 @@
 import blablapass from '../utils/password.js';
 import checkEmail from '../utils/ValidateEmail.js';
-
+import User from '../models/User.js'
+import Role from '../models/Role.js'
 
 
 const mainController = {
@@ -73,20 +74,23 @@ const mainController = {
        
       // comparaison du password et confirm_password
 
-      if(req.body.password === req.body.confirm_password){
-        // hashage du mot de passe
-        const hashedPassword = blablapass.hashPassword(req.body.password)
-        res.render('login', {
-          message: 'Vous pouvez maintenant vous connecter !',
-      });
-          
-      }else{
-        return res.render('register', { error: "Les mots de passe ne correspondent pas" });
-      }
+      // if(req.body.password === req.body.confirm_password){
+      //   // hashage du mot de passe
+      //   const hashedPassword = blablapass.hashPassword(req.body.password)
 
+          
+      // }else{
+      //   return res.render('register', { error: "Les mots de passe ne correspondent pas" });
+      // }
+
+      const hashedPassword = blablapass.checkConfirmPassword(req.body.password, req.body.confirm_password)
+      if (!hashedPassword) {
+        return res.render('register', { error: "Les mots de passe ne correspondent pas" });
+
+      }
         // Stockage des informations dans la DB
         
-        console.log (`${hashedPassword} is registered in database`)
+      console.log (`${hashedPassword} is registered in database`)
         
         // envoie message confirmation de création du compte
 
@@ -107,23 +111,22 @@ const mainController = {
     
     // // attribuer un rôle ici, le role customer.
     // //  Il faut récupérer un role (ici customer) dans la BDD
-    // const newCustomerRole  = await  Role.findOne({where:{name: 'customer'}});
+    const user_default_role  = await  Role.findOne({where:{role_name: 'user'}});
 
     // // sauvegarder user
-    // await User.create({
-    //     firstname,
-    //     lastname,
-    //     email,
-    //     password: hashedPassword,
-    //     role_id: newCustomerRole.id,
-    // });
+    await User.create({
+        firstname,
+        lastname,
+        nickname,
+        email,
+        user_password: hashedPassword,
+        user_role_id: user_default_role.id,
+    });
 
     //!! ne pas modifier cette ligne
     res.render('login', {
         message: 'Vous pouvez maintenant vous connecter !',
     });
-
-      res.render("login");
 
     } catch (error) {
       console.error(error);

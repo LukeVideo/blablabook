@@ -22,12 +22,20 @@ const blablapass = {
     async verifyPassword(hashedPassword, inputPassword) {
         try {
             if (await argon2.verify(hashedPassword, inputPassword)) {
-                console.log("Password is valid!");
+                console.log("Identifiants corrects!");
             } else {
-                console.log("Password is invalid!");
+                console.log("Identifiant(s) incorrect(s)");
             }
         } catch (err) {
-            console.error("Error verifying password", err);
+            console.error("Error : Identifiant(s) incorrect(s)", err);
+        }
+    },
+    async checkConfirmPassword(pass, confirmPass) {
+        if (pass === confirmPass) {
+            return blablapass.hashPassword(pass)
+        }
+        else {
+            return false
         }
     }
 }
