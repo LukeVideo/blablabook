@@ -15,7 +15,9 @@
 
 <body>
   <%- include('./partials/header') %>
-
+  <% if (locals.message) { %>
+    <p><%= locals.message %></p>
+  <% } %>
   
   <%- include('./partials/footer') %>
 
