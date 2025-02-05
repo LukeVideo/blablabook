@@ -22,12 +22,12 @@ const blablapass = {
     async verifyPassword(hashedPassword, inputPassword) {
         try {
             if (await argon2.verify(hashedPassword, inputPassword)) {
-                console.log("Identifiants corrects!");
+                return true;
             } else {
-                console.log("Identifiant(s) incorrect(s)");
+                return false
             }
         } catch (err) {
-            console.error("Error : Identifiant(s) incorrect(s)", err);
+            console.error("Error : Can not compare both passwords", err);
         }
     },
     async checkConfirmPassword(pass, confirmPass) {
@@ -35,7 +35,7 @@ const blablapass = {
             return blablapass.hashPassword(pass)
         }
         else {
-            return false
+            return false;
         }
     }
 }

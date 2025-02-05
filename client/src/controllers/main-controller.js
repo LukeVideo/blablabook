@@ -24,22 +24,25 @@ const mainController = {
     }
   },
 
-  async handleLogin(req, res) {
+  async handleLogin(req, res, next) {
     const {email, password} = req.body;
     // const loginPassword = req.body.password
     try {
       // Vérification sur la DB que l'utilisateur existe bien
-      if(email){
-        // req.body.email === user.email
-
-        // findOne Sequelize pour retrouver l'email déjà enregistrée
-        // hasher le mot de passe saisi par l'utilisateur dans le form
-        // comparé le hash avec le mot de passe (qui est hashé) dans la base de donnée
+      const reader = await  Reader.findOne({where:{email: `${email}`}});
+      console.log(reader)
+      if(!reader){
+       res.render('login', {message:"identifiants incorrects"})
+      }
+        
+      // compare the hashed password in input with hashedPassword in database
+      const loginSuccess = blablapass.verifyPassword(reader.reader_password, password)
+      if (loginSuccess) {
+        res.render('index', {message: `Welcome to Blablabook ${reader.nickname}`})
+      }
         // si les mots de passes concordent && email valide = connexion réussie
         // Envoie message (login successfull) + redirection homepage
-      }
             
-      console.log(req.body); // email Password);
     } catch (error) {
       console.error(error);
       res.status(500).render("pages/error");
@@ -107,7 +110,7 @@ const mainController = {
       }
       // verify the nickname is not already registered in database
       const nickNameIsUnavailable = await  Reader.findOne({where:{nickname: `${nicknameToVerify}`}});
-      console.log(nickNameIsUnavailable)
+      console.log(nickNameIsUnavailableword)
       if (nickNameIsUnavailable){
         res.render('register', {
           error: 'Ce nom d\'utilisateur n\'est pas disponible !',
