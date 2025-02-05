@@ -36,7 +36,7 @@ router.post("/register", mainController.handleRegister);
 
 
 router.use((req, res) => {
-  res.status(404).render("not_found");_
+  res.status(404).render("not_found");
 });
 
 export default router;

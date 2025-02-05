@@ -1,12 +1,12 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../../database/connexion_db.js';
 import Role from './Role.js';
-class User extends Model {}
+class Reader extends Model {}
 
-// Création d'une classe User avec les propriétés définies dans la base de données
+// Création d'une classe Reader avec les propriétés définies dans la base de données
 // Définis comment les données sont stockées dans la base de données PostGreSQL via Sequelize
 // Sequelize va "traduire" les Datatypes en type appropriés
-User.init(
+Reader.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -32,11 +32,11 @@ User.init(
             allowNull: false,
             unique: true,
         },
-        user_password: {
+        reader_password: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        user_role_id: {
+        reader_role_id: {
             type: DataTypes.INTEGER,
             defaultValue: 2
         },
@@ -52,20 +52,20 @@ User.init(
         },
     }, {
         sequelize,
-        modelName: 'User',
-        tableName: 'user',
+        modelName: 'Reader',
+        tableName: 'reader',
         timestamps: false, // Disable automatic timestamps since we are managing them manually
         hooks: {
-        beforeCreate: (user, options) => {
-            user.updated_at = new Date();
+        beforeCreate: (reader, options) => {
+            reader.updated_at = new Date();
         },
-        beforeUpdate: (user, options) => {
-            user.updated_at = new Date();
+        beforeUpdate: (reader, options) => {
+            reader.updated_at = new Date();
         },
     },
 });
 
-// Define the association with UserRole
-User.belongsTo(Role, { foreignKey: 'user_role.id' });
+// Define the association with ReaderRole
+Reader.belongsTo(Role, { foreignKey: 'reader_role_id' });
 
-export default User;
+export default Reader;

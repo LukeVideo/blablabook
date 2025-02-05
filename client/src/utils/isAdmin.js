@@ -1,6 +1,6 @@
 const isAdmin = (req, res, next) => {
     // On a enchainé les middlewares, si on est la on a un user
-    if (req.session.user.role.name === 'admin') {
+    if (req.session.reader.role.name === 'admin') {
         return next();
     }
 

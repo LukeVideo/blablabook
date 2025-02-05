@@ -1,6 +1,6 @@
 import blablapass from '../utils/password.js';
-import checkEmail from '../utils/ValidateEmail.js';
-import User from '../models/User.js'
+import blablaregex from '../utils/validator.js';
+import Reader from '../models/Reader.js'
 import Role from '../models/Role.js'
 
 
@@ -39,7 +39,7 @@ const mainController = {
         // Envoie message (login successfull) + redirection homepage
       }
             
-      console.log(req.body); // loginPassword);
+      console.log(req.body); // email Password);
     } catch (error) {
       console.error(error);
       res.status(500).render("pages/error");
@@ -66,8 +66,9 @@ const mainController = {
     try {
 
       // Vérification du email valide (cf validateEmail.js)
+      const nicknameToVerify = req.body.nickname;
       const mailToVerify = req.body.email;
-      const verifiedEmail = checkEmail(mailToVerify)
+      const verifiedEmail = blablaregex.checkEmail(mailToVerify)
       if(!verifiedEmail){
         res.render('register', {error : "L'adresse mail n'est pas dans un format valide"})
       }
@@ -82,11 +83,35 @@ const mainController = {
       // }else{
       //   return res.render('register', { error: "Les mots de passe ne correspondent pas" });
       // }
+      const strongPass = blablaregex.checkPassword(req.body.password)
+      if (!strongPass){
+        res.render('register', {
+          error: 'mot de passe trop faible !',
+        });
+      }
 
-      const hashedPassword = blablapass.checkConfirmPassword(req.body.password, req.body.confirm_password)
+
+      // // verifier si password correspond à password confirm
+      // const passwordsMatch = password === passwordConfirm;
+      const hashedPassword = await blablapass.checkConfirmPassword(req.body.password, req.body.confirm_password)
       if (!hashedPassword) {
         return res.render('register', { error: "Les mots de passe ne correspondent pas" });
 
+      }
+      // verify the email address is not already registered in database
+      const emailIsUnavailable = await  Reader.findOne({where:{email: `${mailToVerify}`}});
+      if (emailIsUnavailable){
+        res.render('register', {
+          error: 'Cet email est indisponible à la création de compte !',
+        });
+      }
+      // verify the nickname is not already registered in database
+      const nickNameIsUnavailable = await  Reader.findOne({where:{nickname: `${nicknameToVerify}`}});
+      console.log(nickNameIsUnavailable)
+      if (nickNameIsUnavailable){
+        res.render('register', {
+          error: 'Ce nom d\'utilisateur n\'est pas disponible !',
+        });
       }
         // Stockage des informations dans la DB
         
@@ -98,8 +123,7 @@ const mainController = {
     //     return res.render('register', { error: "Email invalide" });
     // }
 
-    // // verifier si password correspond à password confirm
-    // const passwordsMatch = password === passwordConfirm;
+
 
     // if (!passwordsMatch) {
     //     return res.render('register', { error: "Les mots de passe ne correspondent pas" });
@@ -111,16 +135,17 @@ const mainController = {
     
     // // attribuer un rôle ici, le role customer.
     // //  Il faut récupérer un role (ici customer) dans la BDD
-    const user_default_role  = await  Role.findOne({where:{role_name: 'user'}});
-
-    // // sauvegarder user
-    await User.create({
+    const reader_default_role  = await  Role.findOne({where:{role_name: 'reader'}});
+    console.log("reader_default_role")
+    console.log(reader_default_role.id)
+    // // sauvegarder Reader
+    await Reader.create({
         firstname,
         lastname,
         nickname,
         email,
-        user_password: hashedPassword,
-        user_role_id: user_default_role.id,
+        reader_password: hashedPassword,
+        reader_role_id: reader_default_role.id,
     });
 
     //!! ne pas modifier cette ligne
