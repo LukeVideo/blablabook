@@ -5,6 +5,11 @@ class Role extends Sequelize.Model {}
 
 Role.init(
     {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+        },
         role_name: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -13,7 +18,7 @@ Role.init(
     },
     {
         sequelize,
-        tableName: 'user_role',
+        tableName: 'reader_role',
     }
 );
 
