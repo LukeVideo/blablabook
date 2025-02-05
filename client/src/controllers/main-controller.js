@@ -2,6 +2,7 @@ import blablapass from '../utils/password.js';
 import blablaregex from '../utils/validator.js';
 import Reader from '../models/Reader.js'
 import Role from '../models/Role.js'
+import ExpressSession from 'express-session';
 
 
 const mainController = {
@@ -26,6 +27,8 @@ const mainController = {
 
   async handleLogin(req, res, next) {
     const {email, password} = req.body;
+    const readerSession = req.session.reader;
+    console.log(readerSession);
     // const loginPassword = req.body.password
     try {
       // Vérification sur la DB que l'utilisateur existe bien
@@ -38,7 +41,16 @@ const mainController = {
       // compare the hashed password in input with hashedPassword in database
       const loginSuccess = blablapass.verifyPassword(reader.reader_password, password)
       if (loginSuccess) {
-        res.render('index', {message: `Welcome to Blablabook ${reader.nickname}`})
+        req.session.reader = {
+          id: reader.id,
+          nickname: reader.nickname,
+          firstname: reader.firstname,
+          lastname: reader.lastname,
+          email: reader.email,
+          reader_role_id: reader.reader_role_id,
+        };
+
+        res.render('index', {message: `Welcome to Blablabook ${req.session.reader.nickname}`})
       }
         // si les mots de passes concordent && email valide = connexion réussie
         // Envoie message (login successfull) + redirection homepage
@@ -110,7 +122,7 @@ const mainController = {
       }
       // verify the nickname is not already registered in database
       const nickNameIsUnavailable = await  Reader.findOne({where:{nickname: `${nicknameToVerify}`}});
-      console.log(nickNameIsUnavailableword)
+      console.log(nickNameIsUnavailable)
       if (nickNameIsUnavailable){
         res.render('register', {
           error: 'Ce nom d\'utilisateur n\'est pas disponible !',

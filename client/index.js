@@ -7,10 +7,20 @@ import express from 'express';
 // Import local modules
 import router from './src/router.js';
 
-
+// Import  express session to  manage user sessions
+import expressSession from 'express-session';
 
 // Create Express app
 const app = express();
+
+console.log(process.env.SECRET_KEY)
+// Configure express-session
+app.use(expressSession({
+  secret: process.env.SECRET_KEY, // secret key to sign session
+  resave : false, // don't save session if unmodified
+  saveUninitialized: false, // don't create session until something stored
+  cookie: {secure: false} // use http
+}))
 
 // Configure view engine
 app.set("view engine", "ejs");
