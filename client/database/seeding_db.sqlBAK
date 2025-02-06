@@ -1,6 +1,6 @@
 BEGIN;
 
-INSERT INTO category (name) VALUES ('Action', 'Aventure', 'Comédie', 'Documentaire', 'Drame', 'Fantastique', 'Historique','Horreur', 'Jeunesse', 'Philosophie', 'Polar', 'Religion', 'Romance', 'Science-Fiction', 'Thriller');
+INSERT INTO category (name) VALUES ('Action', 'Inconnue', 'Aventure', 'Comédie', 'Documentaire', 'Drame', 'Fantastique', 'Historique','Horreur', 'Jeunesse', 'Philosophie', 'Polar', 'Religion', 'Romance', 'Science-Fiction', 'Thriller');
 
 INSERT INTO book_status (book_status) VALUES ('à lire', 'à acheter', 'lu', 'en cours');
 
