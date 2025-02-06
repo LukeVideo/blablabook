@@ -15,7 +15,6 @@ const blablapass = {
         }
     },
     
-    // // Usage
     // hashPassword("your_password_here");
     
     

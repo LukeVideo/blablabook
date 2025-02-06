@@ -8,13 +8,19 @@
 <!-- rajouter les CSS et le favicon -->
 
   <!-- Title -->
-  <title>blablabook</title>
-
+  <title>blablabookINDEX</title>
 
 </head>
 
-<body>
+<body> 
   <%- include('./partials/header') %>
+  
+  <% if (locals.reader) { %>
+    <h2><%= locals.reader.nickname %></h2>
+    <p>Voulez-vous vous déconnecter ? </p>
+    <form action="/logout" method="POST" type="submit" name="logout"><button>déconnexion</button>
+<% } %>  
+  
   <% if (locals.message) { %>
     <p><%= locals.message %></p>
   <% } %>
