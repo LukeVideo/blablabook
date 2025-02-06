@@ -20,15 +20,15 @@ async renderLoginPage(req, res) {
 
 async handleLogin(req, res) {
   const {email, password} = req.body;
-  const readerSession = req.session.reader;
-  console.log(`readerSession :${readerSession}`);
+  console.log(`email :${email}`)
+  // const readerSession = req.session.reader;
   // const loginPassword = req.body.password
   try {
     // Check that user is registered in the database
     const reader = await  Reader.findOne({where:{email: `${email}`}});
     console.log(reader)
     if(!reader){
-    res.render('/login', {message:"identifiants incorrects"})
+    res.render('login', {message:"identifiants incorrects"})
     }
       
     // compare the hashed password in input with hashedPassword in database

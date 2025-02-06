@@ -2,6 +2,9 @@ import { Router } from 'express';
 import registerController from './controllers/registerController.js';
 import sessionController from './controllers/sessionController.js'
 import mainController from './controllers/mainController.js';
+import authValidator from './utils/authentificator.js';
+import isAdmin from './utils/isAdmin.js';
+import adminController from './controllers/adminController.js';
 // import bookController from './controllers/book-controller.js';
 
 const router = Router();
@@ -15,6 +18,8 @@ router.post("/logout", sessionController.handleLogout);
 router.post("/login", sessionController.handleLogin);
 router.get("/register", registerController.renderRegisterPage);
 router.post("/register", registerController.handleRegister);
+router.get('/dashboard', [authValidator, isAdmin], adminController.dashboard);
+
 // router.get("/user_account", mainController.renderAccountPage);
 // router.get("/contact", mainController.renderContactPage);
  
