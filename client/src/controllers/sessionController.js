@@ -14,7 +14,7 @@ async renderLoginPage(req, res) {
 
   } catch (error) {
     console.error(error);
-    res.status(500).render("pages/error");
+    res.status(500).render("error");
   }
 },
 
@@ -59,7 +59,7 @@ async handleLogin(req, res) {
 
   } catch (error) {
     console.error(error);
-    res.status(500).render("pages/error");
+    res.status(500).render("error");
   }
 },
 
