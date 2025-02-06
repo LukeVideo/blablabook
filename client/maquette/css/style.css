@@ -1,0 +1,52 @@
+* {
+    border: solid black 1px
+
+}
+body{
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+
+header {
+    display:flex;
+    justify-content: space-between;
+
+}
+.header-logo{
+    width: 200px;
+}
+
+.presentation-section {
+    align-self: center;
+    max-width: 600px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.book-list-section{
+    overflow: scroll;
+    display:flex;
+    flex-wrap: nowrap;
+}
+.book-card {
+    width : 230px;
+    min-width: 230px;
+    display:flex;
+    flex-wrap: wrap;
+}
+.book-card-image {
+    width: 100px;
+}
+.book-card-header{
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+}
+.book-card-paragraphe{
+    width: 100%;
+}
