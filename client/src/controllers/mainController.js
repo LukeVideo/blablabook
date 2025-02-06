@@ -7,7 +7,9 @@ const mainController = {
 
     } catch (error) {
       console.error(error);
-      res.status(500).render("pages/error");
+      // res.status(500).render("error");
+      res.status(500)
+      next(error)
     }
   },
   async renderHomePage(req, res) {
@@ -17,7 +19,7 @@ const mainController = {
 
     } catch (error) {
       console.error(error);
-      res.status(500).render("pages/error");
+      res.status(500).render("error");
     }
   },
 
