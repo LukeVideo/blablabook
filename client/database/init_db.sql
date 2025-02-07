@@ -155,7 +155,6 @@ INSERT INTO book (isbn, title, author_id, category_id, release_date, book_descri
 ('9782757877923', 'Traité d’athéologie', 9, 13, '2005-09-01 00:00:00', 'Un essai sur l’athéisme et la critique des religions.', 'https://example.com/onfray.jpg'),
 ('9782221126380', 'Les Fourmis', 10, 14, '1991-09-01 00:00:00', 'Une épopée fascinante sur le monde des fourmis.', 'https://example.com/werber.jpg');
 
-
 INSERT INTO reader (firstname, lastname, nickname, email, reader_password, reader_role_id)
 
 -- Insertion des valeurs pour le reader. On utilise une requête SQL directement en tant que VALUES pour trouver l'id  correspondante au rôle de "reader"
