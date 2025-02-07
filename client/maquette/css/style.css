@@ -7,7 +7,7 @@ body{
     margin: 0;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 
@@ -48,5 +48,30 @@ header {
     flex-direction: column;
 }
 .book-card-paragraphe{
+    width: 100%;
+}
+
+
+
+.comment-section{
+    overflow: scroll;
+    display:flex;
+    flex-wrap: nowrap;
+}
+.comment-card {
+    width : 230px;
+    min-width: 230px;
+    display:flex;
+    flex-wrap: wrap;
+}
+.comment-card-image {
+    width: 100px;
+}
+.comment-card-header{
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+}
+.comment-card-paragraphe{
     width: 100%;
 }
