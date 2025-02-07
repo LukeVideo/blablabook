@@ -135,7 +135,7 @@ INSERT INTO author (firstname, lastname, biography, created_at, updated_at)
 VALUES ('John Ronald Reuel', 'Tolkien',  
     'J.R.R. Tolkien (1892-1973) était un écrivain, philologue et professeur britannique, célèbre pour avoir écrit "Le Seigneur des Anneaux" et "Le Hobbit". Son œuvre a profondément influencé la fantasy moderne.',  
     NOW(), NOW()); 
- 
+
 INSERT INTO book (isbn, title, author_id, category_id, release_date, book_description, book_cover)
 VALUES ('9780261102385', 'Le Seigneur des Anneaux', 1, 1, '1954-07-29 00:00:00', 'Une quête épique pour détruire un anneau maléfique.','https://content.rozetka.com.ua/goods/images/big/424256502.jpg');
 
@@ -143,11 +143,11 @@ INSERT INTO reader (firstname, lastname, nickname, email, reader_password, reade
 
 -- Insertion des valeurs pour le reader. On utilise une requête SQL directement en tant que VALUES pour trouver l'id  correspondante au rôle de "reader"
 VALUES (
-'Jean',
- 'Bonneau',
- 'Jambon',
- 'jb@madrange.fr',
- '$argon2id$v=19$m=65536,t=3,p=4$wPuLLCjIYd/UE5R1lYgWRg$ZsPYd+HBV03Zujc/YT0MokGC8BBmRsgShtckPEaY0XY',
+  'Jean',
+  'Bonneau',
+  'Jambon',
+  'jb@madrange.fr',
+  '$argon2id$v=19$m=65536,t=3,p=4$wPuLLCjIYd/UE5R1lYgWRg$ZsPYd+HBV03Zujc/YT0MokGC8BBmRsgShtckPEaY0XY',
   (SELECT id FROM reader_role WHERE role_name = 'reader')
   );
 

@@ -13,8 +13,8 @@ import router from './src/router.js';
 // Import  express session to  manage user sessions
 import expressSession from 'express-session';
 
-// import de errorsHandler
-// import errorsHandler from './src/utils/errorsHandler.js'
+// import errorsHandler middlewares to manage errors
+import {notFound, developmentErrors} from './src/utils/errorsHandler.js';
 
 // Create Express app
 const app = express();
@@ -49,7 +49,8 @@ app.use("/favicon.ico", express.static("./public/images/logo.svg"));
 // Plug routes on app
 app.use(router);
 
-//  app.use(errorsHandler)
+app.use(notFound);
+app.use(developmentErrors);
 
 // Start server
 const PORT = process.env.PORT || 3000;
