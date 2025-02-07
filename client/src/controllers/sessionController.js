@@ -65,9 +65,9 @@ async handleLogin(req, res) {
 
 async handleLogout (req, res){
   try {
-    console.log(`Nickname de la session à detruire${req.session.reader.nickname}`);
+    console.log(`Nickname de la session à detruire: ${req.session.reader.nickname}`);
     req.session.destroy();
-    console.log(`Nickname session détruite:${req.session}`);
+    console.log(`Session détruite: ${req.session}`);
     res.redirect('/index');
 
   } catch (error) {
