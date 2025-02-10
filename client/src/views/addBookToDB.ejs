@@ -21,11 +21,17 @@
     <h2>Bonjour <%= locals.reader.nickname %></h2>
     <section>
         <form action="/API/BookList" method="POST" type="submit" name="searchFromAPI">
-            <label for="searchFromAPI">Recherche :</label>
-            <input type="text" id="searchFromAPI" name="searchFromAPI" placeholder="Titre, Auteur, ISBN..." required>
+            <label for="titleFromAPI">Titre :</label>
+            <input type="text" id="titleFromAPI" name="titleFromAPI" placeholder="Titre">
+            <label for="authorFromAPI">Auteur :</label>
+            <input type="text" id="authorFromAPI" name="authorFromAPI" placeholder="Auteur">
+            <label for="isbnFromAPI">ISBN :</label>
+            <input type="text" id="isbnFromAPI" name="isbnFromAPI" placeholder="ISBN">
             
             
-            <fieldset>
+            
+            
+            <!-- <fieldset>
               <legend>Selectionner un critère de recherche:</legend>
               
               <div>
@@ -42,7 +48,7 @@
                 <input type="radio" id="isbn" name="filter" value="isbn" />
                 <label for="isbn">ISBN</label>
               </div>
-            </fieldset>
+            </fieldset> -->
             <button type="submit">Rechercher</button>
     
       <% if (locals.bookList) { %>
