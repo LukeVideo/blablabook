@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <!-- Common styles, scripts, and meta tags -->
+  <%- include('./partials/head') %>
+
+<!-- rajouter les CSS et le favicon -->
+
+  <!-- Title -->
+  <title>Ajouter un livre</title>
+
+</head>
+
+<body> 
+  <%- include('./partials/header') %>
+  <%- include('./partials/menu') %>
+  
+  
+  <% if (locals.reader) { %>
+    <h2>Bonjour <%= locals.reader.nickname %></h2>
+    <section>
+        <form action="/API/BookList" method="POST" type="submit" name="searchFromAPI">
+            <label for="titleFromAPI">Titre :</label>
+            <input type="text" id="titleFromAPI" name="titleFromAPI" placeholder="Titre">
+            <label for="authorFromAPI">Auteur :</label>
+            <input type="text" id="authorFromAPI" name="authorFromAPI" placeholder="Auteur">
+            <label for="isbnFromAPI">ISBN :</label>
+            <input type="text" id="isbnFromAPI" name="isbnFromAPI" placeholder="ISBN">
+            
+            
+            
+            
+            <!-- <fieldset>
+              <legend>Selectionner un critère de recherche:</legend>
+              
+              <div>
+                <input type="radio" id="title" name="filter" value="intitle" checked />
+                <label for="title">Titre</label>
+              </div>
+              
+              <div>
+                <input type="radio" id="author" name="filter" value="inauthor" />
+                <label for="author">Auteur</label>
+              </div>
+              
+              <div>
+                <input type="radio" id="isbn" name="filter" value="isbn" />
+                <label for="isbn">ISBN</label>
+              </div>
+            </fieldset> -->
+            <button type="submit">Rechercher</button>
+    
+      <% if (locals.bookList) { %>
+        
+        <ul>
+          <% locals.bookList.forEach((book) => { %>
+              <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
+              <li> Auteur: <%= book.authors ? book.authors.join(', ')  : 'Inconnu' %> <br>
+                   Titre: <%= book.title ? book.title : 'Non renseigné' %></li>
+          <% }); %> 
+        </ul>
+        
+
+
+      <% } %>
+
+
+       
+
+
+
+
+
+
+    </section>
+    <p>blablabla</p>
+<% } %>  
+
+  
+  <% if (locals.message) { %>
+    <p><%= locals.message %></p>
+  <% } %>
+  
+  <%- include('./partials/footer') %>
+
+</body>
+</html>
+

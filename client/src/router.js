@@ -23,6 +23,12 @@ router.get("/dashboard", [authValidator, isAdmin], adminController.dashboard);
 router.get("/search", [authValidator], bookController.search);
 router.post("/search", [authValidator], bookController.handleSearch);
 
+router.get("/books/add", [authValidator, isAdmin], adminController.addBookForm);
+router.post("/api/booklist", [authValidator, isAdmin], adminController.getBookList);
+
+
+
+
 // router.get("/user_account", mainController.renderAccountPage);
 // router.get("/contact", mainController.renderContactPage);
 
