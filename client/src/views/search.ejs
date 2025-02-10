@@ -23,15 +23,25 @@
 
 
     <form action="/search" method="POST" type="submit" name="search">
-      <label for="email">Email:</label>
+      <label for="query">recherche :</label>
       <input type="text" id="query" name="query" placeholder="Titre d'un livre recherché..." required>
 
-      <button type="submit">Connexion</button>
+      <button type="submit">Rechercher</button>
 <% } %>  
   
-  <% if (locals.message) { %>
-    <p><%= locals.message %></p>
-  <% } %>
+<% if (locals.message) { %>
+  <p><%= locals.message %></p>
+<% } %> 
+
+<% if (locals.searchInput) { %>
+  <p>Vous avez recherché :</p> 
+  <p><%= locals.searchInput %></p>
+<% } %>
+
+<% if (locals.dangersearchInput) { %>
+  <p>Danger vous avez recherché :</p> 
+  <p><%= locals.dangersearchInput %></p>
+<% } %>
 
   
   <% if (locals.result) { %>
