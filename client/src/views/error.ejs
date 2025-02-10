@@ -1,0 +1,17 @@
+<%- include('partials/head') %>
+<h1>Error Land</h1>
+<%- include('partials/menu') %>
+
+<section>
+
+    <h2><%= status %></h2>
+    <% if(status === 404) { %>
+        <img src="https://media1.tenor.com/images/a45e05cae2a06e6edb9a0d2d6ed632bb/tenor.gif?itemid=12587594" alt="Page Not Found"> 
+        <p><%= message %></p>
+    <% } %>
+    <% if ( stack ) { %>
+    <pre><%- stack %>
+        <% } %>
+    </pre>
+</section>
+<%- include('partials/footer') %>

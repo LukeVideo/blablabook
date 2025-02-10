@@ -13,6 +13,9 @@ import router from './src/router.js';
 // Import  express session to  manage user sessions
 import expressSession from 'express-session';
 
+// import errorsHandler middlewares to manage errors
+import {notFound, developmentErrors} from './src/utils/errorsHandler.js';
+
 // Create Express app
 const app = express();
 
@@ -23,7 +26,7 @@ app.use(expressSession({
   resave : false, // don't save session if unmodified
   saveUninitialized: false, // don't create session until something stored
   cookie: {secure: false}, // use http
-  maxAge: 1000*60*2 // 2 minutes
+  maxAge: 1000*60*10 // 2 minutes
 }))
 
 // Using locals to store Reader session datas
@@ -45,6 +48,9 @@ app.use("/favicon.ico", express.static("./public/images/logo.svg"));
 
 // Plug routes on app
 app.use(router);
+
+app.use(notFound);
+app.use(developmentErrors);
 
 // Start server
 const PORT = process.env.PORT || 3000;

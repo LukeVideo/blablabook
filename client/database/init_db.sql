@@ -131,6 +131,15 @@ INSERT INTO reader_role (role_name) VALUES
 ('reader');
 
 -- Données de test pour les tables book et author
+<<<<<<< HEAD
+INSERT INTO author (firstname, lastname, biography, created_at, updated_at)  
+VALUES ('John Ronald Reuel', 'Tolkien',  
+    'J.R.R. Tolkien (1892-1973) était un écrivain, philologue et professeur britannique, célèbre pour avoir écrit "Le Seigneur des Anneaux" et "Le Hobbit". Son œuvre a profondément influencé la fantasy moderne.',  
+    NOW(), NOW()); 
+
+INSERT INTO book (isbn, title, author_id, category_id, release_date, book_description, book_cover)
+VALUES ('9780261102385', 'Le Seigneur des Anneaux', 1, 1, '1954-07-29 00:00:00', 'Une quête épique pour détruire un anneau maléfique.','https://content.rozetka.com.ua/goods/images/big/424256502.jpg');
+=======
 INSERT INTO author (firstname, lastname, biography, created_at, updated_at) VALUES 
 ('John Ronald Reuel', 'Tolkien','J.R.R. Tolkien (1892-1973) était un écrivain, philologue et professeur britannique, célèbre pour avoir écrit "Le Seigneur des Anneaux" et "Le Hobbit". Son œuvre a profondément influencé la fantasy moderne.', NOW(), NOW()); 
 ('Jules', 'Verne', 'Jules Verne (1828-1905) était un écrivain français pionnier de la science-fiction, connu pour ses romans d’aventure et d’anticipation.', NOW(), NOW()),
@@ -154,6 +163,7 @@ INSERT INTO book (isbn, title, author_id, category_id, release_date, book_descri
 ('9782253167611', 'Arsène Lupin, gentleman cambrioleur', 8, 12, '1907-06-10 00:00:00', 'Les aventures du célèbre voleur au grand cœur.', 'https://example.com/leblanc.jpg'),
 ('9782757877923', 'Traité d’athéologie', 9, 13, '2005-09-01 00:00:00', 'Un essai sur l’athéisme et la critique des religions.', 'https://example.com/onfray.jpg'),
 ('9782221126380', 'Les Fourmis', 10, 14, '1991-09-01 00:00:00', 'Une épopée fascinante sur le monde des fourmis.', 'https://example.com/werber.jpg');
+>>>>>>> main
 
 INSERT INTO reader (firstname, lastname, nickname, email, reader_password, reader_role_id)
 

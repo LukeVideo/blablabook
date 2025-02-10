@@ -14,11 +14,12 @@ const adminController = {
     // Si === alors ok, admin page
 
 
+
       res.render('dashboard');
 
     } catch (error) {
-      console.error(error);
-      res.status(500).render("pages/error");
+  
+      return next(error);
     }
   },
 

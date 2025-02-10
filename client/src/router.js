@@ -1,10 +1,11 @@
 import { Router } from 'express';
+import adminController from './controllers/adminController.js';
+import bookController from "./controllers/bookController.js"
+import mainController from './controllers/mainController.js';
 import registerController from './controllers/registerController.js';
 import sessionController from './controllers/sessionController.js'
-import mainController from './controllers/mainController.js';
 import authValidator from './utils/authentificator.js';
 import isAdmin from './utils/isAdmin.js';
-import adminController from './controllers/adminController.js';
 // import bookController from './controllers/book-controller.js';
 
 const router = Router();
@@ -18,11 +19,12 @@ router.post("/logout", sessionController.handleLogout);
 router.post("/login", sessionController.handleLogin);
 router.get("/register", registerController.renderRegisterPage);
 router.post("/register", registerController.handleRegister);
-router.get('/dashboard', [authValidator, isAdmin], adminController.dashboard);
+router.get("/dashboard", [authValidator, isAdmin], adminController.dashboard);
+router.get("/search", [authValidator], bookController.search);
+router.post("/search", [authValidator], bookController.handleSearch);
 
 // router.get("/user_account", mainController.renderAccountPage);
 // router.get("/contact", mainController.renderContactPage);
- 
 
 // Routes du bookController
 // router.get("/:nickname/bookshelf", bookController.renderUserBookshelf);
@@ -31,21 +33,11 @@ router.get('/dashboard', [authValidator, isAdmin], adminController.dashboard);
 // router.get("/categories", bookController.fetchBooksByCategories);
 // router.get("/book/:author/:book_title/:book_id", bookController.fetchBookDetails);
 
-
-
-
-
-
-
 //PAS DE ROUTES POUR LES PAGES VERS CGU, MENTIONS LEGALES --> Directement un template EJS
 
-
-
-
-
-
-router.use((req, res) => {
-  res.status(404).render("not_found");
-});
+// Remplacé par le middleware errorsHandler.notfound (dans index.js)
+// router.use((req, res) => {
+//   res.status(404).render("not_found");
+// });
 
 export default router;

@@ -14,7 +14,7 @@ async renderLoginPage(req, res) {
 
   } catch (error) {
     console.error(error);
-    res.status(500).render("pages/error");
+    res.status(500).render("error");
   }
 },
 
@@ -59,15 +59,15 @@ async handleLogin(req, res) {
 
   } catch (error) {
     console.error(error);
-    res.status(500).render("pages/error");
+    res.status(500).render("error");
   }
 },
 
 async handleLogout (req, res){
   try {
-    console.log(`Nickname de la session à detruire${req.session.reader.nickname}`);
+    console.log(`Nickname de la session à detruire: ${req.session.reader.nickname}`);
     req.session.destroy();
-    console.log(`Nickname session détruite:${req.session}`);
+    console.log(`Session détruite: ${req.session}`);
     res.redirect('/index');
 
   } catch (error) {
