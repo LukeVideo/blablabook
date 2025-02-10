@@ -23,15 +23,52 @@
         <form action="/API/BookList" method="POST" type="submit" name="searchFromAPI">
             <label for="searchFromAPI">Recherche :</label>
             <input type="text" id="searchFromAPI" name="searchFromAPI" placeholder="Titre, Auteur, ISBN..." required>
+            
+            
+            <fieldset>
+              <legend>Selectionner un critère de recherche:</legend>
+              
+              <div>
+                <input type="radio" id="title" name="filter" value="intitle" checked />
+                <label for="title">Titre</label>
+              </div>
+              
+              <div>
+                <input type="radio" id="author" name="filter" value="inauthor" />
+                <label for="author">Auteur</label>
+              </div>
+              
+              <div>
+                <input type="radio" id="isbn" name="filter" value="isbn" />
+                <label for="isbn">ISBN</label>
+              </div>
+            </fieldset>
             <button type="submit">Rechercher</button>
+    
+      <% if (locals.bookList) { %>
+        
+        <ul>
+          <% locals.bookList.forEach((book) => { %>
+              <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
+              <li> Auteur: <%= book.authors ? book.authors.join(', ')  : 'Inconnu' %> <br>
+                   Titre: <%= book.title ? book.title : 'Non renseigné' %></li>
+          <% }); %> 
+        </ul>
+        
+
+
+      <% } %>
+
+
+       
+
+
+
 
 
 
     </section>
-    
     <p>blablabla</p>
-
-
 <% } %>  
 
   
