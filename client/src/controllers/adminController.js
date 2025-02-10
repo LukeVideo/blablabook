@@ -34,11 +34,29 @@ const adminController = {
       
       const apiQueryString = sanitize(req.body.searchFromAPI);
       const BASE_URL = 'https://www.googleapis.com/books/v1/volumes';
-  
+      const filter = sanitize(req.body.filter)
+      
       // Envoyer ces informations avec la clef API au modèle sur la route
-     
-      const response = await axios.get(`${BASE_URL}?q=${apiQueryString}&key=${process.env.API_KEY}`);
-      console.log(response.data);
+      
+      const response = await axios.get(`${BASE_URL}?q=+${filter}:${apiQueryString}&orderBy=relevance&key=${process.env.API_KEY}`);
+      // const bookList  = [];
+      const bookList = response.data.items.map(item => {
+          console.log(item.volumeInfo.title, item.volumeInfo.authors);
+          // console.log(item.selfLink, item.volumeInfo, item.searchInfo, item.imageLinks);
+          const bookItem =  {
+            selfLink : item.selfLink,
+            title : item.volumeInfo.title,
+            authors : item.volumeInfo.authors,
+            searchInfo : item.searchInfo,
+            imageLinks : item.imageLinks
+          }
+          return bookItem;
+        })
+      
+      console.log(bookList)
+      res.render("addBookToDB", {bookList})
+
+
       // Renvoie les infos en JSON pour les utiliser
   
       } catch (error) {
