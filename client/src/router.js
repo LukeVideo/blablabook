@@ -21,6 +21,7 @@ router.get("/register", registerController.renderRegisterPage);
 router.post("/register", registerController.handleRegister);
 router.get("/dashboard", [authValidator, isAdmin], adminController.dashboard);
 router.get("/search", [authValidator], bookController.search);
+router.post("/search", [authValidator], bookController.handleSearch);
 
 // router.get("/user_account", mainController.renderAccountPage);
 // router.get("/contact", mainController.renderContactPage);
