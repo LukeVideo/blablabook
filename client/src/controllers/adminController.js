@@ -39,7 +39,6 @@ const adminController = {
       // Envoyer ces informations avec la clef API au modèle sur la route
       
       const response = await axios.get(`${BASE_URL}?q=+${filter}:${apiQueryString}&orderBy=relevance&key=${process.env.API_KEY}`);
-      // const bookList  = [];
       const bookList = response.data.items.map(item => {
           console.log(item.volumeInfo.title, item.volumeInfo.authors);
           // console.log(item.selfLink, item.volumeInfo, item.searchInfo, item.imageLinks);
