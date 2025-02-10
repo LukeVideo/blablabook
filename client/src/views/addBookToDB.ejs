@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <!-- Common styles, scripts, and meta tags -->
+  <%- include('./partials/head') %>
+
+<!-- rajouter les CSS et le favicon -->
+
+  <!-- Title -->
+  <title>Ajouter un livre</title>
+
+</head>
+
+<body> 
+  <%- include('./partials/header') %>
+  <%- include('./partials/menu') %>
+  
+  
+  <% if (locals.reader) { %>
+    <h2>Bonjour <%= locals.reader.nickname %></h2>
+    <section>
+        <form action="/API/BookList" method="POST" type="submit" name="searchFromAPI">
+            <label for="searchFromAPI">Recherche :</label>
+            <input type="text" id="searchFromAPI" name="searchFromAPI" placeholder="Titre, Auteur, ISBN..." required>
+            <button type="submit">Rechercher</button>
+
+
+
+    </section>
+    
+    <p>blablabla</p>
+
+
+<% } %>  
+
+  
+  <% if (locals.message) { %>
+    <p><%= locals.message %></p>
+  <% } %>
+  
+  <%- include('./partials/footer') %>
+
+</body>
+</html>
+

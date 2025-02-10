@@ -18,8 +18,6 @@ import {notFound, developmentErrors} from './src/utils/errorsHandler.js';
 
 // Create Express app
 const app = express();
-
-console.log(process.env.SECRET_KEY)
 // Configure express-session
 app.use(expressSession({
   secret: process.env.SECRET_KEY, // secret key to sign session
