@@ -38,12 +38,24 @@
   <p><%= locals.searchInput %></p>
 <% } %>
 
-<% if (locals.dangersearchInput) { %>
-  <p>Danger vous avez recherché :</p> 
-  <p><%= locals.dangersearchInput %></p>
+<% if (locals.booksToFind) { %>
+  <ul>
+    <% locals.booksToFind.forEach((book) => { %>
+        <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
+        <%- include('partials/book', book) %>
+    <% }); %> 
+  </ul>
 <% } %>
 
-  
+<% if (locals.noresult) { %>
+  <% locals.noresult %>
+
+  <% if (locals.noresult && locals.searchInput) { %>
+    <p>Aucun resultat pour <%= locals.searchInput %></p>
+    <% } %>
+<% } %>
+    
+    
   <% if (locals.result) { %>
     <p><%= locals.result %></p>
   <% } %>

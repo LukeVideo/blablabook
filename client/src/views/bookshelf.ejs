@@ -8,7 +8,7 @@
 <!-- rajouter les CSS et le favicon -->
 
   <!-- Title -->
-  <title>Ajouter un livre</title>
+  <title>Ajouter un livre à ma Bookshelf</title>
 
 </head>
 
@@ -19,7 +19,7 @@
   <% if (locals.reader) { %>
     <h2>Bonjour <%= locals.reader.nickname %></h2>
     <section>
-        <form action="/API/BookList" method="POST" type="submit" name="searchFromAPI">
+        <form action="/bookshelf/search" method="POST" type="submit" name="searchFromAPI">
             <label for="titleFromAPI">Titre :</label>
             <input type="text" id="titleFromAPI" name="titleFromAPI" placeholder="Titre">
             <label for="authorFromAPI">Auteur :</label>
