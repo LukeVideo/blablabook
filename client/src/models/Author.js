@@ -1,45 +1,28 @@
-
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../../database/connexion_db.js';
-import Author from './Author.js';
 
 
-class Book extends Model {}
+class Author extends Model {}
 
 // Création d'une classe Book avec les propriétés définies dans la base de données
 // Définis comment les données sont stockées dans la base de données PostGreSQL via Sequelize
 // Sequelize va "traduire" les Datatypes en type appropriés
-Book.init(
+Author.init(
     {
         id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
-        isbn: {
+        firstname: {
             type: DataTypes.TEXT,
             allowNull: false,
-            unique: true,
-          },
-        
-        author_id: {
+        },
+        lastname: {
             type: DataTypes.INTEGER,
             allowNull: false,
-          },
-        title: {
-            type: DataTypes.TEXT,
-            allowNull: false,
-          },
-        release_date: {
-            type: DataTypes.DATE,
-            allowNull: false,
-            defaultValue: DataTypes.NOW,
         },
-        book_description: {
-            type: DataTypes.TEXT,
-            allowNull: true,
-        },
-        book_cover: {
+        biography: {
             type: DataTypes.TEXT,
             allowNull: false,
         },
@@ -47,34 +30,28 @@ Book.init(
             type: DataTypes.DATE,
             allowNull: false,
             defaultValue: DataTypes.NOW,
-
         },
         updated_at: {
             type: DataTypes.DATE,
             allowNull: false,
             defaultValue: DataTypes.NOW,
-
         },
+        
     },
-
-
+    
     {
         sequelize,
-        tableName: 'book',
+        tableName: 'Author',
         hooks: {
-            beforeCreate: (reader, options) => {
+            beforeCreate: (author, options) => {
                 reader.updated_at = new Date();
                 
             },
-            beforeUpdate: (reader, options) => {
+            beforeUpdate: (author, options) => {
                 reader.updated_at = new Date();
             },
-        },
-        
-    }
-);
+        }
+});
 
-// Define the association with ...
-Book.belongsTo(Author, { foreignKey: 'author_id' });
 
-export default Book;
+export default Author;

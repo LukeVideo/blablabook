@@ -22,9 +22,9 @@ const blablapass = {
         try {
             if (await argon2.verify(hashedPassword, inputPassword)) {
                 return true;
-            } else {
-                return false
             }
+            return false
+            
         } catch (err) {
             console.error("Error : Can not compare both passwords", err);
         }
@@ -33,9 +33,9 @@ const blablapass = {
         if (pass === confirmPass) {
             return blablapass.hashPassword(pass)
         }
-        else {
-            return false;
-        }
+
+        return false;
+
     }
 }
     

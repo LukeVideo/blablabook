@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import adminController from './controllers/adminController.js';
 import bookController from "./controllers/bookController.js"
+import bookshelfController from './controllers/bookshelfController.js';
 import mainController from './controllers/mainController.js';
 import registerController from './controllers/registerController.js';
 import sessionController from './controllers/sessionController.js'
@@ -22,6 +23,7 @@ router.post("/register", registerController.handleRegister);
 router.get("/dashboard", [authValidator, isAdmin], adminController.dashboard);
 router.get("/search", [authValidator], bookController.search);
 router.post("/search", [authValidator], bookController.handleSearch);
+router.get("/bookshelf", [authValidator], bookshelfController.bookshelf);
 
 router.get("/books/add", [authValidator, isAdmin], adminController.addBookForm);
 router.post("/api/booklist", [authValidator, isAdmin], adminController.getBookList);
