@@ -1,7 +1,19 @@
-<a href="/index">accueil</a>
-<a href="/login">login</a>
-<a href="/register">register</a>
-<a href="/dashboard">dashboard</a>
-<a href="/search">search</a>
-<a href="/books/add">admin add book</a>
-<a href="/bookshelf">Bookshelf</a> 
+<header>
+  <section class="header-nav">
+
+    <button><a href="/index">Accueil</a></button>
+
+    <!--! Mettre une conditionnelle selon la session (si user  connecté = pas de login ni de register, juste un  logout) -->
+
+    <button><a href="/login">login</a></button>
+    <button><a href="/register">register</a></button>
+
+    
+    <button><a href="/search">search</a></button>
+    <% if (locals.reader_role_name === 'admin') { %>
+      <button><a href="/dashboard">dashboard</a></button>
+    <% } %>
+    <button><a href="/bookshelf">Bookshelf</a> </button>
+
+  </section>
+</header>
