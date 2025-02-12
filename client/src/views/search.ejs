@@ -1,26 +1,14 @@
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-  <!-- Common styles, scripts, and meta tags -->
-  <%- include('./partials/head') %>
-
-<!-- rajouter les CSS et le favicon -->
-
-  <!-- Title -->
-  <title>blablabookINDEX</title>
-
+<%- include('partials/header') %>
+<%- include('partials/head') %>
+<title>BlaBlaBook | Recherche</title>
 </head>
+<%- include('partials/menu') %>
 
 <body> 
-  <%- include('./partials/header') %>
-  <%- include('./partials/menu') %>
-  
+
   <% if (locals.reader) { %>
     <h2><%= locals.reader.nickname %></h2>
     <p>Voulez-vous vous déconnecter ? </p>
-
-
 
     <form action="/search" method="POST" type="submit" name="search">
       <label for="query">recherche :</label>
@@ -42,7 +30,7 @@
   <ul>
     <% locals.booksToFind.forEach((book) => { %>
         <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
-        <%- include('partials/book', book) %>
+        <%- include('partials/book', {book:book}) %>
     <% }); %> 
   </ul>
 <% } %>
@@ -63,6 +51,3 @@
 
   
   <%- include('./partials/footer') %>
-
-</body>
-</html>

@@ -28,6 +28,11 @@ router.get("/bookshelf", [authValidator], bookshelfController.bookshelf);
 router.get("/books/add", [authValidator, isAdmin], adminController.addBookForm);
 router.post("/api/booklist", [authValidator, isAdmin], adminController.getBookList);
 
+router.get("/cgu", mainController.renderCGU);
+router.get("/contact", mainController.renderContactPage);
+router.get("/mentions", mainController.renderMentionsPage);
+router.get("/sendMailToAdmin", mainController.sendMailToAdmin);
+
 
 
 
