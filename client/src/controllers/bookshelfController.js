@@ -1,8 +1,5 @@
-import Bookshelf from '../models/Bookshelf.js';
-import Reader from '../models/Reader.js';
-import Book from '../models/Book.js';
-import BookHasReview from '../models/BookHasReview.js';
 import sequelize from '../../database/connexion_db.js';
+import {Book, BookHasReview, Bookshelf, Reader} from '../models/associations.js';
 
 const bookshelfController = {
 
@@ -11,14 +8,14 @@ const bookshelfController = {
         const reader = req.session.reader;
         const myBookshelf = await Bookshelf.findOne({where:{reader_id: `${reader.id}`}});
         console.log(myBookshelf.id);
-  
+
         res.render('bookshelf')
-  
+
         
         } catch (error) {
             res.status(500).render("not_found");
         }
-      
+    
     },
     // Se déclenche lorsqu'on appuie sur le bouton "ajouter à ma bookshelf" sur la page de présentation du livre
     async addBookToBookshelf (req, res, next) {

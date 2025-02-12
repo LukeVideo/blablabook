@@ -1,6 +1,6 @@
-import { Model, DataTypes } from 'sequelize';
-import Reader from './Reader.js';
+import { DataTypes, Model } from 'sequelize';
 import sequelize from '../../database/connexion_db.js';
+import Reader from './Reader.js';
 
 class Bookshelf extends Model {}
 
@@ -60,8 +60,5 @@ Bookshelf.init(
 
 
 );
-
-// Define the association with ...
-Bookshelf.belongsTo(Reader, {foreignKey: 'reader_id'});
 
 export default Bookshelf;

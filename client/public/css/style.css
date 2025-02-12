@@ -1,107 +1,21 @@
 /* * {
     border: solid black 1px
+
 } */
-
-@import url(https://fonts.bunny.net/css);
-
-
-html {
-    height: 100%;
-  }
-
 body{
-    font-family: 'roboto', sans-serif;
-
-    height: 100%;
     padding: 0;
     margin: 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     overflow-x: hidden;
-    align-items: stretch;
 
 }
-.primary-background{
-    background-color: #6baccd;
-}
-
-.second-background {
-    background-color: #ffffff;
-} 
-.third-background {
-    background-color: #f4ecd0;
-}
-.fourth-background {
-    background-color: #eec124;
-} 
-
 
 header {
     display:flex;
     justify-content: space-between;
-}
-
-.header-nav{
-    display: flex;
-    padding-top: 0.5rem;
-    padding-right: 1rem;
 
 }
-
-.nav-bookmark {
-    border-radius: 0.5rem 0.5rem 0rem 0rem;
-    vertical-align: middle;
-    padding: 0.5rem  0.5rem 0rem 0.5rem;
-    margin: 0 0.2rem 0 0.2rem;
-    box-shadow: 0px 0px 5px rgba(47, 46, 73, 0.542);
-}
-
-.nav-bookmark a {
-    text-decoration: none;
-    padding: 0rem  0rem 3rem 0rem;
-    color: black;
-}
-.login-section {
-    flex: 1;
-    padding: 5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-items: stretch;
-    /* background-color:deeppink; */
-}
-.login-section form {
-    box-shadow: 0px 0px 10px rgba(47, 46, 73, 0.7);
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem 5rem;
-    border-radius: 0.5rem;
-    /* background-color: blueviolet; */
-}
-.login-section form div{
-    padding: 0.5rem;
-    display: flex;
-}
-.login-section form button {
-    border-radius: 1.5rem;
-    width: 150px;
-    height: 3rem;
-}
-
-footer{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
-footer a {
-    text-decoration: none;
-    padding: 0rem  0rem 3rem 0rem;
-    color: black;
-}
-
 .header-logo{
     width: 200px;
 }
@@ -136,8 +50,6 @@ footer a {
 .book-card-paragraphe{
     width: 100%;
 }
-
-
 
 .comment-section{
     overflow: scroll;

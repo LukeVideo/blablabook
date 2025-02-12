@@ -1,4 +1,4 @@
-import { Model, DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import sequelize from '../../database/connexion_db.js';
 import Bookshelf from './Bookshelf.js';
 import Role from './Role.js';
@@ -68,7 +68,5 @@ Reader.init(
     },
 });
 
-// Define the association with ReaderRole
-Reader.belongsTo(Role, { foreignKey: 'reader_role_id' });
 
 export default Reader;

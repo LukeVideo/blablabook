@@ -1,8 +1,7 @@
 // IMPORTER ICI
 import sanitize from 'sanitize-html';
 import {Op} from 'sequelize';
-import Book from '../models/Book.js';
-import Author from '../models/Author.js';
+import {Author, Book} from '../models/associations.js';
 
 const bookController = {
 
@@ -22,6 +21,10 @@ const bookController = {
     try {
       const searchInput = sanitize(req.body.query);
       console.log("Search input after sanitization:", searchInput);
+      if(searchInput.trim() === '') {
+        res.render('search', {searchInput, noresult: true});
+        return
+      }
   
       // Recherche des livres
       const booksToFind = await Book.findAll({
@@ -41,9 +44,18 @@ const bookController = {
         // Recherche des auteurs si aucun livre trouvé
         authorToFind = await Author.findAll({
           where: {
-            lastname: {
-              [Op.iLike]: `%${searchInput}%`, // Recherche insensible à la casse
-            }
+            [Op.or]: [
+              {
+                firstname: {
+                  [Op.iLike]: `%${searchInput}%`,
+                }
+              },
+              {
+                lastname: {
+                  [Op.iLike]: `%${searchInput}%`,
+                }
+              }
+            ]
           }
         });
   
@@ -51,11 +63,14 @@ const bookController = {
       }
   
       // Ajout d'une variable noresult pour signaler l'absence de résultat
-      const noresult = booksToFind.length === 0 && authorToFind.length === 0;
-  
+      let noresult;
+      if(booksToFind.length === 0 && authorToFind.length === 0){;
+      console.log(`Aucune correspondance avec '${searchInput}'`);
+      noresult = true;
+    }
       // Rendu de la page, qu'il y ait des livres ou non
-      res.render('search', { searchInput, booksToFind, authorToFind, noresult });
-  
+      res.render('search', {searchInput, booksToFind, authorToFind, noresult });
+
     } catch (error) {
       return next(error);
     }
