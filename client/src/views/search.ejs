@@ -39,7 +39,9 @@
     <% locals.booksToFind.forEach((book) => { %>
         <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
 
+
         <li><%- include('partials/bookThumbnail', {book: book}) %></li>
+
     <% }); %> 
   </ul>
 <% } %>

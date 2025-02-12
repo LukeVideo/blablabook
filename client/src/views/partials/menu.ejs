@@ -1,19 +1,20 @@
+  <section class="header-nav second-background">
 
-  <section class="header-nav">
 
-    <button><a href="/index">Accueil</a></button>
+    <div class="nav-bookmark third-background"><a href="/index">Accueil</a></div>
+
 
     <!--! Mettre une conditionnelle selon la session (si user  connecté = pas de login ni de register, juste un  logout) -->
 
-    <button><a href="/login">login</a></button>
-    <button><a href="/register">register</a></button>
+    <div class="nav-bookmark third-background"><a href="/login">login</a></div>
+    <div class="nav-bookmark third-background"><a href="/register">register</a></div>
 
     
-    <button><a href="/search">search</a></button>
+    <div class="nav-bookmark third-background"><a href="/search">search</a></div>
     <% if (locals.reader_role_name === 'admin') { %>
-      <button><a href="/dashboard">dashboard</a></button>
+      <div class="nav-bookmark third-background"><a href="/dashboard">dashboard</a></div>
     <% } %>
-    <button><a href="/bookshelf">Bookshelf</a> </button>
+    <div class="nav-bookmark third-background"><a href="/bookshelf">Bookshelf</a> </div>
 
   </section>
 
