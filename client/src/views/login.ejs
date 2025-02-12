@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <%- include('./partials/head') %>
+<%- include('./partials/head') %>
 
-    <title>BlaBlaBook - login</title>
-</head>
+
 <body>
-    <%- include('./partials/menu') %>
+    <%- include('./partials/header') %>
+
 <% if (locals.reader) { %>
     <h2><%= locals.reader.nickname %></h2>
     <p>Voulez-vous vous déconnecter ? </p>
@@ -33,5 +30,3 @@
 <% } %>
 <%- include('./partials/footer') %>
 
-</body>
-</html>
