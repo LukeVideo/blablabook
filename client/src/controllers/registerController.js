@@ -35,7 +35,7 @@ const registerController = {
 
     // Vérification du email valide (cf validateEmail.js)
     const firstnameToVerify = sanitize(firstname);
-    const lastnameToVrify = sanitize(lastname)
+    const lastnameToVerify = sanitize(lastname)
     const nicknameToVerify = sanitize(nickname);
     const mailToVerify = sanitize(email);
     const verifiedEmail = blablaregex.checkEmail(mailToVerify);
@@ -88,7 +88,7 @@ const registerController = {
       // // sauvegarder Reader
       await Reader.create({
         firstname: firstnameToVerify,
-        lastname: lastnameToVrify,
+        lastname: lastnameToVerify,
         nickname: nicknameToVerify,
         email: mailToVerify,
         reader_password: hashedPassword,

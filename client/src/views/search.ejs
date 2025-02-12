@@ -30,7 +30,8 @@
   <ul>
     <% locals.booksToFind.forEach((book) => { %>
         <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
-        <%- include('partials/book', {book:book}) %>
+
+        <li><%- include('partials/book', {book:book}) %></li>
     <% }); %> 
   </ul>
 <% } %>
