@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <%- include('./partials/head') %>
 
-    <title>BlaBlaBook - login</title>
-</head>
-<body>
+<%- include('./partials/head') %>
+<%- include('./partials/header') %>
+
 <%- include('./partials/menu') %>
 
 <form action="/register" method="POST">
@@ -26,10 +22,9 @@
 
     <% if (locals.error) { %>
         <p style="color: crimson;"><%= locals.error %></p>
-      <% } %>
+    <% } %>
 
 </form>
 <%- include('./partials/footer') %>
 
-</body>
-</html>
+<%- include('./partials/footer') %>
