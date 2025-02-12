@@ -161,6 +161,7 @@ INSERT INTO author (firstname, lastname, biography, created_at, updated_at) VALU
 ('Bernard', 'Werber', 'Bernard Werber est un écrivain français de science-fiction, connu pour sa trilogie des "Fourmis".', NOW(), NOW());
 
 
+
 INSERT INTO reader (firstname, lastname, nickname, email, reader_password, reader_role_id)
 
 -- Insertion des valeurs pour le reader. On utilise une requête SQL directement en tant que VALUES pour trouver l'id  correspondante au rôle de "reader"

@@ -29,11 +29,9 @@
   <ul>
     <% locals.booksToFind.forEach((book) => { %>
         <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
-<<<<<<< HEAD
-        <%- include('partials/book', {book:book}) %>
-=======
+
         <li><%- include('partials/book', {book:book}) %></li>
->>>>>>> 1ffea72 (EJS ok for book list WIP)
+
     <% }); %> 
   </ul>
 <% } %>
