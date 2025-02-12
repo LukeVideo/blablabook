@@ -1,4 +1,3 @@
-import { send } from "process";
 import sanitize from 'sanitize-html';
 
 const mainController = {
