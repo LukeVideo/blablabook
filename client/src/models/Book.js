@@ -60,13 +60,14 @@ Book.init(
 
     {
         sequelize,
+        modelName : 'Book',
         tableName: 'book',
         hooks: {
-            beforeCreate: (reader, options) => {
+            beforeCreate: (book, options) => {
                 reader.updated_at = new Date();
                 
             },
-            beforeUpdate: (reader, options) => {
+            beforeUpdate: (book, options) => {
                 reader.updated_at = new Date();
             },
         },

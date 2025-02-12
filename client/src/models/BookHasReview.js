@@ -47,6 +47,7 @@ BookHasReview.init(
 
     {
         sequelize,
+        modelName : 'BookHasReview',
         tableName: 'bookhasreview',
         timestamps: false, // Disable automatic timestamps since we are managing them manually
         hooks: {
