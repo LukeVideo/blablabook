@@ -24,7 +24,7 @@
 
     <form action="/search" method="POST" type="submit" name="search">
       <label for="query">recherche :</label>
-      <input type="text" id="query" name="query" placeholder="Titre d'un livre recherché..." required>
+      <input type="text" id="query" name="query" placeholder="Titre d'un livre recherché...">
 
       <button type="submit">Rechercher</button>
 <% } %>  
@@ -38,12 +38,24 @@
   <p><%= locals.searchInput %></p>
 <% } %>
 
-<% if (locals.dangersearchInput) { %>
-  <p>Danger vous avez recherché :</p> 
-  <p><%= locals.dangersearchInput %></p>
+<% if (locals.booksToFind) { %>
+  <ul>
+    <% locals.booksToFind.forEach((book) => { %>
+        <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
+        <li><%- include('partials/book', {book:book}) %></li>
+    <% }); %> 
+  </ul>
 <% } %>
 
-  
+<% if (locals.noresult) { %>
+  <% locals.noresult %>
+
+  <% if (locals.noresult && locals.searchInput) { %>
+    <p>Aucun resultat pour <%= locals.searchInput %></p>
+    <% } %>
+<% } %>
+    
+    
   <% if (locals.result) { %>
     <p><%= locals.result %></p>
   <% } %>

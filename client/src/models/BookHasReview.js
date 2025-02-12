@@ -1,80 +1,68 @@
-
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../../database/connexion_db.js';
-import Author from './Author.js';
+import Book from './Book.js';
+import Reader from './Reader.js';
 
-
-class Book extends Model {}
+class BookHasReview extends Model {}
 
 // Création d'une classe Book avec les propriétés définies dans la base de données
 // Définis comment les données sont stockées dans la base de données PostGreSQL via Sequelize
 // Sequelize va "traduire" les Datatypes en type appropriés
-Book.init(
+BookHasReview.init(
     {
         id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
-        isbn: {
-            type: DataTypes.TEXT,
-            allowNull: false,
-            unique: true,
-          },
-        
-        author_id: {
+        book_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
           },
-        title: {
-            type: DataTypes.TEXT,
+        
+        reader_id: {
+            type: DataTypes.INTEGER,
             allowNull: false,
           },
-        release_date: {
-            type: DataTypes.DATE,
-            allowNull: false,
-            defaultValue: DataTypes.NOW,
-        },
-        book_description: {
+        note: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+          },
+        review: {
             type: DataTypes.TEXT,
             allowNull: true,
-        },
-        book_cover: {
-            type: DataTypes.TEXT,
-            allowNull: false,
         },
         created_at: {
             type: DataTypes.DATE,
             allowNull: false,
             defaultValue: DataTypes.NOW,
-
         },
         updated_at: {
             type: DataTypes.DATE,
             allowNull: false,
             defaultValue: DataTypes.NOW,
-
         },
     },
 
 
     {
         sequelize,
-        tableName: 'book',
+        tableName: 'bookhasreview',
+        timestamps: false, // Disable automatic timestamps since we are managing them manually
         hooks: {
-            beforeCreate: (reader, options) => {
-                reader.updated_at = new Date();
-                
-            },
-            beforeUpdate: (reader, options) => {
-                reader.updated_at = new Date();
-            },
+        beforeCreate: (reader, options) => {
+            reader.updated_at = new Date();
+            
         },
-        
+        beforeUpdate: (reader, options) => {
+            reader.updated_at = new Date();
+        },
+    },
     }
 );
 
 // Define the association with ...
-Book.belongsTo(Author, { foreignKey: 'author_id' });
+BookHasReview.belongsTo(Book, { foreignKey: 'book_id' });
+BookHasReview.belongsTo(Reader, {foreignKey : 'reader_id'});
 
-export default Book;
+export default BookHasReview;

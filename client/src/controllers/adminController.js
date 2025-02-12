@@ -2,6 +2,7 @@
 import axios from 'axios';
 import sanitize from 'sanitize-html';
 import dotenv from 'dotenv';
+import { error } from 'console';
 
 
 const adminController = {
@@ -17,8 +18,6 @@ const adminController = {
     // out of if pour poursuivre si ===
     // Si === alors ok, admin page
 
-
-
       res.render('dashboard');
 
     } catch (error) {
@@ -30,31 +29,67 @@ const adminController = {
   async getBookList (req, res){
     try {
     console.log (req.body.searchFromAPI);
-      // récupérer les mots rentrés par l'utilisateur (req.body) //! sanitize
+      // récupérer les mots rentrés par l'utilisateur (req.body) en utilisant sanitize-html
       
-      const apiQueryString = sanitize(req.body.searchFromAPI);
+      const apiTitleString = sanitize(req.body.titleFromAPI);
+      const apiAuthorString = sanitize(req.body.authorFromAPI);
+      const apiIsbnString = sanitize(req.body.isbnFromAPI).replace(/-/g, '');
+
       const BASE_URL = 'https://www.googleapis.com/books/v1/volumes';
-      const filter = sanitize(req.body.filter)
+      const apiData = {BASE_URL, apiTitleString, apiAuthorString, apiIsbnString, key:process.env.API_KEY};
       
-      // Envoyer ces informations avec la clef API au modèle sur la route
-      
-      const response = await axios.get(`${BASE_URL}?q=+${filter}:${apiQueryString}&orderBy=relevance&key=${process.env.API_KEY}`);
-      // const bookList  = [];
-      const bookList = response.data.items.map(item => {
-          console.log(item.volumeInfo.title, item.volumeInfo.authors);
-          // console.log(item.selfLink, item.volumeInfo, item.searchInfo, item.imageLinks);
-          const bookItem =  {
-            selfLink : item.selfLink,
-            title : item.volumeInfo.title,
-            authors : item.volumeInfo.authors,
-            searchInfo : item.searchInfo,
-            imageLinks : item.imageLinks
+      //Regex to format ISBN without hyphens --> Return boolean
+      function isValidIsbn (isbn){
+        const isbnRegex = /^\d{10}(\d{3})?$/;
+        return isbnRegex.test(isbn);  
+        }
+      function apiUrl (data){
+        console.log(`ISBN = ${data.apiIsbnString}`);
+        if (data.apiIsbnString) {
+          try {
+            if (isValidIsbn(data.apiIsbnString)){
+              // Envoyer ces informations avec la clef API au modèle sur la route
+              // Si isbn chercher par isbn
+              
+              const url = `${BASE_URL}?q=+isbn:${apiIsbnString}&key=${process.env.API_KEY}`;
+              return url;
+            }
+            
+            throw new Error("message", 400)
+            
+          } catch (error) {
+            console.error(error);
+            res.render('addBookToDB', {message:"ISBN non valide ou inconnu"});
+    
           }
-          return bookItem;
-        })
+        }
+              // si pas d'isbn recherche par titre et auteur
+        const url = `${BASE_URL}?q=+intitle:${apiTitleString}+inauthor:${apiAuthorString}&orderBy=relevance&maxResults=20&key=${process.env.API_KEY}`;
+        return url;
+        
+      };
       
-      console.log(bookList)
-      res.render("addBookToDB", {bookList})
+      // const response = await axios.get(`${BASE_URL}?q=+${filter}:${apiQueryString}&orderBy=relevance&key=${process.env.API_KEY}`);
+      const response = await axios.get(apiUrl(apiData));
+      
+      if (response.data.items !== undefined){
+        const bookList = response.data.items.map(item => {
+            console.log(item.volumeInfo.title, item.volumeInfo.authors);
+            // console.log(item.selfLink, item.volumeInfo, item.searchInfo, item.imageLinks);
+            const bookItem =  {
+              selfLink : item.selfLink,
+              title : item.volumeInfo.title,
+              authors : item.volumeInfo.authors,
+              searchInfo : item.searchInfo,
+              imageLinks : item.imageLinks
+            }
+            return bookItem;
+          })
+        res.render("addBookToDB", {bookList})
+      }
+      
+
+      res.render("addBookToDB", {message:"Aucun resultat !"})
 
 
       // Renvoie les infos en JSON pour les utiliser
