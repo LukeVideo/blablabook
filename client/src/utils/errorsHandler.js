@@ -29,7 +29,7 @@ export function developmentErrors (err, req, res, next) {
     err.stack = err.stack || '';
     const errorDetails = {
         message: err.message,
-        status: err.status || "500",
+        status: err.status || 500,
         stack: err.stack,
         stackHighlighted: err.stack.replace(
             /[a-z_-\d]+.js:\d+:\d+/gi,

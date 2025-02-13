@@ -5,22 +5,25 @@
 
 
 
-<% if (locals.reader) { %>
-  <h2><%= locals.reader.nickname %></h2>
-  <form action="/search" method="POST" type="submit" name="search">
-    <label for="query">recherche :</label>
-    <input type="text" id="query" name="query" placeholder="Titre d'un livre recherché...">
+  <% if (locals.reader) { %>
+    <h2><%= locals.reader.nickname %></h2>
+    <p>Voulez-vous vous déconnecter ? </p>
 
-    <!-- <div>
-      <label>
-        <input type="radio" name="searchType" value="title" checked> Titre
-      </label>
-      <label>
-        <input type="radio" name="searchType" value="author"> Auteur
-      </label>
-    </div> -->
-    
-    <button type="submit">Rechercher</button>
+    <form action="/search" method="POST" type="submit" name="search">
+      <label for="query">recherche :</label>
+      <input type="text" id="query" name="query" placeholder="Titre d'un livre recherché...">
+
+      <!-- <div>
+        <label>
+          <input type="radio" name="searchType" value="title" checked> Titre
+        </label>
+        <label>
+          <input type="radio" name="searchType" value="author"> Auteur
+        </label>
+      </div> -->
+      
+      <button type="submit">Rechercher</button>
+    </form>
 <% } %>  
   
 <% if (locals.message) { %>
@@ -48,7 +51,7 @@
   <h2>Auteurs trouvés :</h2>
   <ul>
     <% locals.authorToFind.forEach((author) => { %>
-      <li><a href="/author/<%= author.id %>" alt = "Lien vers <%= author.firstname %> <%= author.lastname %>"></a><%= author.firstname %> <%= author.lastname %></li>
+      <li><a href="/author/<%= author.id %>" alt = "Lien vers <%= author.firstname %> <%= author.lastname %>"><%= author.firstname %> <%= author.lastname %></a></li>
     <% }); %> 
   </ul>
 <% } %>

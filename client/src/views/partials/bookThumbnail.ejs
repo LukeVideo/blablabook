@@ -1,10 +1,19 @@
+
 <article class="book-card second-background">
     <img class="book-card-image" src="./images/photo.png" alt="">
+
     <header class="book-card-header">
         <h2><%= book.title %></h2>
         <h3><%= book.authors %></h3>
+
+        <form action="/addBookToBookshelf" method="POST">
+            <input type="hidden" name="book_id" value="<%= book.id %>">
+            <button  type="submit" alt="Ajouter <%= book.title %> à ma Bookshelf">
+            Ajouter à ma Bookshelf</button>
+        </form>
 
     </header>
     <p class="book-card-description"><%= book.book_description %></p>
     <button>Détail</button>
 </article>
+

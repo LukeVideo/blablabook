@@ -29,7 +29,12 @@ router.post("/logout", sessionController.handleLogout);
 router.post("/login", sessionController.handleLogin);
 
 router.get("/dashboard", [authValidator, isAdmin], adminController.dashboard);
-router.post("/api/booklist", [authValidator, isAdmin], adminController.getBookList);
+
+router.get("/api/bookList", [authValidator, isAdmin], adminController.searchBook);
+router.post("/api/bookList", [authValidator, isAdmin], adminController.getBookList);
+
+router.post("/addBookToBookshelf", bookshelfController.addBookToBookshelf);
+
 router.post("/api/addBookToDB", [authValidator, isAdmin], adminController.addBookToDB);
 
 router.get("/search", bookController.search);

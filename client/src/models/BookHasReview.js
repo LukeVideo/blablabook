@@ -1,4 +1,4 @@
-import { Model, DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import sequelize from '../../database/connexion_db.js';
 import Book from './Book.js';
 import Reader from './Reader.js';
@@ -51,19 +51,16 @@ BookHasReview.init(
         tableName: 'bookhasreview',
         timestamps: false, // Disable automatic timestamps since we are managing them manually
         hooks: {
-        beforeCreate: (reader, options) => {
-            reader.updated_at = new Date();
+        beforeCreate: (bookhasreview, options) => {
+            bookhasreview.updated_at = new Date();
             
         },
-        beforeUpdate: (reader, options) => {
-            reader.updated_at = new Date();
+        beforeUpdate: (bookhasreview, options) => {
+            bookhasreview.updated_at = new Date();
         },
     },
     }
 );
 
-// Define the association with ...
-BookHasReview.belongsTo(Book, { foreignKey: 'book_id' });
-BookHasReview.belongsTo(Reader, {foreignKey : 'reader_id'});
 
 export default BookHasReview;

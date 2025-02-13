@@ -1,5 +1,5 @@
 
-import { Model, DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import sequelize from '../../database/connexion_db.js';
 import Author from './Author.js';
 
@@ -64,18 +64,16 @@ Book.init(
         tableName: 'book',
         hooks: {
             beforeCreate: (book, options) => {
-                reader.updated_at = new Date();
+                book.updated_at = new Date();
                 
             },
             beforeUpdate: (book, options) => {
-                reader.updated_at = new Date();
+                book.updated_at = new Date();
             },
         },
         
     }
 );
 
-// Define the association with ...
-Book.belongsTo(Author, { foreignKey: 'author_id' });
 
 export default Book;

@@ -26,6 +26,10 @@ const adminController = {
       return next(error);
     }
   },
+  searchBook (req, res) {
+    res.render('addBookToDB');
+
+  },
 
   async getBookList (req, res){
     try {
