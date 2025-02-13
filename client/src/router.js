@@ -1,10 +1,11 @@
 import { Router } from 'express';
 import adminController from './controllers/adminController.js';
+import authorController from './controllers/authorController.js';
 import bookController from "./controllers/bookController.js"
 import bookshelfController from './controllers/bookshelfController.js';
 import mainController from './controllers/mainController.js';
 import registerController from './controllers/registerController.js';
-import sessionController from './controllers/sessionController.js'
+import sessionController from './controllers/sessionController.js';
 import authValidator from './utils/authentificator.js';
 import isAdmin from './utils/isAdmin.js';
 // import bookController from './controllers/book-controller.js';
@@ -28,15 +29,15 @@ router.post("/logout", sessionController.handleLogout);
 router.post("/login", sessionController.handleLogin);
 
 router.get("/dashboard", [authValidator, isAdmin], adminController.dashboard);
-router.get("/books/add", [authValidator, isAdmin], adminController.addBookForm);
 router.post("/api/booklist", [authValidator, isAdmin], adminController.getBookList);
+router.post("/api/addBookToDB", [authValidator, isAdmin], adminController.addBookToDB);
 
 router.get("/search", bookController.search);
 router.post("/search", bookController.handleSearch);
 
 router.get("/bookshelf", [authValidator], bookshelfController.bookshelf);
 
-router.get("/author/:id", bookController.renderAuthorPage);
+router.get("/author/:id", authorController.renderAuthorPage);
 
 
 

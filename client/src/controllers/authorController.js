@@ -1,7 +1,8 @@
 import {Op} from 'sequelize';
-import Book from '../models/Book.js';
-import Author from '../models/Author.js';
+import {Author, Book} from '../models/associations.js';
 
+const authorController = {
+  
 
 async renderAuthorPage (req, res){
   try {
@@ -19,3 +20,7 @@ async renderAuthorPage (req, res){
   } catch (error) {
 }
 }
+}
+
+
+export default authorController;
