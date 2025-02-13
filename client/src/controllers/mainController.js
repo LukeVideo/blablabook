@@ -1,4 +1,6 @@
 import sanitize from 'sanitize-html';
+import {Op} from 'sequelize';
+import {Author, Book} from '../models/associations.js';
 
 const mainController = {
   async redirectHomePage(req, res) {
@@ -15,7 +17,10 @@ const mainController = {
   
   async renderHomePage(req, res, next) {
     try {
-      res.render('index');
+      const bookList = await Book.findAll();
+      console.log(bookList)
+
+      res.render('index', {bookList});
       
     } catch (error) {
       console.error(error);
@@ -24,6 +29,7 @@ const mainController = {
       next(error)
     }
   },
+
   async renderCGU(req, res) {
     try {
       res.render('CGU');
