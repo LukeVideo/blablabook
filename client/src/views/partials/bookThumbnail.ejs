@@ -1,7 +1,10 @@
-<article class="book-card">
+
+<article class="book-card second-background">
+    <img class="book-card-image" src="./images/photo.png" alt="">
+
     <header class="book-card-header">
         <h2><%= book.title %></h2>
-        <h2><%= book.authors %></h2>
+        <h3><%= book.authors %></h3>
 
         <form action="/addBookToBookshelf" method="POST">
             <input type="hidden" name="book_id" value="<%= book.id %>">
@@ -10,7 +13,7 @@
         </form>
 
     </header>
-    <p class="book-card-description"><% book.book_description %></p>
+    <p class="book-card-description"><%= book.book_description %></p>
+    <button>Détail</button>
 </article>
-
 

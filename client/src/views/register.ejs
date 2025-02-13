@@ -3,27 +3,29 @@
 <body>
 <%- include('./partials/header') %>
 
+<section class="login-section">
 
-<form action="/register" method="POST">
-    
-    <label for="identity">Identité</label>
-    <input type="text" id="identity" name="firstname" placeholder="prénom" required>
-    <input type="text" id="identity" name="lastname" placeholder="nom de famille" required> 
-    <input type="text" id="identity" name="nickname" placeholder="Pseudonyme" required>
-
-    <label for="email">Email:</label>
-    <input type="text" id="email" name="email" placeholder="adresse mail" required>
-    
-    <label for="password">Mot de passe:</label>
-    <input type="password" id="password" name="password" placeholder="mot de passe" required>
-    <input type="password" id="password" name="confirm_password" placeholder="Confirmer le mot de passe" required>
-
-    <button type="submit">Connexion</button>
-
-    <% if (locals.error) { %>
-        <p style="color: crimson;"><%= locals.error %></p>
-    <% } %>
-
-</form>
+    <form class="second-background" action="/register" method="POST">
+        
+        <label for="identity">Identité</label>
+        <input type="text" id="identity" name="firstname" placeholder="prénom" required>
+        <input type="text" id="identity" name="lastname" placeholder="nom de famille" required> 
+        <input type="text" id="identity" name="nickname" placeholder="Pseudonyme" required>
+        
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" placeholder="adresse mail" required>
+        
+        <label for="password">Mot de passe:</label>
+        <input type="password" id="password" name="password" placeholder="mot de passe" required>
+        <input type="password" id="password" name="confirm_password" placeholder="Confirmer le mot de passe" required>
+        
+        <button class="fourth-background" type="submit">Connexion</button>
+        
+        <% if (locals.error) { %>
+            <p style="color: crimson;"><%= locals.error %></p>
+            <% } %>
+            
+        </form>
+</section>
 <%- include('./partials/footer') %>
 
