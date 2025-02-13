@@ -1,17 +1,32 @@
 <%- include('./partials/head') %>
-<%- include('./partials/header') %>
-  
-<section>
 
-  <% if (locals.reader) { %>
+<%- include('./partials/header') %>
+<% if (locals.reader) { %>
+<section class="index-section">
     <h2><%= locals.reader.nickname %></h2>
-    <p>Voulez-vous vous déconnecter ? </p>
     <form action="/logout" method="POST" type="submit" name="logout"><button>déconnexion</button>
-      <% } %>  
-      
-<% if (locals.message) { %>
-  <p><%= locals.message %></p>
+</section>
+  <% } %>
+
+  <% if (locals.message) { %>
+    <p><%= locals.message %></p>
 <% } %>
-</>section>
+<% if (locals.bookList) { %>
+  <section class="booklist-section">
+    
+    <ul>
+      
+      <% locals.bookList.forEach((book) => { %>
+        <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
+        
+        
+        <li><%- include('partials/bookThumbnail', {book: book}) %></li>
+        
+      <% }); %> 
+    </ul>
+      
+  </section>
+<% } %>
+
 
 <%- include('./partials/footer') %>
