@@ -23,6 +23,7 @@
       </div> -->
       
       <button type="submit">Rechercher</button>
+    </form>
 <% } %>  
   
 <% if (locals.message) { %>
@@ -50,7 +51,7 @@
   <h2>Auteurs trouvés :</h2>
   <ul>
     <% locals.authorToFind.forEach((author) => { %>
-      <li><a href="/author/<%= author.id %>" alt = "Lien vers <%= author.firstname %> <%= author.lastname %>"></a><%= author.firstname %> <%= author.lastname %></li>
+      <li><a href="/author/<%= author.id %>" alt = "Lien vers <%= author.firstname %> <%= author.lastname %>"><%= author.firstname %> <%= author.lastname %></a></li>
     <% }); %> 
   </ul>
 <% } %>

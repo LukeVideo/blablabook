@@ -1,6 +1,7 @@
 import { notFound } from "./errorsHandler.js";
 
 const authValidator = (req, res, next) => {
+  console.log('authValidator called');
   const reader =  req.session.reader
   if (!reader) {
     // Si non, on passe la main au middleware d'erreur (errorHandlers) qui s'occupe d'afficher l'erreur appropriée
