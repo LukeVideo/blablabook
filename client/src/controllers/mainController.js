@@ -8,20 +8,20 @@ const mainController = {
 
     } catch (error) {
       console.error(error);
-      // res.status(500).render("error");
-      res.status(500)
+      error.status =500
       next(error)
     }
   },
   
-  async renderHomePage(req, res) {
-    console.log("coucou index")
+  async renderHomePage(req, res, next) {
     try {
       res.render('index');
       
     } catch (error) {
       console.error(error);
-      res.status(500).render("error");
+      error.status =404
+      error.message="Problem avec index"
+      next(error)
     }
   },
   async renderCGU(req, res) {
