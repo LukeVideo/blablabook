@@ -3,11 +3,25 @@
         <h2><%= book.title %></h2>
         <h2><%= book.authors %></h2>
 
-        <form action="/addBookToBookshelf" method="POST">
-            <input type="hidden" name="book_id" value="<%= book.id %>">
-            <button  type="submit" alt="Ajouter <%= book.title %> à ma Bookshelf">
-            Ajouter à ma Bookshelf</button>
-        </form>
+        <% if (req.originalUrl === "/search") { %>
+    
+            <form action="/addBookToBookshelf" method="POST">
+                <input type="hidden" name="book_id" value="<%= book.id %>">
+                <button  type="submit" alt="Ajouter <%= book.title %> à ma Bookshelf">
+                    Ajouter à ma Bookshelf</button>
+            </form>
+                
+        <% } %>
+
+        <% if (req.originalUrl === "/bookshel") { %>
+
+            <form action="/deleteFromBookshelf" method="POST">
+                <input type="hidden" name="book_id" value="<%= book.id %>">
+                <button  type="submit" alt="Retirer <%= book.title %> de ma Bookshelf">
+                    Retirer de ma Bookshelf</button>
+            </form>
+                
+        <% } %>
 
     </header>
     <p class="book-card-description"><% book.book_description %></p>

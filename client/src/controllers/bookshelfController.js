@@ -7,17 +7,6 @@ const bookshelfController = {
     async displayBookshelf (req, res, next){
         try {
         const reader = req.session.reader;
-        // const books = await BookInBookshelf.findAll({
-        //     where:{bookshelf_id: `${reader.bookshelf_id}`},
-        //     include: [{
-        //         model: Book,
-        //         include: [
-        //         { model: BookStatus, as: 'status' },
-        //         Author,
-        //         ],
-        //     }]
-        // });
-
         const bookshelf = await Bookshelf.findAll({
             where: {
                 reader_id : reader.id
@@ -28,12 +17,10 @@ const bookshelfController = {
         })
         console.log('books in bookshelf :', JSON.stringify(bookshelf, null, 2))
         console.log('reader',reader);
-        // console.log('books', books);
         // Recherche la bookshelf du Reader  via son id en associant les livres contenus dedans
         
-        // console.log('bookList :', JSON.stringify(bookList, null, 2))
         // On renvoie le reader et la bookshelf au template
-        res.render('bookshelf')
+        res.render('bookshelf', {bookshelf: bookshelf});
 
         
         } catch (error) {
@@ -53,7 +40,6 @@ const bookshelfController = {
             const book = req.body.book_id;
             console.log(`Id du livre à ajouter ${book}`);
             const bookToAdd = await Book.findByPk(book);
-
 
             // On récupère l'id de la bookshelf du reader
             const myBookshelf = await Bookshelf.findOne({where:{reader_id: `${reader}`}});  
