@@ -2,6 +2,7 @@
 import sanitize from 'sanitize-html';
 import {Op} from 'sequelize';
 import {Author, Book} from '../models/associations.js';
+import authValidator from '../utils/authentificator.js';
 
 const bookController = {
 

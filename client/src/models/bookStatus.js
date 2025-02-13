@@ -1,32 +1,27 @@
+
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../../database/connexion_db.js';
 
 
-class Author extends Model {}
+
+class BookStatus extends Model {}
 
 // Création d'une classe Book avec les propriétés définies dans la base de données
 // Définis comment les données sont stockées dans la base de données PostGreSQL via Sequelize
 // Sequelize va "traduire" les Datatypes en type appropriés
-Author.init(
+BookStatus.init(
     {
         id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
-        firstname: {
-            type: DataTypes.TEXT,
-            allowNull: false,
+        book_status: {
+            type: DataTypes.STRING,
+            allowNull: true,
         },
-        lastname: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        biography: {
-            type: DataTypes.TEXT,
-            allowNull: false,
-        },
-        created_at: {
+        
+            created_at: {
             type: DataTypes.DATE,
             allowNull: false,
             defaultValue: DataTypes.NOW,
@@ -35,24 +30,26 @@ Author.init(
             type: DataTypes.DATE,
             allowNull: false,
             defaultValue: DataTypes.NOW,
+
         },
-        
     },
-    
+
     {
         sequelize,
-        modelName: 'Author',
-        tableName: 'author',
+        modelName : 'BookStatus',
+        tableName: 'book_status',
         hooks: {
-            beforeCreate: (author, options) => {
-                author.updated_at = new Date();
-                
+            beforeCreate: (book_status, options) => {
+                book_status.updated_at = new Date();
+
             },
-            beforeUpdate: (author, options) => {
-                author.updated_at = new Date();
+            beforeUpdate: (book_status, options) => {
+                book_status.updated_at = new Date();
             },
-        }
-});
+        },
+        
+    }
+);
 
 
-export default Author;
+export default BookStatus;

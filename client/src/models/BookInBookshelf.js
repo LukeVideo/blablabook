@@ -1,32 +1,40 @@
+
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../../database/connexion_db.js';
+import Book from './Book.js';
+import Bookshelf from './Bookshelf.js';
 
 
-class Author extends Model {}
+class BookInBookshelf extends Model {}
 
 // Création d'une classe Book avec les propriétés définies dans la base de données
 // Définis comment les données sont stockées dans la base de données PostGreSQL via Sequelize
 // Sequelize va "traduire" les Datatypes en type appropriés
-Author.init(
+BookInBookshelf.init(
     {
         id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
-        firstname: {
-            type: DataTypes.TEXT,
-            allowNull: false,
-        },
-        lastname: {
+        book_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        biography: {
-            type: DataTypes.TEXT,
+        
+        bookshelf_id: {
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
-        created_at: {
+        book_status_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        display: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+        },
+            created_at: {
             type: DataTypes.DATE,
             allowNull: false,
             defaultValue: DataTypes.NOW,
@@ -35,24 +43,27 @@ Author.init(
             type: DataTypes.DATE,
             allowNull: false,
             defaultValue: DataTypes.NOW,
+
         },
-        
     },
-    
+
+
     {
         sequelize,
-        modelName: 'Author',
-        tableName: 'author',
+        modelName : 'BookInBookshelf',
+        tableName: 'book_in_bookshelf',
         hooks: {
-            beforeCreate: (author, options) => {
-                author.updated_at = new Date();
+            beforeCreate: (book_in_bookshelf, options) => {
+                book_in_bookshelf.updated_at = new Date();
                 
             },
-            beforeUpdate: (author, options) => {
-                author.updated_at = new Date();
+            beforeUpdate: (book_in_bookshelf, options) => {
+                book_in_bookshelf.updated_at = new Date();
             },
-        }
-});
+        },
+        
+    }
+);
 
 
-export default Author;
+export default BookInBookshelf;

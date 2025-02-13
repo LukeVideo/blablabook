@@ -1,17 +1,17 @@
-  <%- include('./partials/head') %>
-
-
-
-  <%- include('./partials/header') %>
+<%- include('./partials/head') %>
+<%- include('./partials/header') %>
   
+<section>
+
   <% if (locals.reader) { %>
     <h2><%= locals.reader.nickname %></h2>
     <p>Voulez-vous vous déconnecter ? </p>
     <form action="/logout" method="POST" type="submit" name="logout"><button>déconnexion</button>
-<% } %>  
-  
-  <% if (locals.message) { %>
-    <p><%= locals.message %></p>
-  <% } %>
-  
-  <%- include('./partials/footer') %>
+      <% } %>  
+      
+<% if (locals.message) { %>
+  <p><%= locals.message %></p>
+<% } %>
+</>section>
+
+<%- include('./partials/footer') %>
