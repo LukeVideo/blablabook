@@ -6,7 +6,8 @@
         <h2><%= book.title %></h2>
         <h3><%= book.authors %></h3>
 
-        <% if (req.originalUrl === "/search") { %>
+
+        <% if (!locals.displayRemoveButton) { %>
     
             <form action="/addBookToBookshelf" method="POST">
                 <input type="hidden" name="book_id" value="<%= book.id %>">
@@ -16,9 +17,9 @@
                 
         <% } %>
 
-        <% if (req.originalUrl === "/bookshel") { %>
+        <% if (locals.displayRemoveButton) { %>
 
-            <form action="/deleteFromBookshelf" method="POST">
+            <form action="/deleteBookFromBookshelf" method="POST">
                 <input type="hidden" name="book_id" value="<%= book.id %>">
                 <button  type="submit" alt="Retirer <%= book.title %> de ma Bookshelf">
                     Retirer de ma Bookshelf</button>
@@ -28,6 +29,6 @@
 
     </header>
     <p class="book-card-description"><%= book.book_description %></p>
-    <button>Détail</button>
+    <a href="/book/<%= book.id %>"><button>Détails</button></a>
 </article>
 

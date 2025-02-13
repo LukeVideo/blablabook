@@ -34,9 +34,11 @@ router.get("/api/bookList", [authValidator, isAdmin], adminController.searchBook
 router.post("/api/bookList", [authValidator, isAdmin], adminController.getBookList);
 
 router.post("/addBookToBookshelf", bookshelfController.addBookToBookshelf);
+router.post("/deleteBookFromBookshelf", bookshelfController.deleteBookFromBookshelf);
 
 router.post("/api/addBookToDB", [authValidator, isAdmin], adminController.addBookToDB);
 
+router.get('/book/:id', bookController.bookDetails);
 
 router.get("/search", bookController.search);
 router.post("/search", bookController.handleSearch);

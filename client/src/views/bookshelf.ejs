@@ -3,7 +3,7 @@
   
   <% if (locals.reader) { %>
     <h2><%= locals.reader.nickname %> : Ma Bookshelf</h2>
-    <section>
+    <section >
         <!-- <form action="/bookshelf/search" method="POST" type="submit" name="searchFromAPI">
             <label for="titleFromAPI">Titre :</label>
             <input type="text" id="titleFromAPI" name="titleFromAPI" placeholder="Titre">
@@ -15,12 +15,11 @@
     
         
         <% if (locals.bookshelf) { %>
+          
           <ul>
-            <% locals.bookshelf.forEach((book) => { %>
+            <% locals.bookshelf.books.forEach((book) => { %>
                 <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
-        
-        
-                <li><%- include('partials/bookThumbnail', {book: book}) %></li>
+            <li><%- include('partials/bookThumbnail', {book: book}) %></li>
         
             <% }); %> 
           </ul>
