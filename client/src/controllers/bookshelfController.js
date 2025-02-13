@@ -1,22 +1,38 @@
 import sequelize from '../../database/connexion_db.js';
-import {Book, BookHasReview, BookInBookshelf, BookStatus, Bookshelf, Reader } from '../models/associations.js';
+import {Author, Book, BookHasReview, BookInBookshelf, BookStatus, Bookshelf, Reader } from '../models/associations.js';
 import authValidator from '../utils/authentificator.js';
 
 const bookshelfController = {
 
-    async bookshelf (req, res, next){
+    async displayBookshelf (req, res, next){
         try {
         const reader = req.session.reader;
-        const myBookshelf = await Bookshelf.findOne({
-            where:{reader_id: `${reader.id}`}, 
-            include: {
-                association : 'books',
-                include: 'status'
-            }
-            });
+        // const books = await BookInBookshelf.findAll({
+        //     where:{bookshelf_id: `${reader.bookshelf_id}`},
+        //     include: [{
+        //         model: Book,
+        //         include: [
+        //         { model: BookStatus, as: 'status' },
+        //         Author,
+        //         ],
+        //     }]
+        // });
 
-        console.log(myBookshelf.id);
-            console.log('bookshelf :', JSON.stringify(myBookshelf, null, 2));
+        const bookshelf = await Bookshelf.findAll({
+            where: {
+                reader_id : reader.id
+            },
+            include: {
+                association: 'books', include : 'author'
+            }
+        })
+        console.log('books in bookshelf :', JSON.stringify(bookshelf, null, 2))
+        console.log('reader',reader);
+        // console.log('books', books);
+        // Recherche la bookshelf du Reader  via son id en associant les livres contenus dedans
+        
+        // console.log('bookList :', JSON.stringify(bookList, null, 2))
+        // On renvoie le reader et la bookshelf au template
         res.render('bookshelf')
 
         

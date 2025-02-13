@@ -37,10 +37,11 @@ router.post("/addBookToBookshelf", bookshelfController.addBookToBookshelf);
 
 router.post("/api/addBookToDB", [authValidator, isAdmin], adminController.addBookToDB);
 
+
 router.get("/search", bookController.search);
 router.post("/search", bookController.handleSearch);
 
-router.get("/bookshelf", [authValidator], bookshelfController.bookshelf);
+router.get("/bookshelf", [authValidator], bookshelfController.displayBookshelf);
 
 router.get("/author/:id", authorController.renderAuthorPage);
 

@@ -35,7 +35,7 @@ CREATE TABLE author(
 
 CREATE TABLE book_status(
   id SERIAL PRIMARY KEY,
-  book_status TEXT NOT NULL,
+  book_status TEXT NOT NULL DEFAULT 'à lire',
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
@@ -143,9 +143,9 @@ INSERT INTO category (label) VALUES
 
 INSERT INTO book_status (book_status) VALUES 
 ('à lire'),
-('à acheter'),
+('en cours'),
 ('lu'),
-('en cours');
+('à acheter');
 
 INSERT INTO reader_role (role_name) VALUES
 ('admin'),

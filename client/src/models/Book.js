@@ -20,16 +20,16 @@ Book.init(
             type: DataTypes.TEXT,
             allowNull: false,
             unique: true,
-          },
+        },
         
         author_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
-          },
+        },
         title: {
             type: DataTypes.TEXT,
             allowNull: false,
-          },
+        },
         release_date: {
             type: DataTypes.DATE,
             allowNull: false,
