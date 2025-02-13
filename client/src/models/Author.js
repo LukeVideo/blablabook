@@ -41,7 +41,8 @@ Author.init(
     
     {
         sequelize,
-        tableName: 'Author',
+        modelName: 'Author',
+        tableName: 'author',
         hooks: {
             beforeCreate: (author, options) => {
                 reader.updated_at = new Date();

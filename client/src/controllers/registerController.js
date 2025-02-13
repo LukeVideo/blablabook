@@ -1,7 +1,6 @@
 import ExpressSession from 'express-session';
 import sanitize from 'sanitize-html';
-import Reader from '../models/Reader.js';
-import Role from '../models/Role.js';
+import {Reader, Role} from '../models/associations.js';
 import blablapass from '../utils/password.js';
 import blablaregex from '../utils/validator.js';
 

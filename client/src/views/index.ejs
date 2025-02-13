@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-  <!-- Common styles, scripts, and meta tags -->
   <%- include('./partials/head') %>
 
 
-  <!-- Title -->
-  <title>blablabookINDEX</title>
 
-</head>
-
-<body> 
   <%- include('./partials/header') %>
-  <%- include('./partials/menu') %>
   
   <% if (locals.reader) { %>
     <h2><%= locals.reader.nickname %></h2>
@@ -26,6 +15,3 @@
   <% } %>
   
   <%- include('./partials/footer') %>
-
-</body>
-</html>

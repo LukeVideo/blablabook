@@ -1,37 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <%- include('./partials/head') %>
-
-    <title>BlaBlaBook - login</title>
-</head>
-<body>
-    <%- include('./partials/menu') %>
-<% if (locals.reader) { %>
-    <h2><%= locals.reader.nickname %></h2>
-    <p>Voulez-vous vous déconnecter ? </p>
-    <form action="/logout" method="POST">
-        <button type="submit" name="logout">déconnexion</button>
-    </form>
-    
-<% } %>    
-
-<% if (!locals.reader) { %>
-    <form action="/login" method="POST">
-        <label for="email">Email:</label>
-        <input type="text" id="email" name="email" placeholder="adresse mail" required>
-        <label for="password">Mot de passe:</label>
-        <input type="password" id="password" name="password" placeholder="mot de passe" required>
-        <button type="submit">Connexion</button>
-    
-    </form>
-<% } %>   
+<%- include('./partials/head') %>
 
 
-<% if (locals.message) { %>
-    <h2><%= locals.message %></h2>
-<% } %>
+
+
+
+<%- include('./partials/header') %>
+
+
+<section class="login-section">
+    <% if (locals.message) { %>
+        <h2><%= locals.message %></h2>
+        <% } %>
+
+    <% if (locals.reader) { %>
+        <form class="second-background" action="/logout" method="POST">
+        <h2><%= locals.reader.nickname %></h2>
+        <p>Voulez-vous vous déconnecter ? </p>
+            <button class="fourth-background" type="submit" name="logout">déconnexion</button>
+        </form>
+        
+        <% } %>    
+        
+        <% if (!locals.reader) { %>
+            <form class="second-background" action="/login" method="POST">
+                <div>
+                    <label for="email">Adresse mail:</label>
+                    <input type="text" id="email" name="email" placeholder="Votre adresse mail" required>
+                </div>
+                <div>
+                    <label for="password">Mot de passe:</label>
+                    <input type="password" id="password" name="password" placeholder="Votre mot de passe" required>
+                </div>
+                    <button class="fourth-background" type="submit">Connexion</button>
+                
+            </form>
+            <% } %>   
+            
+            
+</section>
+
+
+
+
 <%- include('./partials/footer') %>
 
-</body>
-</html>

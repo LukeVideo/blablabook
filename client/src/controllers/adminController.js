@@ -1,6 +1,7 @@
 // IMPORTER ICI
 import axios from 'axios';
 import sanitize from 'sanitize-html';
+import {Book, Role} from '../models/associations.js';
 import dotenv from 'dotenv';
 import { error } from 'console';
 
@@ -103,12 +104,28 @@ const adminController = {
   },
 
 
-  async addBookForm (req, res){
+  async addBookToDB (req, res){
     try {
-      res.render("addBookToDB");
+      // le bouton de submit du form d'ajout envoit les infos dans le body
+      const bookToAdd = req.body
+      console.log (bookToAdd);
 
-     
-    
+      // Quand on a le livre, on crée un nouveau livre dans la DB sous le format défini dans le modèle Book.js
+      const newBook = await Book.create({
+        title: bookToAdd.title,
+        authors: bookToAdd.authors,
+        isbn: bookToAdd.isbn,
+        releaseDate: bookToAdd.releaseDate,
+        description: bookToAdd.description,
+        image: bookToAdd.image,
+        link: bookToAdd.link,
+        created_at: new Date(),
+        updated_at: new Date()
+      });
+      
+      // si le livre est correctement ajoutée, message de réussite, sinon erreur renvoyée
+      res.render("addBookToDB", { message: "Livre ajouté avec succès !" });
+
       } catch (error) {
         console.error(error);
         res.status(500).render("error");

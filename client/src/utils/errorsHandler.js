@@ -29,17 +29,18 @@ export function developmentErrors (err, req, res, next) {
     err.stack = err.stack || '';
     const errorDetails = {
         message: err.message,
-        status: err.status,
-        stack: err.stack
-        // stackHighlighted: err.stack.replace(
-        //     /[a-z_-\d]+.js:\d+:\d+/gi,
-        //     '<mark>$&</mark>'
-        // ),
+        status: err.status || "500",
+        stack: err.stack,
+        stackHighlighted: err.stack.replace(
+            /[a-z_-\d]+.js:\d+:\d+/gi,
+            '<mark>$&</mark>'
+        ),
     };
-    res.status(err.status || 500);
-    // res.format({ // Send a different response format based on the `Accept` http header
-    //     'text/html': () => { res.render('error', errorDetails); }, // Web client call
-    //     'application/json': () => { res.json(errorDetails); }, // Ajax call, send JSON back
-    // });
-    res.render('error', errorDetails)
+    console.log(errorDetails)
+    res.status(errorDetails.status );
+    res.format({ // Send a different response format based on the `Accept` http header
+        'text/html': () => { res.render('error', errorDetails); }, // Web client call
+        'application/json': () => { res.json(errorDetails); }, // Ajax call, send JSON back
+    });
+    // res.render('error', errorDetails)
 };

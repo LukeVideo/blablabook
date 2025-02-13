@@ -1,0 +1,14 @@
+<%- include('/partials/head') %>
+
+<body> 
+<%- include('/partials/header') %>
+
+<% if (locals.author) { %>
+
+  <h2><%= locals.author.firstname %><%= locals.author.lastname %></h2>
+
+  <p><%= locals.author.biography %></p>
+
+<% } %>
+
+<%- include('/partials/footer') %>
