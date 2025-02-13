@@ -1,17 +1,18 @@
 <%- include('partials/head') %>
-
-<body> 
 <%- include('partials/header') %>
 
 
+<% if (locals.reader) { %>
+<div class="index-section">
+  <h2><%= locals.reader.nickname %></h2>
+  <form action="/logout" method="POST" type="submit" name="logout"><button>déconnexion</button>
+  </div>
 
-  <% if (locals.reader) { %>
-    <h2><%= locals.reader.nickname %></h2>
-    <p>Voulez-vous vous déconnecter ? </p>
 
-    <form action="/search" method="POST" type="submit" name="search">
-      <label for="query">recherche :</label>
-      <input type="text" id="query" name="query" placeholder="Titre d'un livre recherché...">
+
+  <form action="/search" method="POST" type="submit" name="search">
+    <label for="query">recherche :</label>
+    <input type="text" id="query" name="query" placeholder="Titre d'un livre recherché...">
 
       <!-- <div>
         <label>
@@ -61,7 +62,7 @@
   <% locals.noresult %>
 
   <% if (locals.noresult && locals.searchInput) { %>
-    <p>Aucun resultat pour <%= locals.searchInput %></p>
+    <p>Aucun reusltat pour <%= locals.searchInput %></p>
     <% } %>
 <% } %>
 

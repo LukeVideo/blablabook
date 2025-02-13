@@ -2,10 +2,10 @@
 
 <%- include('./partials/header') %>
 <% if (locals.reader) { %>
-<section class="index-section">
+<div class="index-section">
     <h2><%= locals.reader.nickname %></h2>
     <form action="/logout" method="POST" type="submit" name="logout"><button>déconnexion</button>
-</section>
+    </div>
   <% } %>
 
   <% if (locals.message) { %>
