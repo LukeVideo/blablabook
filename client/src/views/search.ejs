@@ -3,10 +3,12 @@
 
 
 <% if (locals.reader) { %>
-  <section class="index-section">
-      <h2><%= locals.reader.nickname %></h2>
-      <form action="/logout" method="POST" type="submit" name="logout"><button>déconnexion</button></form>
-  </section>
+
+
+<div class="index-section">
+    <% if (locals.reader) { %>
+      <%- include('./partials/nickname', {nickname: locals.reader.nickname}) %>
+  <% } %>
 
 
 <form action="/search" method="POST" type="submit" name="search">
@@ -25,6 +27,7 @@
   <button type="submit">Rechercher</button>
 
 </form>
+
 <% } %>
 
 <% if (locals.message) { %>
@@ -37,15 +40,20 @@
 <% } %>
 
 <% if (locals.booksToFind) { %>
-  <ul>
-    <% locals.booksToFind.forEach((book) => { %>
+  <section class="booklist-section">
+    
+    <ul>
+      
+      <% locals.booksToFind.forEach((book) => { %>
         <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
-
-
+        
+        
         <li><%- include('partials/bookThumbnail', {book: book}) %></li>
-
-    <% }); %> 
-  </ul>
+        
+      <% }); %> 
+    </ul>
+      
+  </section>
 <% } %>
 
 <% if (locals.authorToFind && locals.authorToFind.length > 0) { %>
@@ -71,6 +79,6 @@
     <p><%= locals.result %></p>
   <% } %>
 
-
+  </div>
   
   <%- include('./partials/footer') %>
