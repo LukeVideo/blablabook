@@ -2,11 +2,19 @@
 
 <%- include('./partials/header') %>
 <% if (locals.reader) { %>
+<<<<<<< HEAD
 <div class="index-section">
     <h2><%= locals.reader.nickname %></h2>
     <form action="/logout" method="POST" type="submit" name="logout"><button>déconnexion</button>
     </div>
   <% } %>
+=======
+  <section class="index-section">
+      <h2><%= locals.reader.nickname %></h2>
+      <form action="/logout" method="POST" type="submit" name="logout"><button>déconnexion</button></form>
+  </section>
+<% } %>
+>>>>>>> 2f098ac (ejs refactor)
 
   <% if (locals.message) { %>
     <p><%= locals.message %></p>

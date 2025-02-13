@@ -3,30 +3,30 @@
 
 
 <% if (locals.reader) { %>
-<div class="index-section">
-  <h2><%= locals.reader.nickname %></h2>
-  <form action="/logout" method="POST" type="submit" name="logout"><button>déconnexion</button>
-  </div>
+  <section class="index-section">
+      <h2><%= locals.reader.nickname %></h2>
+      <form action="/logout" method="POST" type="submit" name="logout"><button>déconnexion</button></form>
+  </section>
 
 
+<form action="/search" method="POST" type="submit" name="search">
+  <label for="query">recherche :</label>
+  <input type="text" id="query" name="query" placeholder="Titre d'un livre recherché...">
 
-  <form action="/search" method="POST" type="submit" name="search">
-    <label for="query">recherche :</label>
-    <input type="text" id="query" name="query" placeholder="Titre d'un livre recherché...">
-
-      <!-- <div>
-        <label>
-          <input type="radio" name="searchType" value="title" checked> Titre
-        </label>
-        <label>
-          <input type="radio" name="searchType" value="author"> Auteur
-        </label>
-      </div> -->
-      
-      <button type="submit">Rechercher</button>
-    </form>
-<% } %>  
+  <!-- <div>
+    <label>
+      <input type="radio" name="searchType" value="title" checked> Titre
+    </label>
+    <label>
+      <input type="radio" name="searchType" value="author"> Auteur
+    </label>
+  </div> -->
   
+  <button type="submit">Rechercher</button>
+
+</form>
+<% } %>
+
 <% if (locals.message) { %>
   <p><%= locals.message %></p>
 <% } %> 
@@ -52,7 +52,7 @@
   <h2>Auteurs trouvés :</h2>
   <ul>
     <% locals.authorToFind.forEach((author) => { %>
-      <li><a href="/author/<%= author.id %>" alt = "Lien vers <%= author.firstname %> <%= author.lastname %>"><%= author.firstname %> <%= author.lastname %></a></li>
+      <li><a href="/author/<%= author.id %>" alt = "Lien vers <%= author.firstname %> <%= author.lastname %>"></a><%= author.firstname %> <%= author.lastname %></li>
     <% }); %> 
   </ul>
 <% } %>
@@ -65,10 +65,11 @@
     <p>Aucun reusltat pour <%= locals.searchInput %></p>
     <% } %>
 <% } %>
-
-<% if (locals.result) { %>
-  <p><%= locals.result %></p>
-<% } %>
+    
+    
+  <% if (locals.result) { %>
+    <p><%= locals.result %></p>
+  <% } %>
 
 
   
