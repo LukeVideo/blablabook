@@ -1,0 +1,87 @@
+<%- include('partials/head') %>
+
+<body>
+    <%- include('partials/header') %>
+    
+    <main>
+        <h1>Conditions Générales d'Utilisation</h1>
+        <p>Dernière mise à jour : <%= new Date().toLocaleDateString('fr-FR') %></p>
+    
+
+        <section>
+            <h2>1. Présentation du site</h2>
+            <p>Blablabook est un projet de fin d’étude développé par Aurélien Bessaguet, Luke Martin et Julien Mille. Il permet aux utilisateurs de créer une bibliothèque virtuelle afin d’organiser leurs livres et leur lecture.</p>
+            <p>Le site utilise l’API Google Books pour récupérer les informations des livres. Les droits et conditions d’utilisation de cette API sont disponibles sur la page officielle de Google Books.</p>
+            <p>Blablabook est un projet non lucratif et accessible gratuitement.</p>
+        </section>
+
+        <section>
+            <h2>2. Accès et inscription</h2>
+            <ul>
+                <li>L’accès à Blablabook est libre, mais certaines fonctionnalités nécessitent la création d’un compte utilisateur.</li>
+                <li>L’inscription est gratuite et nécessite un pseudonyme, une adresse email et un mot de passe.</li>
+                <li>L’utilisateur doit être âgé d’au moins 13 ans pour s’inscrire.</li>
+                <li>Chaque utilisateur peut supprimer son compte à tout moment depuis sa page de profil.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Données collectées et confidentialité</h2>
+            <p>Blablabook ne collecte aucune donnée personnelle sensible en dehors des cookies fonctionnels nécessaires au bon fonctionnement du site.</p>
+            <p>⚠️ Important : Lorsqu’un utilisateur effectue une recherche via l’API Google Books, ses données peuvent être collectées par Google conformément aux conditions d’utilisation de Google Books.</p>
+        </section>
+
+        <section>
+            <h2>4. Règles de conduite et responsabilité des utilisateurs</h2>
+            <p>En s’inscrivant sur Blablabook, chaque utilisateur s’engage à adopter un comportement respectueux, notamment dans les commentaires.</p>
+            <p>🚫 Sont strictement interdits :</p>
+            <ul>
+                <li>Les insultes, propos haineux, discriminatoires, violents ou illégaux.</li>
+                <li>Le spam ou toute forme de publicité non autorisée.</li>
+                <li>Toute tentative de piratage ou d’utilisation abusive du site.</li>
+            </ul>
+            <p>Un formulaire de contact est disponible à l'adresse ci-dessous pour signaler tout comportement ne respectant pas ces règles.</p>
+            <p><a href="/contact" alt="Formulaire de contact">Formulaire de contact</a></p>
+
+            <p>📌 En cas de non-respect de ces règles, Blablabook se réserve le droit de suspendre ou supprimer un compte utilisateur sans préavis.</p>
+        </section>
+
+        <section>
+            <h2>5. Propriété intellectuelle</h2>
+            <p>Les fiches de livres affichées sur Blablabook proviennent de l’API Google Books et restent la propriété de Google et des ayants droit.</p>
+            <p>Les contenus publiés par les utilisateurs restent leur propriété, mais Blablabook se réserve le droit de les modérer ou de les supprimer si nécessaire.</p>
+        </section>
+
+        <section>
+            <h2>6. Disponibilité et limitations de responsabilité</h2>
+            <p>Blablabook est un projet étudiant, son accès et sa disponibilité ne sont pas garantis en permanence.</p>
+            <p>📌 L’équipe de Blablabook ne peut être tenue responsable en cas de :</p>
+            <ul>
+                <li>Perte de données ou indisponibilité temporaire du site.</li>
+                <li>Mauvaise utilisation du site par un utilisateur.</li>
+                <li>Collecte de données effectuée par Google lors de l’utilisation de son API.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>7. Suppression du compte et résiliation</h2>
+            <ul>
+                <li>Chaque utilisateur peut supprimer son compte à tout moment depuis son espace personnel.</li>
+                <li>La suppression d’un compte entraîne la perte définitive des données associées.</li>
+                <li>Blablabook peut suspendre ou supprimer un compte en cas de non-respect des CGU.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>8. Modification des CGU</h2>
+            <p>Ces CGU peuvent être mises à jour en fonction de l’évolution du projet. Les utilisateurs seront informés des modifications importantes.</p>
+        </section>
+
+        <section>
+            <h2>9. Contact</h2>
+            <p>Pour toute question ou signalement, vous pouvez contacter l’équipe de Blablabook à l’adresse suivante : [email fictif].</p>
+        </section>
+    </main>
+
+    <%- include('partials/footer') %>
+

@@ -1,6 +1,8 @@
-import { Model, DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import sequelize from '../../database/connexion_db.js';
+import Bookshelf from './Bookshelf.js';
 import Role from './Role.js';
+
 class Reader extends Model {}
 
 // Création d'une classe Reader avec les propriétés définies dans la base de données
@@ -58,6 +60,7 @@ Reader.init(
         hooks: {
         beforeCreate: (reader, options) => {
             reader.updated_at = new Date();
+            
         },
         beforeUpdate: (reader, options) => {
             reader.updated_at = new Date();
@@ -65,7 +68,5 @@ Reader.init(
     },
 });
 
-// Define the association with ReaderRole
-Reader.belongsTo(Role, { foreignKey: 'reader_role_id' });
 
 export default Reader;

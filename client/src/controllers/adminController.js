@@ -1,6 +1,7 @@
 // IMPORTER ICI
 import axios from 'axios';
 import sanitize from 'sanitize-html';
+import {Book, Role} from '../models/associations.js';
 import dotenv from 'dotenv';
 import { error } from 'console';
 
@@ -18,8 +19,6 @@ const adminController = {
     // out of if pour poursuivre si ===
     // Si === alors ok, admin page
 
-
-
       res.render('dashboard');
 
     } catch (error) {
@@ -31,27 +30,21 @@ const adminController = {
   async getBookList (req, res){
     try {
     console.log (req.body.searchFromAPI);
-      // récupérer les mots rentrés par l'utilisateur (req.body) //! sanitize
+      // récupérer les mots rentrés par l'utilisateur (req.body) en utilisant sanitize-html
       
       const apiTitleString = sanitize(req.body.titleFromAPI);
       const apiAuthorString = sanitize(req.body.authorFromAPI);
       const apiIsbnString = sanitize(req.body.isbnFromAPI).replace(/-/g, '');
 
       const BASE_URL = 'https://www.googleapis.com/books/v1/volumes';
-      const filter = sanitize(req.body.filter);
       const apiData = {BASE_URL, apiTitleString, apiAuthorString, apiIsbnString, key:process.env.API_KEY};
       
-      //Test regex avec correction  de l'isbn pour le formater avant de vérifier (= retirer les tirets)
-      // Renvoie un boolean
-      // const sterilizedInput = isbn.replace(/-/g, '');
-      console.log(`input formaté sans tiret : ${apiIsbnString}`);
-
+      //Regex to format ISBN without hyphens --> Return boolean
       function isValidIsbn (isbn){
-        //Regex pour verifier l'input reformatée
         const isbnRegex = /^\d{10}(\d{3})?$/;
         return isbnRegex.test(isbn);  
         }
-      const apiUrl = (data) => {
+      function apiUrl (data){
         console.log(`ISBN = ${data.apiIsbnString}`);
         if (data.apiIsbnString) {
           try {
@@ -61,10 +54,10 @@ const adminController = {
               
               const url = `${BASE_URL}?q=+isbn:${apiIsbnString}&key=${process.env.API_KEY}`;
               return url;
-            }else{
-              throw(error)
             }
-
+            
+            throw new Error("message", 400)
+            
           } catch (error) {
             console.error(error);
             res.render('addBookToDB', {message:"ISBN non valide ou inconnu"});
@@ -76,8 +69,7 @@ const adminController = {
         return url;
         
       };
-
-
+      
       // const response = await axios.get(`${BASE_URL}?q=+${filter}:${apiQueryString}&orderBy=relevance&key=${process.env.API_KEY}`);
       const response = await axios.get(apiUrl(apiData));
       
@@ -112,12 +104,28 @@ const adminController = {
   },
 
 
-  async addBookForm (req, res){
+  async addBookToDB (req, res){
     try {
-      res.render("addBookToDB");
+      // le bouton de submit du form d'ajout envoit les infos dans le body
+      const bookToAdd = req.body
+      console.log (bookToAdd);
 
-     
-    
+      // Quand on a le livre, on crée un nouveau livre dans la DB sous le format défini dans le modèle Book.js
+      const newBook = await Book.create({
+        title: bookToAdd.title,
+        authors: bookToAdd.authors,
+        isbn: bookToAdd.isbn,
+        releaseDate: bookToAdd.releaseDate,
+        description: bookToAdd.description,
+        image: bookToAdd.image,
+        link: bookToAdd.link,
+        created_at: new Date(),
+        updated_at: new Date()
+      });
+      
+      // si le livre est correctement ajoutée, message de réussite, sinon erreur renvoyée
+      res.render("addBookToDB", { message: "Livre ajouté avec succès !" });
+
       } catch (error) {
         console.error(error);
         res.status(500).render("error");

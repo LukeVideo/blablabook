@@ -1,31 +1,27 @@
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-  <!-- Common styles, scripts, and meta tags -->
-  <%- include('./partials/head') %>
-
-<!-- rajouter les CSS et le favicon -->
-
-  <!-- Title -->
-  <title>blablabookINDEX</title>
-
-</head>
+<%- include('partials/head') %>
 
 <body> 
-  <%- include('./partials/header') %>
-  <%- include('./partials/menu') %>
-  
+<%- include('partials/header') %>
+
+
+
   <% if (locals.reader) { %>
     <h2><%= locals.reader.nickname %></h2>
     <p>Voulez-vous vous déconnecter ? </p>
-
-
 
     <form action="/search" method="POST" type="submit" name="search">
       <label for="query">recherche :</label>
       <input type="text" id="query" name="query" placeholder="Titre d'un livre recherché...">
 
+      <!-- <div>
+        <label>
+          <input type="radio" name="searchType" value="title" checked> Titre
+        </label>
+        <label>
+          <input type="radio" name="searchType" value="author"> Auteur
+        </label>
+      </div> -->
+      
       <button type="submit">Rechercher</button>
 <% } %>  
   
@@ -38,12 +34,37 @@
   <p><%= locals.searchInput %></p>
 <% } %>
 
-<% if (locals.dangersearchInput) { %>
-  <p>Danger vous avez recherché :</p> 
-  <p><%= locals.dangersearchInput %></p>
+<% if (locals.booksToFind) { %>
+  <ul>
+    <% locals.booksToFind.forEach((book) => { %>
+        <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
+
+
+        <li><%- include('partials/bookThumbnail', {book: book}) %></li>
+
+    <% }); %> 
+  </ul>
 <% } %>
 
-  
+<% if (locals.authorToFind && locals.authorToFind.length > 0) { %>
+  <h2>Auteurs trouvés :</h2>
+  <ul>
+    <% locals.authorToFind.forEach((author) => { %>
+      <li><a href="/author/<%= author.id %>" alt = "Lien vers <%= author.firstname %> <%= author.lastname %>"></a><%= author.firstname %> <%= author.lastname %></li>
+    <% }); %> 
+  </ul>
+<% } %>
+
+
+<% if (locals.noresult) { %>
+  <% locals.noresult %>
+
+  <% if (locals.noresult && locals.searchInput) { %>
+    <p>Aucun resultat pour <%= locals.searchInput %></p>
+    <% } %>
+<% } %>
+    
+    
   <% if (locals.result) { %>
     <p><%= locals.result %></p>
   <% } %>
@@ -51,6 +72,3 @@
 
   
   <%- include('./partials/footer') %>
-
-</body>
-</html>

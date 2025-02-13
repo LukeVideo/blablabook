@@ -9,7 +9,7 @@ const authValidator = (req, res, next) => {
     return next(err);
   }
   // On passe la main au middleware suivant si le user est bien loggé (ie, dans la session)
-  console.log('authValidator ok !');
+  // console.log('authValidator ok !');
   return next();
   
 };

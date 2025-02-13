@@ -1,8 +1,8 @@
+import ExpressSession from 'express-session';
+import sanitize from 'sanitize-html';
+import {Reader, Role} from '../models/associations.js';
 import blablapass from '../utils/password.js';
 import blablaregex from '../utils/validator.js';
-import Reader from '../models/Reader.js';
-import Role from '../models/Role.js';
-import ExpressSession from 'express-session';
 
 
 const registerController = {
@@ -31,18 +31,23 @@ const registerController = {
   async handleRegister(req, res, next) {
 
     const {nickname, firstname, lastname, email, password, confirm_password} = req.body;
-    console.log(req.body)
+
+    // Vérification du email valide (cf validateEmail.js)
+    const firstnameToVerify = sanitize(firstname);
+    const lastnameToVerify = sanitize(lastname)
+    const nicknameToVerify = sanitize(nickname);
+    const mailToVerify = sanitize(email);
+    const verifiedEmail = blablaregex.checkEmail(mailToVerify);
+    const passToVerify = sanitize(password);
+    const confirmPassToVerify = sanitize(confirm_password);
+    
     try {
 
-      // Vérification du email valide (cf validateEmail.js)
-      const nicknameToVerify = req.body.nickname;
-      const mailToVerify = req.body.email;
-      const verifiedEmail = blablaregex.checkEmail(mailToVerify)
       if(!verifiedEmail){
         res.render('register', {error : "L'adresse mail n'est pas dans un format valide"})
       }
 
-      const strongPass = blablaregex.checkPassword(req.body.password)
+      const strongPass = blablaregex.checkPassword(passToVerify);
       if (!strongPass){
         res.render('register', {
           error: 'mot de passe trop faible !',
@@ -52,20 +57,20 @@ const registerController = {
 
       // // verifier si password correspond à password confirm
       // const passwordsMatch = password === passwordConfirm;
-      const hashedPassword = await blablapass.checkConfirmPassword(req.body.password, req.body.confirm_password)
+      const hashedPassword = await blablapass.checkConfirmPassword(passToVerify, confirmPassToVerify);
       if (!hashedPassword) {
         return res.render('register', { error: "Les mots de passe ne correspondent pas" });
 
       }
       // verify the email address is not already registered in database
-      const emailIsUnavailable = await  Reader.findOne({where:{email: `${mailToVerify}`}});
+      const emailIsUnavailable = await Reader.findOne({where:{email: `${mailToVerify}`}});
       if (emailIsUnavailable){
         res.render('register', {
           error: 'Cet email est indisponible à la création de compte !',
         });
       }
       // verify the nickname is not already registered in database
-      const nickNameIsUnavailable = await  Reader.findOne({where:{nickname: `${nicknameToVerify}`}});
+      const nickNameIsUnavailable = await Reader.findOne({where:{nickname: `${nicknameToVerify}`}});
       console.log(nickNameIsUnavailable)
       if (nickNameIsUnavailable){
         res.render('register', {
@@ -76,20 +81,27 @@ const registerController = {
         
       console.log (`${hashedPassword} is registered in database`)
         
-    const reader_default_role  = await  Role.findOne({where:{role_name: 'reader'}});
-    console.log("reader_default_role")
-    console.log(reader_default_role.id)
-    // // sauvegarder Reader
-    await Reader.create({
-        firstname,
-        lastname,
-        nickname,
-        email,
+      const reader_default_role  = await  Role.findOne({where:{role_name: 'reader'}});
+      console.log("reader_default_role")
+      console.log(reader_default_role.id)
+      // // sauvegarder Reader
+      await Reader.create({
+        firstname: firstnameToVerify,
+        lastname: lastnameToVerify,
+        nickname: nicknameToVerify,
+        email: mailToVerify,
         reader_password: hashedPassword,
         reader_role_id: reader_default_role.id,
-    });
+      });
 
-    //!! ne pas modifier cette ligne
+    // const firstnameToVerify 
+    // const lastnameToVrify = sanitize(lastname)
+    // const nicknameToVerify = sanitize(nickname);
+    // const mailToVerify = sanitize(email);
+    // const verifiedEmail = blablaregex.checkEmail(mailToVerify);
+    // const passToVerify = sanitize(password);
+    // const confirmPassToVerify = sanitize(confirm_password);
+
     res.render('login', {
         message: 'Vous pouvez maintenant vous connecter !',
     });
