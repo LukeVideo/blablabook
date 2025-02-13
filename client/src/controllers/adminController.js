@@ -81,6 +81,9 @@ const adminController = {
               selfLink : item.selfLink,
               title : item.volumeInfo.title,
               authors : item.volumeInfo.authors,
+              releaseDate: item.volumeInfo.publishedDate,
+              isbn10: item.volumeInfo.industryIdentifiers[0].identifier,
+              isbn13: item.volumeInfo.industryIdentifiers[1].identifier,
               searchInfo : item.searchInfo,
               imageLinks : item.imageLinks
             }
@@ -106,9 +109,12 @@ const adminController = {
 
   async addBookToDB (req, res){
     try {
-      // le bouton de submit du form d'ajout envoit les infos dans le body
+      //* Contexte : l'API google a déjà été appelé pour afficher des livres au client
+      //* Contexte : Chaque livre a un bouton d'ajout qui appelle addBookToDB
+      //* le bouton de submit du form d'ajout envoit les infos dans le body
       const bookToAdd = req.body
       console.log (bookToAdd);
+
 
       // Quand on a le livre, on crée un nouveau livre dans la DB sous le format défini dans le modèle Book.js
       const newBook = await Book.create({
