@@ -23,6 +23,8 @@ body{
     align-items: stretch;
 
 }
+
+
 .primary-background{
     background-color: #6baccd;
 }
@@ -37,11 +39,11 @@ body{
     background-color: #eec124;
 } 
 
-
 header {
     display:flex;
     justify-content: space-between;
 }
+
 
 .header-nav{
     display: flex;
@@ -49,6 +51,7 @@ header {
     padding-right: 1rem;
 
 }
+
 
 .nav-bookmark {
     border-radius: 0.5rem 0.5rem 0rem 0rem;
@@ -58,11 +61,13 @@ header {
     box-shadow: 0px 0px 5px rgba(47, 46, 73, 0.542);
 }
 
+
 .nav-bookmark a {
     text-decoration: none;
     padding: 0rem  0rem 3rem 0rem;
     color: black;
 }
+
 .login-section {
     flex: 1;
     padding: 5rem;
@@ -72,6 +77,7 @@ header {
     align-items: stretch;
     /* background-color:deeppink; */
 }
+
 .login-section form {
     box-shadow: 0px 0px 10px rgba(47, 46, 73, 0.7);
 
@@ -82,10 +88,12 @@ header {
     border-radius: 0.5rem;
     /* background-color: blueviolet; */
 }
+
 .login-section form div{
     padding: 0.5rem;
     display: flex;
 }
+
 .login-section form button {
     border-radius: 1.5rem;
     width: 150px;
@@ -97,6 +105,7 @@ footer{
     flex-direction: row;
     justify-content: space-around;
 }
+
 footer a {
     text-decoration: none;
     padding: 0rem  0rem 3rem 0rem;
@@ -115,50 +124,57 @@ footer a {
     align-items: center;
 
 }
+
 .book-list-section{
     overflow: scroll;
     display:flex;
     flex-wrap: nowrap;
 }
+
 .book-card {
     width : 230px;
     min-width: 230px;
     display:flex;
     flex-wrap: wrap;
 }
+
 .book-card-image {
     width: 100px;
 }
+
 .book-card-header{
     width: 120px;
     display: flex;
     flex-direction: column;
 }
+
 .book-card-paragraphe{
     width: 100%;
 }
-
-
 
 .comment-section{
     overflow: scroll;
     display:flex;
     flex-wrap: nowrap;
 }
+
 .comment-card {
     width : 230px;
     min-width: 230px;
     display:flex;
     flex-wrap: wrap;
 }
+
 .comment-card-image {
     width: 100px;
 }
+
 .comment-card-header{
     width: 120px;
     display: flex;
     flex-direction: column;
 }
+
 .comment-card-paragraphe{
     width: 100%;
 }
