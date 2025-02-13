@@ -3,17 +3,20 @@
 } */
 
 @import url(https://fonts.bunny.net/css);
-
+ *{
+    margin: 0;
+    padding: O;
+ }
 
 html {
-    height: 100%;
+    height: 100vh;
     margin: 0;
   }
 
 body{
     font-family: 'roboto', sans-serif;
 
-    height: 100%;
+    height: 100vh;
     padding: 0;
     margin: 0;
     display: flex;
@@ -40,6 +43,7 @@ body{
 } 
 
 header {
+    height:6rem;
     display:flex;
     justify-content: space-between;
 }
@@ -52,7 +56,6 @@ header {
 
 }
 
-
 .nav-bookmark {
     border-radius: 0.5rem 0.5rem 0rem 0rem;
     vertical-align: middle;
@@ -61,11 +64,52 @@ header {
     box-shadow: 0px 0px 5px rgba(47, 46, 73, 0.542);
 }
 
-
 .nav-bookmark a {
     text-decoration: none;
-    padding: 0rem  0rem 3rem 0rem;
+    /* padding: 0rem  0rem 3rem 0rem; */
     color: black;
+}
+
+
+.index-section {
+    padding: 0rem;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.nickname {
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.booklist-section {
+    /* height: 400px; */
+
+    
+    /* padding: 2rem 0rem; */
+    display: flex;
+    justify-content: start;
+    
+    
+    /* flex-direction: row; */
+    /* align-items: center;
+    align-items: stretch; */
+    /* background-color:deeppink; */
+    
+}
+.booklist-section ul{
+    height:fit-content;
+    padding: 2rem 0rem;
+    display: flex;
+    flex-direction: row;
+    overflow-y: scroll;
+
+    gap: 1rem;
+    /* background-color:deeppink; */
 }
 
 .login-section {
@@ -108,7 +152,6 @@ footer{
 
 footer a {
     text-decoration: none;
-    padding: 0rem  0rem 3rem 0rem;
     color: black;
 }
 
@@ -129,23 +172,29 @@ footer a {
     overflow: scroll;
     display:flex;
     flex-wrap: nowrap;
-}
+}    
+
+    
 
 .book-card {
-    width : 230px;
-    min-width: 230px;
+    box-shadow: 0px 0px 5px rgba(47, 46, 73, 0.542);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    width : 300px;
+    min-width: 300px;
     display:flex;
     flex-wrap: wrap;
 }
 
 .book-card-image {
-    width: 100px;
+    width: 20%;
 }
 
 .book-card-header{
-    width: 120px;
+    width: 80%;
     display: flex;
     flex-direction: column;
+    font-size: 0.8rem;
 }
 
 .book-card-paragraphe{
