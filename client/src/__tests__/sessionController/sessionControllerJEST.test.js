@@ -12,20 +12,21 @@
 
 
 import request from 'supertest';
-import sessionController from '../controllers/sessionController.js';
-import {Reader} from '../models/associations.js';
-import blablapass from '../utils/password.js';
+import sessionController from './../../controllers/sessionController.js';
+import {Reader} from './../../models/associations.js';
+import blablapass from '../../utils/password.js';
+import sanitize from 'sanitize-html';
 
 // Jest permet  de simuler les dépendances pour éviter de vrais appels à la base de données
 
-jest.mock("../models/associations.js", () => ({
+jest.mock("./../../models/associations.js", () => ({
     Reader: {
        // Remplacement de findOne par un  mock (simulation)
       findOne: jest.fn(),  
     },
   }));
 
-jest.mock('../utils/password.js', () => ({
+jest.mock('../../utils/password.js', () => ({
   // Simulation de la fonction verifyPassword
   verifyPassword: jest.fn(),
 }));
@@ -86,8 +87,7 @@ describe("Session Controller - handleLogin", () => {
 
 
     // Test 3 : L'utilisateur entre le bon couple email/mot de passe = Connexion autorisée
-    test("Connecte l'utilisateur SSI l\'email et mot de passe sont corrects", async () => {
-      // Création d'une variable pour simuler la  session avec des données de test
+    test("Connecte l'utilisateur SSI l'email et mot de passe sont corrects", async () => {
       const mockReader = {
         id: 1,
         nickname: "CrashTest",
@@ -97,24 +97,23 @@ describe("Session Controller - handleLogin", () => {
         reader_role_id: 2,
         reader_password: "hashedpassword",
       };
-
+    
       Reader.findOne.mockResolvedValue(mockReader);  // Simule un utilisateur trouvé en base
       blablapass.verifyPassword.mockResolvedValue(true);  // Simule un mot de passe correct
-
+    
       await sessionController.handleLogin(req, res);  // On appelle la fonction handleLogin
-
-      expect(req.session.reader).toEqual({  
-        // Vérification de la simulation avec création de session
+    
+      // Vérification de la session
+      expect(req.session.reader).toEqual({
         id: 1,
         nickname: "CrashTest",
         firstname: "Père",
         lastname: "Fusion",
         email: "test@mail.com",
         reader_role_id: 2,
-        reader_password: "hashedpassword",
       });
-
-    // Vérification de la simulation (res.render affiche un message de bienvenue)
-    expect(res.render).toHaveBeenCalledWith("login", { message: "Welcome to Blablabook TestUser", reader: req.session.reader });
+    
+      // Vérification de la simulation (res.render affiche un message de bienvenue avec le bon nom)
+      expect(res.render).toHaveBeenCalledWith("login", { message: "Welcome to Blablabook CrashTest", reader: req.session.reader });
     });
 });

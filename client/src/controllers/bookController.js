@@ -93,7 +93,7 @@ const bookController = {
     if (!selectedBook){
       return res.status(404).send('Book not found');
     }
-    console.log(`selectedBOOK !!!!!!!!! :${selectedBook}`)
+    console.log(`selectedBOOK !!!!!!!!! :${selectedBook}`) 
     res.render('bookCard', {book: selectedBook});
     }catch(error){
       return next(error);
