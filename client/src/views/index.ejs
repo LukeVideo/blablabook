@@ -1,11 +1,9 @@
 <%- include('./partials/head') %>
 
 <%- include('./partials/header') %>
-<% if (locals.reader) { %>
-<section class="index-section">
-    <h2><%= locals.reader.nickname %></h2>
-    <form action="/logout" method="POST" type="submit" name="logout"><button>déconnexion</button>
-</section>
+<div class="index-section">
+  <% if (locals.reader) { %>
+    <%- include('./partials/nickname', {nickname: locals.reader.nickname}) %>
   <% } %>
 
   <% if (locals.message) { %>
@@ -25,8 +23,9 @@
       <% }); %> 
     </ul>
       
+    <% } %>
+    
+    
   </section>
-<% } %>
-
-
+</div>
 <%- include('./partials/footer') %>

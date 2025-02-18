@@ -1,23 +1,38 @@
 import sequelize from '../../database/connexion_db.js';
-import {Book, BookHasReview, BookInBookshelf, BookStatus, Bookshelf, Reader } from '../models/associations.js';
+import {Author, Book, BookHasReview, BookInBookshelf, BookStatus, Bookshelf, Reader } from '../models/associations.js';
 import authValidator from '../utils/authentificator.js';
 
 const bookshelfController = {
 
-    async bookshelf (req, res, next){
+    async displayBookshelf (req, res, next){
         try {
+        const displayRemoveButton = true;
         const reader = req.session.reader;
-        const myBookshelf = await Bookshelf.findOne({
-            where:{reader_id: `${reader.id}`}, 
+        const bookshelf = await Bookshelf.findOne({
+            where: { reader_id: reader.id },
             include: {
-                association : 'books',
-                include: 'status'
+                model: Book,
+                as: 'books',
+                include: [
+                    { model: Author, as: 'author' }, // Récupère l'auteur de chaque livre
+                ]
             }
-            });
-
-        console.log(myBookshelf.id);
-            console.log('bookshelf :', JSON.stringify(myBookshelf, null, 2));
-        res.render('bookshelf')
+        });
+        
+        // const bookshelf = await Bookshelf.findAll({
+        //     where: {
+        //         reader_id : reader.id
+        //     },
+        //     include: {
+        //         association: 'books', include : 'author'
+        //     }
+        // })
+        console.log('books in bookshelf :', JSON.stringify(bookshelf, null, 2))
+        console.log('reader',reader);
+        // Recherche la bookshelf du Reader via son id en associant les livres contenus dedans
+        
+        // On renvoie le reader et la bookshelf au template
+        res.render('bookshelf', {bookshelf: bookshelf, displayRemoveButton});
 
         
         } catch (error) {
@@ -37,7 +52,6 @@ const bookshelfController = {
             const book = req.body.book_id;
             console.log(`Id du livre à ajouter ${book}`);
             const bookToAdd = await Book.findByPk(book);
-
 
             // On récupère l'id de la bookshelf du reader
             const myBookshelf = await Bookshelf.findOne({where:{reader_id: `${reader}`}});  
@@ -74,7 +88,47 @@ const bookshelfController = {
             console.log(error)
             res.status(500).render("not_found");
         }
-}
+},
+
+    async deleteBookFromBookshelf (req, res) {
+
+        try {
+            // Récupérer l'id du lecteur et du livre à supprimer
+            const reader = req.session.reader.id;
+            console.log(`Id du reader qui demande la suppression ${reader}`);
+            const book = req.body.book_id;
+            console.log(`Id du livre à supprimer ${book}`);
+    
+            // Trouver la bookshelf du reader
+            const myBookshelf = await Bookshelf.findOne({ where: { reader_id: `${reader}` } });  
+            console.log('bookshelf id', myBookshelf?.id);
+    
+            // Vérifier si le livre est bien dans la bookshelf
+            const bookInBookshelf = await BookInBookshelf.findOne({
+                where: { book_id: `${book}`, bookshelf_id: `${myBookshelf.id}` }
+            });
+    
+            if (!bookInBookshelf) {
+                return res.render('bookshelf', { message: 'Ce livre n’est pas dans votre bookshelf.' });
+            }
+    
+            // Supprimer le livre de la bookshelf
+            await BookInBookshelf.destroy({
+                where: { book_id: `${book}`, bookshelf_id: `${myBookshelf.id}` }
+            });
+    
+            console.log(`Livre ID ${book} supprimé de la bookshelf ID ${myBookshelf.id}`);
+    
+            //! Ajouter un message de confirmation
+            res.redirect('/bookshelf');
+    
+        } catch (error) {
+            console.error(error);
+            res.status(500).render("not_found");
+        }
+    
+    }
+
 
 }
 

@@ -2,32 +2,28 @@
   <%- include('./partials/header') %>
   
   <% if (locals.reader) { %>
-    <h2>Bonjour <%= locals.reader.nickname %></h2>
-    <section>
-        <form action="/bookshelf/search" method="POST" type="submit" name="searchFromAPI">
+    <h2><%= locals.reader.nickname %> : Ma Bookshelf</h2>
+    <section >
+        <!-- <form action="/bookshelf/search" method="POST" type="submit" name="searchFromAPI">
             <label for="titleFromAPI">Titre :</label>
             <input type="text" id="titleFromAPI" name="titleFromAPI" placeholder="Titre">
             <label for="authorFromAPI">Auteur :</label>
             <input type="text" id="authorFromAPI" name="authorFromAPI" placeholder="Auteur">
             <label for="isbnFromAPI">ISBN :</label>
             <input type="text" id="isbnFromAPI" name="isbnFromAPI" placeholder="ISBN">
-            <button type="submit">Rechercher</button>
+            <button type="submit">Rechercher</button> -->
     
-      <% if (locals.bookList) { %>
         
-        <ul>
-          <% locals.bookList.forEach((book) => { %>
-              <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
-              <img src="<%= book.cover ? book.cover : 'Aucune image pour ce livre' %>" alt="Couverture de <%= book.title %>">
-              <li> Auteur: <%= book.authors ? book.authors.join(', ')  : 'Inconnu' %> 
-              Titre: <%= book.title ? book.title : 'Non renseigné' %>
-              </li>
-          <% }); %> 
-        </ul>
+        <% if (locals.bookshelf) { %>
+          
+          <ul>
+            <% locals.bookshelf.books.forEach((book) => { %>
+                <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
+            <li><%- include('partials/bookThumbnail', {book: book}) %></li>
         
-
-
-      <% } %>
+            <% }); %> 
+          </ul>
+        <% } %>
 
 
 

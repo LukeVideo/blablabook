@@ -18,6 +18,8 @@ const bookController = {
   },
   async handleSearch(req, res, next) {
     console.log("Req body:", req.body);
+    const url = req.url;
+    console.log("URL:", url);
   
     try {
       const searchInput = sanitize(req.body.query);
@@ -70,16 +72,35 @@ const bookController = {
       noresult = true;
     }
       // Rendu de la page, qu'il y ait des livres ou non
-      res.render('search', {searchInput, booksToFind, authorToFind, noresult });
+      res.render('search', {searchInput, booksToFind, authorToFind, noresult, url });
 
     } catch (error) {
       return next(error);
     }
+  },
+
+  async bookDetails (req, res){
+    
+    try{
+    const bookId = req.params.id;
+    const selectedBook = await Book.findByPk(bookId, {
+      where: {id: bookId},
+      include:[
+        {model: Author, as: 'author'},
+        ]
+    });
+
+    if (!selectedBook){
+      return res.status(404).send('Book not found');
+    }
+    console.log(`selectedBOOK !!!!!!!!! :${selectedBook}`) 
+    res.render('bookCard', {book: selectedBook});
+    }catch(error){
+      return next(error);
   }
   
+},
 }
 
 
 export default bookController
-
-
