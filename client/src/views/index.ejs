@@ -4,7 +4,7 @@
 <div class="index-section">
   <% if (locals.reader) { %>
     <%- include('./partials/nickname', {nickname: locals.reader.nickname}) %>
-<% } %>
+  <% } %>
 
   <% if (locals.message) { %>
     <p><%= locals.message %></p>
@@ -23,8 +23,9 @@
       <% }); %> 
     </ul>
       
+    <% } %>
+    
+    
   </section>
-<% } %>
-
-
+</div>
 <%- include('./partials/footer') %>
