@@ -4,81 +4,72 @@
 
 <% if (locals.reader) { %>
 
-
-<div class="index-section">
-    <% if (locals.reader) { %>
-      <%- include('./partials/nickname', {nickname: locals.reader.nickname}) %>
-  <% } %>
-
+  
+<section class="index-section">
+  <% if (locals.reader) { %>
+    <h2><%= locals.reader.nickname %></h2>
+    <p>Voulez-vous vous déconnecter ? </p>
 
 <form action="/search" method="POST" type="submit" name="search">
   <label for="query">recherche :</label>
   <input type="text" id="query" name="query" placeholder="Titre d'un livre recherché...">
 
-  <!-- <div>
-    <label>
-      <input type="radio" name="searchType" value="title" checked> Titre
-    </label>
-    <label>
-      <input type="radio" name="searchType" value="author"> Auteur
-    </label>
-  </div> -->
-  
-  <button type="submit">Rechercher</button>
-
-</form>
-
-<% } %>
-
-<% if (locals.message) { %>
-  <p><%= locals.message %></p>
-<% } %> 
-
-<% if (locals.searchInput) { %>
-  <p>Vous avez recherché :</p> 
-  <p><%= locals.searchInput %></p>
-<% } %>
-
-<% if (locals.booksToFind) { %>
-  <section class="booklist-section">
-    
-    <ul>
+      <!-- <div>
+        <label>
+          <input type="radio" name="searchType" value="title" checked> Titre
+        </label>
+        <label>
+          <input type="radio" name="searchType" value="author"> Auteur
+        </label>
+      </div> -->
       
+      <button type="submit">Rechercher</button>
+    </form>
+  <% } %>  
+    
+  <% if (locals.message) { %>
+    <p><%= locals.message %></p>
+  <% } %> 
+
+  <% if (locals.searchInput) { %>
+    <p>Vous avez recherché :</p> 
+    <p><%= locals.searchInput %></p>
+  <% } %>
+
+  <% if (locals.booksToFind) { %>
+    <ul>
       <% locals.booksToFind.forEach((book) => { %>
-        <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
-        
-        
-        <li><%- include('partials/bookThumbnail', {book: book}) %></li>
-        
+          <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
+
+
+          <li><%- include('partials/bookThumbnail', {book: book}) %></li>
+
       <% }); %> 
     </ul>
-      
-  </section>
-<% } %>
+  <% } %>
 
-<% if (locals.authorToFind && locals.authorToFind.length > 0) { %>
-  <h2>Auteurs trouvés :</h2>
-  <ul>
-    <% locals.authorToFind.forEach((author) => { %>
-      <li><a href="/author/<%= author.id %>" alt = "Lien vers <%= author.firstname %> <%= author.lastname %>"></a><%= author.firstname %> <%= author.lastname %></li>
-    <% }); %> 
-  </ul>
-<% } %>
+  <% if (locals.authorToFind && locals.authorToFind.length > 0) { %>
+    <h2>Auteurs trouvés :</h2>
+    <ul>
+      <% locals.authorToFind.forEach((author) => { %>
+        <li><a href="/author/<%= author.id %>" alt = "Lien vers <%= author.firstname %> <%= author.lastname %>"><%= author.firstname %> <%= author.lastname %></a></li>
+      <% }); %> 
+    </ul>
+  <% } %>
 
 
-<% if (locals.noresult) { %>
-  <% locals.noresult %>
+  <% if (locals.noresult) { %>
+    <% locals.noresult %>
 
-  <% if (locals.noresult && locals.searchInput) { %>
-    <p>Aucun reusltat pour <%= locals.searchInput %></p>
-    <% } %>
-<% } %>
-    
-    
+    <% if (locals.noresult && locals.searchInput) { %>
+      <p>Aucun resultat pour <%= locals.searchInput %></p>
+      <% } %>
+  <% } %>
+
   <% if (locals.result) { %>
     <p><%= locals.result %></p>
   <% } %>
 
-  </div>
+</section>
   
   <%- include('./partials/footer') %>
