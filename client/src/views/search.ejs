@@ -1,16 +1,17 @@
 <%- include('partials/head') %>
 <%- include('partials/header') %>
 
+<div class="index-section">
+<% if (!locals.reader) { %>
+  <%- include('./partials/loginNeeded') %>
+<% } %>
+
 
 <% if (locals.reader) { %>
-
-  
-<section class="index-section">
-
-
   <% if (locals.reader) { %>
     <%- include('./partials/nickname', {nickname: locals.reader.nickname}) %>
   <% } %>
+
   <form action="/search" method="POST" type="submit" name="search">
     <label for="query">recherche :</label>
     <input type="text" id="query" name="query" placeholder="Titre d'un livre recherché...">
@@ -71,6 +72,6 @@
     <p><%= locals.result %></p>
   <% } %>
 
-</section>
+  </div>
   
   <%- include('./partials/footer') %>

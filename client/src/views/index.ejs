@@ -5,6 +5,10 @@
   <% if (locals.reader) { %>
     <%- include('./partials/nickname', {nickname: locals.reader.nickname}) %>
   <% } %>
+  <% if (!locals.reader) { %>
+    <%- include('./partials/loginNeeded') %>
+  <% } %>
+
 
   <% if (locals.message) { %>
     <p><%= locals.message %></p>

@@ -14,7 +14,10 @@
     <% if (locals.reader_role_name === 'admin') { %>
       <div class="nav-bookmark third-background"><a href="/dashboard">dashboard</a></div>
     <% } %>
+    <% if (!locals.reader) { %>
+      <div class="nav-bookmark nav-bookmark-disabled third-background">NO Bookshelf </div>
+    <% } else { %>
     <div class="nav-bookmark third-background"><a href="/bookshelf">Bookshelf</a> </div>
-
+    <% } %>
   </section>
 

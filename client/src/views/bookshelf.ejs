@@ -1,9 +1,13 @@
   <%- include('./partials/head') %>
   <%- include('./partials/header') %>
   
+  
+  <div class="index-section" >
+  <% if (!locals.reader) { %>
+    <%- include('./partials/loginNeeded') %>
+  <% } %>
   <% if (locals.reader) { %>
     <h2><%= locals.reader.nickname %> : Ma Bookshelf</h2>
-    <section >
         <!-- <form action="/bookshelf/search" method="POST" type="submit" name="searchFromAPI">
             <label for="titleFromAPI">Titre :</label>
             <input type="text" id="titleFromAPI" name="titleFromAPI" placeholder="Titre">
@@ -14,24 +18,23 @@
             <button type="submit">Rechercher</button> -->
     
         
-        <% if (locals.bookshelf) { %>
-          
-          <ul>
-            <% locals.bookshelf.books.forEach((book) => { %>
-                <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
-            <li><%- include('partials/bookThumbnail', {book: book}) %></li>
+      <% if (locals.bookshelf) { %>
         
-            <% }); %> 
-          </ul>
-        <% } %>
+        <ul>
+          <% locals.bookshelf.books.forEach((book) => { %>
+              <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
+          <li><%- include('partials/bookThumbnail', {book: book}) %></li>
+      
+          <% }); %> 
+        </ul>
+      <% } %>
 
 
 
 
 
-    </section>
-    <p>blablabla</p>
-<% } %>  
+    <% } %>  
+  </div>
 
   
   <% if (locals.message) { %>
