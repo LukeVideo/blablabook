@@ -18,7 +18,7 @@ const mainController = {
   async renderHomePage(req, res, next) {
     try {
       const bookList = await Book.findAll();
-      console.log(bookList)
+      // console.log(bookList)
 
       res.render('index', {bookList});
       
@@ -72,6 +72,9 @@ const mainController = {
     }
   },
 
+  async test(req, res) {
+    console.log("test_page_mainController");
+  },
 
 };
 

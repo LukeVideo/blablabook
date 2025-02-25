@@ -30,8 +30,8 @@ router.post("/login", sessionController.handleLogin);
 
 router.get("/dashboard", [authValidator, isAdmin], adminController.dashboard);
 
-router.get("/api/bookList", [authValidator, isAdmin], adminController.searchBook);
-router.post("/api/bookList", [authValidator, isAdmin], adminController.getBookList);
+router.get("/api/search", [authValidator, isAdmin], adminController.searchBookFromAPI);
+router.post("/api/getBookList", [authValidator, isAdmin], adminController.getBookList);
 
 router.post("/addBookToBookshelf", bookshelfController.addBookToBookshelf);
 router.post("/deleteBookFromBookshelf", bookshelfController.deleteBookFromBookshelf);
@@ -47,6 +47,8 @@ router.get("/bookshelf", [authValidator], bookshelfController.displayBookshelf);
 
 router.get("/author/:id", authorController.renderAuthorPage);
 
+
+router.post("/test", mainController.test);
 
 
 

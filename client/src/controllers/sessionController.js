@@ -23,7 +23,7 @@ async handleLogin(req, res) {
   
   const email = sanitize(req.body.email);
   const password = sanitize(req.body.password);
-  console.log(`email :${email}`)
+  // console.log(`email :${email}`)
   // const readerSession = req.session.reader;
   // const loginPassword = req.body.password
   try {

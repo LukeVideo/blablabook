@@ -17,13 +17,13 @@ const bookController = {
     }
   },
   async handleSearch(req, res, next) {
-    console.log("Req body:", req.body);
+    // console.log("Req body:", req.body);
     const url = req.url;
-    console.log("URL:", url);
+    // console.log("URL:", url);
   
     try {
       const searchInput = sanitize(req.body.query);
-      console.log("Search input after sanitization:", searchInput);
+      // console.log("Search input after sanitization:", searchInput);
       if(searchInput.trim() === '') {
         res.render('search', {searchInput, noresult: true});
         return
@@ -38,11 +38,11 @@ const bookController = {
         }
       });
   
-      console.log("Books found:", booksToFind.map(book => book.toJSON()));
+      // console.log("Books found:", booksToFind.map(book => book.toJSON()));
   
       let authorToFind = [];
       if (booksToFind.length === 0) {
-        console.log(`Pas de titre correspondant... Recherche dans les auteurs avec ${searchInput}`);
+        // console.log(`Pas de titre correspondant... Recherche dans les auteurs avec ${searchInput}`);
   
         // Recherche des auteurs si aucun livre trouvé
         authorToFind = await Author.findAll({
@@ -62,13 +62,13 @@ const bookController = {
           }
         });
   
-        console.log("Author(s) found:", authorToFind.map(author => author.toJSON()));
+        // console.log("Author(s) found:", authorToFind.map(author => author.toJSON()));
       }
   
       // Ajout d'une variable noresult pour signaler l'absence de résultat
       let noresult;
       if(booksToFind.length === 0 && authorToFind.length === 0){;
-      console.log(`Aucune correspondance avec '${searchInput}'`);
+      // console.log(`Aucune correspondance avec '${searchInput}'`);
       noresult = true;
     }
       // Rendu de la page, qu'il y ait des livres ou non
@@ -93,7 +93,7 @@ const bookController = {
     if (!selectedBook){
       return res.status(404).send('Book not found');
     }
-    console.log(`selectedBOOK !!!!!!!!! :${selectedBook}`) 
+    // console.log(`selectedBOOK !!!!!!!!! :${selectedBook}`) 
     res.render('bookCard', {book: selectedBook});
     }catch(error){
       return next(error);

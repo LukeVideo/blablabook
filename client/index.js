@@ -50,6 +50,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Use built-in middleware to parse URL-encoded data
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 
 
 // Favicon static route

@@ -1,14 +1,39 @@
-  <%- include('./partials/head') %>
-  <%- include('./partials/header') %>
-  
-  
-  <% if (locals.reader) { %>
-    <h2>Bonjour <%= locals.reader.nickname %></h2>
-    <p>Vous avez acces au dashboard !</p>
-<% } %>  
-  
-  <% if (locals.message) { %>
-    <p><%= locals.message %></p>
-  <% } %>
-  
-  <%- include('./partials/footer') %>
+<%- include('./partials/head') %>
+<%- include('./partials/header') %>
+
+<section class="profile-container">
+    <% if (locals.reader) { %>
+        <h2>Dashboard de <%= locals.reader.nickname %></h2>
+    
+    <!-- Affichage des informations du profil de l'utilisateur -->
+        <div class="profile-info">
+            <p><strong>Pseudo :</strong> <%= locals.reader.nickname %></p>
+            <p><strong>Nom :</strong> <%= locals.reader.lastName %></p>
+            <p><strong>Prénom :</strong> <%= locals.reader.firstName %></p>
+            <p><strong>Email :</strong> <%= locals.reader.email %></p>
+        </div>
+    <% } %>
+
+<!-- Si l'utilisateur est un admin, on peut lui offrir des actions supplémentaires -->
+    <% if (locals.isAdmin) { %>
+        <h3>Actions administratives :</h3>
+        <form action="">
+            <button>Gérer les utilisateurs</button>
+        </form>
+
+        <form action="/api/search" method="GET">
+            <button type="submit">Aller à la recherche des livres</button>
+        </form>
+
+        <form action="">
+            <button>Supprimer un livre</button>
+        </form>
+    <% } %>
+
+<!-- Affichage des messages, s'il y en a -->
+    <% if (locals.message) { %>
+        <p><%= locals.message %></p>
+    <% } %>
+</section>
+
+<%- include('./partials/footer') %>

@@ -22,7 +22,7 @@ export function unAuthorized (req, res, next) {
 // Un middleware d'erreur attend 4 arguments (au lieu de 3), le premier étant l'erreur.
 // Lors d'un appel à `next()`, si on passe une Erreur en argument (`next(error)`), alors le prochain middleware qui sera traversé sera le middleware d'erreur.
 export function developmentErrors (err, req, res, next) {
-    const devEnvironment= process.env.DEV_ENV;
+    const devEnvironment= process.env.DEV_ENV === 'true';
     if(!devEnvironment){
         next(err);
     }
