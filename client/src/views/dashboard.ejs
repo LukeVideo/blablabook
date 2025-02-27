@@ -7,10 +7,10 @@
     
     <!-- Affichage des informations du profil de l'utilisateur -->
         <div class="profile-info">
-            <p><strong>Pseudo :</strong> <%= locals.reader.nickname %></p>
-            <p><strong>Nom :</strong> <%= locals.reader.lastName %></p>
-            <p><strong>Prénom :</strong> <%= locals.reader.firstName %></p>
-            <p><strong>Email :</strong> <%= locals.reader.email %></p>
+            <p>Pseudo : <%= locals.reader.nickname %></p>
+            <p>Nom : <%= locals.reader.lastname %></p>
+            <p>Prénom : <%= locals.reader.firstname %></p>
+            <p>Email : <%= locals.reader.email %></p>
         </div>
     <% } %>
 
@@ -18,15 +18,15 @@
     <% if (locals.isAdmin) { %>
         <h3>Actions administratives :</h3>
         <form action="">
-            <button>Gérer les utilisateurs</button>
+            <button>Gérer les utilisateurs </button>
         </form>
 
         <form action="/api/search" method="GET">
-            <button type="submit">Aller à la recherche des livres</button>
+            <button type="submit">Ajouter un livre à la base de données</button>
         </form>
 
         <form action="">
-            <button>Supprimer un livre</button>
+            <button>Supprimer un livre de la base de données</button>
         </form>
     <% } %>
 

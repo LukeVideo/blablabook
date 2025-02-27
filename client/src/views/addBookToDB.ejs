@@ -20,8 +20,13 @@
         <ul>
           <% locals.bookList.forEach((book) => { %>
             <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
-            <li> 
-              <%= book.imageLinks ? book.imageLinks : 'image non disponible' %><br>
+            <li>
+              <% if (book.imageLinks) { %>
+                <img src="<%= book.imageLinks %>" alt="">
+                <% }else{ %>
+                <p>'image non disponible'</p>
+              <% } %>
+            
               Titre: <%= book.title ? book.title : 'Non renseigné' %><br>
               Auteur: <%= book.authors ? book.authors.join(', ')  : 'Inconnu' %> <br>
               ISBN-10: <%= book.isbn10 ? book.isbn10 : 'Non renseigné' %><br>

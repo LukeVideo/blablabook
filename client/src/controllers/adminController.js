@@ -10,7 +10,7 @@ import { error } from 'console';
 const adminController = {
 
   async dashboard(req, res, next) {
-    console.log('dashboard called');
+    // console.log('dashboard called');
     try {
         const reader = req.session.reader;
         console.log("reader:", reader);
@@ -38,18 +38,19 @@ searchBookFromAPI: async (req, res, next) => {
   try {
     // Vérification que l'utilisateur est un admin
     if (!req.isAdmin) {
-      return res.status(404).send('Cette page n\existe pas');
+      throw new Error("message", 404)
     }
 
     // Logique pour récupérer les livres ou tout ce que tu veux afficher
-    const books = await Book.findAll();  // Exemples de récupération de livres depuis la base de données
+   //  const books = await Book.findAll();  // Exemples de récupération de livres depuis la base de données
 
     res.render('addBookToDB');  // Retourner les livres en réponse au client
 
   } catch (error) {
     console.error(error);
+    error.status = error.status || 404;
     next(error);
-  }
+}
 },
 
   async getBookList (req, res){
@@ -86,7 +87,7 @@ searchBookFromAPI: async (req, res, next) => {
           } catch (error) {
             console.error(error);
             return res.render('addBookToDB', {message:"ISBN non valide ou inconnu"});
-    
+            
           }
         }
               // si pas d'isbn recherche par titre et auteur
@@ -107,12 +108,14 @@ searchBookFromAPI: async (req, res, next) => {
               title : item.volumeInfo.title,
               authors : item.volumeInfo.authors,
               releaseDate: item.volumeInfo.publishedDate,
+              // description: item.searchInfo.textSnippet,
+              description : item.volumeInfo.description,
               isbn10: item.volumeInfo.industryIdentifiers && item.volumeInfo.industryIdentifiers[0] 
               ? item.volumeInfo.industryIdentifiers[0].identifier : "Non disponible",
               isbn13: item.volumeInfo.industryIdentifiers && item.volumeInfo.industryIdentifiers[1] 
-              ? item.volumeInfo.industryIdentifiers[1].identifier 
-              : "Non disponible",              searchInfo : item.searchInfo,
-              imageLinks : item.imageLinks
+              ? item.volumeInfo.industryIdentifiers[1].identifier : "Non disponible",              
+              //searchInfo : item.searchInfo,
+              imageLinks : item.volumeInfo.imageLinks && item.volumeInfo.imageLinks.thumbnail ? item.volumeInfo.imageLinks.thumbnail : "no thumbnail"
             }
             return bookItem;
           })
@@ -142,22 +145,9 @@ searchBookFromAPI: async (req, res, next) => {
         const { title, authors, isbn, releaseDate, description, image } = req.body;
 
         
-        if (!title) {
-          return res.status(400).render("addBookToDB", { message: "Titre obligatoire" });
+        if (!title || !authors || !isbn) {
+            return res.status(400).render("addBookToDB", { message: "Titre, auteur, ISBN et couverture sont obligatoires." });
         }
-        if (!authors ) {
-          return res.status(400).render("addBookToDB", { message: "L'auteur est obligatoires." });
-        }
-        if (!isbn) {
-        return res.status(400).render("addBookToDB", { message: "ISBN obligatoire" });
-        }
-        if (!image) {
-          return res.status(400).render("addBookToDB", { message: "Image de couverture obligatoire" });
-        }
-
-        // if (!title || !authors || !isbn) {
-        //     return res.status(400).render("addBookToDB", { message: "Titre, auteur, ISBN et couverture sont obligatoires." });
-        // }
 
         // Supposons que authors contient le nom complet sous forme "Prénom Nom"
         const [firstname, ...lastnameArr] = authors.split(" ");

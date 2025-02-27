@@ -26,6 +26,10 @@ Book.init(
             type: DataTypes.INTEGER,
             allowNull: false,
         },
+        category_id: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+        },
         title: {
             type: DataTypes.TEXT,
             allowNull: false,
