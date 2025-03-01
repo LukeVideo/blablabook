@@ -2,7 +2,7 @@
 
 <%- include('./partials/header') %>
 <div class="index-section">
-  <% if (locals.reader) { %>
+<% if (locals.reader) { %>
     <%- include('./partials/nickname', {nickname: locals.reader.nickname}) %>
 <% } %>
 

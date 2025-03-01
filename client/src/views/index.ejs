@@ -9,6 +9,34 @@
 <% if (locals.message) { %>
   <p><%= locals.message %></p>
 <% } %>
+
+<% if (locals.latestBooks && locals.latestBooks.length > 0) { %>
+  <section class="latest-books-section">
+    <h2>Les 5 derniers livres ajoutés :</h2>
+    <ul>
+      <% locals.latestBooks.forEach((book) => { %>
+        <li>
+          <%- include('partials/bookThumbnail', {book: book}) %> 
+          <!-- Assurez-vous que partials/bookThumbnail existe et accepte un objet book -->
+        </li>
+      <% }); %> 
+    </ul>
+  </section>
+<% } %>
+
+<% if (locals.randomAuthors && locals.randomAuthors.length > 0) { %>
+  <section class="random-authors-section">
+    <h2>Auteurs aléatoires :</h2>
+    <ul>
+      <% locals.randomAuthors.forEach((author) => { %>
+        <li>
+          <%= author.firstname %><%= author.lastname %> <!-- Remplacer "name" par la propriété appropriée de ton modèle Author -->
+        </li>
+      <% }); %>
+    </ul>
+  </section>
+<% } %>
+
 <% if (locals.bookList) { %>
   <section class="booklist-section">
     
@@ -16,7 +44,6 @@
       
       <% locals.bookList.forEach((book) => { %>
         <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
-        
         
         <li><%- include('partials/bookThumbnail', {book: book}) %></li>
         
