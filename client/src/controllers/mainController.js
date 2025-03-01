@@ -17,15 +17,27 @@ const mainController = {
   
   async renderHomePage(req, res, next) {
     try {
-      const bookList = await Book.findAll();
-      // console.log(bookList)
+      
+      const Allbooks = await Book.findAll();
 
-      res.render('index', {bookList});
+      // Afficher les 5 derniers livres ajoutés :
+      const latestBooks = await Book.findAll({
+        order : [['createdAt', 'DESC']],
+        limit: 5
+      })
+      
+      // Afficher 3 auteurs aléatoires :
+      const randomAuthors = await Author.findAll({
+        order: Sequelize.literal('random()'), 
+        limit: 3
+    });
+
+      res.render('index', {Allbooks, latestBooks, randomAuthors});
       
     } catch (error) {
       console.error(error);
       error.status =404
-      error.message="Problem avec index"
+      error.message="Problème avec index"
       next(error)
     }
   },
