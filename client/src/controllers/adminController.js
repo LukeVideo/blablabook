@@ -53,87 +53,62 @@ searchBookFromAPI: async (req, res, next) => {
 }
 },
 
-  async getBookList (req, res){
-    try {
-    // console.log (req.body.searchFromAPI);
-      // récupérer les mots rentrés par l'utilisateur (req.body) en utilisant sanitize-html
-      
+async  getBookList(req, res) {
+  try {
+      // Nettoyage des entrées utilisateur avec sanitize-html
       const apiTitleString = sanitize(req.body.titleFromAPI);
       const apiAuthorString = sanitize(req.body.authorFromAPI);
       const apiIsbnString = sanitize(req.body.isbnFromAPI).replace(/-/g, '');
-
       const BASE_URL = 'https://www.googleapis.com/books/v1/volumes';
-      const apiData = {BASE_URL, apiTitleString, apiAuthorString, apiIsbnString, key:process.env.API_KEY};
-      
-      //Regex to format ISBN without hyphens --> Return boolean
-      function isValidIsbn (isbn){
-        const isbnRegex = /^\d{10}(\d{3})?$/;
-        return isbnRegex.test(isbn);  
-        }
-      function apiUrl (data){
-        // console.log(`ISBN = ${data.apiIsbnString}`);
-        if (data.apiIsbnString) {
-          try {
-            if (isValidIsbn(data.apiIsbnString)){
-              // Envoyer ces informations avec la clef API au modèle sur la route
-              // Si isbn chercher par isbn
-              
-              const url = `${BASE_URL}?q=+isbn:${apiIsbnString}&key=${process.env.API_KEY}`;
-              return url;
-            }
-            
-            throw new Error("message", 400)
-            
-          } catch (error) {
-            console.error(error);
-            return res.render('addBookToDB', {message:"ISBN non valide ou inconnu"});
-            
-          }
-        }
-              // si pas d'isbn recherche par titre et auteur
-        const url = `${BASE_URL}?q=+intitle:${apiTitleString}+inauthor:${apiAuthorString}&orderBy=relevance&maxResults=20&key=${process.env.API_KEY}`;
-        return url;
-        
-      };
-      
-      // const response = await axios.get(`${BASE_URL}?q=+${filter}:${apiQueryString}&orderBy=relevance&key=${process.env.API_KEY}`);
-      const response = await axios.get(apiUrl(apiData));
-      console.log(response.data.items[0])
-      if (response.data.items !== undefined){
-        const bookList = response.data.items.map(item => {
-            // console.log(item.volumeInfo.title, item.volumeInfo.authors);
-            // console.log(item.selfLink, item.volumeInfo, item.searchInfo, item.imageLinks);
-            const bookItem =  {
-              selfLink : item.selfLink,
-              title : item.volumeInfo.title,
-              authors : item.volumeInfo.authors,
-              releaseDate: item.volumeInfo.publishedDate,
-              // description: item.searchInfo.textSnippet,
-              description : item.volumeInfo.description,
-              isbn10: item.volumeInfo.industryIdentifiers && item.volumeInfo.industryIdentifiers[0] 
-              ? item.volumeInfo.industryIdentifiers[0].identifier : "Non disponible",
-              isbn13: item.volumeInfo.industryIdentifiers && item.volumeInfo.industryIdentifiers[1] 
-              ? item.volumeInfo.industryIdentifiers[1].identifier : "Non disponible",              
-              //searchInfo : item.searchInfo,
-              imageLinks : item.volumeInfo.imageLinks && item.volumeInfo.imageLinks.thumbnail ? item.volumeInfo.imageLinks.thumbnail : "no thumbnail"
-            }
-            return bookItem;
-          })
-        return res.render("addBookToDB", {bookList})
+
+      // Fonction pour vérifier la validité de l'ISBN
+      function isValidIsbn(isbn) {
+          return /^\d{10}(\d{3})?$/.test(isbn);
       }
-      
 
-      res.render("addBookToDB", {message:"Aucun resultat !"})
+      // Construction de l'URL de recherche
+      function getApiUrl() {
+          if (apiIsbnString) {
+              if (isValidIsbn(apiIsbnString)) {
+                  return `${BASE_URL}?q=isbn:${apiIsbnString}&key=${process.env.API_KEY}`;
+              }
+              return null; // Retourne null si l'ISBN est invalide
+          }
+          return `${BASE_URL}?q=intitle:${apiTitleString}+inauthor:${apiAuthorString}&orderBy=relevance&maxResults=20&key=${process.env.API_KEY}`;
+      }
 
+      const apiUrl = getApiUrl();
+      if (!apiUrl) {
+          return res.render('addBookToDB', { message: "ISBN non valide ou inconnu" });
+      }
 
-      // Renvoie les infos en JSON pour les utiliser
-  
-    } catch (error) {
-      console.error(error);
-      return res.render('error', { status: 500, message: error.message || "Erreur interne du serveur." });
+      // Requête API Google Books
+      const response = await axios.get(apiUrl);
+      const books = response.data.items || [];
+
+      if (books.length === 0) {
+          return res.render("addBookToDB", { message: "Aucun résultat trouvé !" });
+      }
+
+      // Extraction des informations essentielles des livres
+      const bookList = books.map(item => ({
+          selfLink: item.selfLink || "Non disponible",
+          title: item.volumeInfo?.title || "Titre inconnu",
+          authors: item.volumeInfo?.authors || ["Auteur inconnu"],
+          releaseDate: item.volumeInfo?.publishedDate || "Date inconnue",
+          description: item.volumeInfo?.description || "Pas de description",
+          isbn10: item.volumeInfo?.industryIdentifiers?.[0]?.identifier || "Non disponible",
+          isbn13: item.volumeInfo?.industryIdentifiers?.[1]?.identifier || "Non disponible",
+          imageLinks: item.volumeInfo?.imageLinks?.thumbnail || "no thumbnail"
+      }));
+
+      return res.render("addBookToDB", { bookList });
+
+  } catch (error) {
+      console.error("Erreur API Google Books :", error);
+      return res.render('error', { status: 500, message: "Erreur interne du serveur." });
   }
-
-  },
+},
 
 
   async addBookToDB(req, res) {
