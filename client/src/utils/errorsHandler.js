@@ -1,6 +1,6 @@
 export function notFound (req, res, next) {
     // Erreur 404
-    console.log("notfound")
+    console.log(`Route not found: ${req.originalUrl}`)
     const err = new Error('Not Found error handler');
     err.status = 404;
     return next(err);

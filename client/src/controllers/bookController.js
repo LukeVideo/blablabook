@@ -79,7 +79,7 @@ const bookController = {
     }
   },
 
-  async bookDetails (req, res){
+  async bookDetails (req, res,  next){
     
     try{
     const bookId = req.params.id;
@@ -89,11 +89,10 @@ const bookController = {
         {model: Author, as: 'author'},
         ]
     });
-
     if (!selectedBook){
       return res.status(404).send('Book not found');
     }
-    // console.log(`selectedBOOK !!!!!!!!! :${selectedBook}`) 
+    console.log('selectedBook', selectedBook);
     res.render('bookCard', {book: selectedBook});
     }catch(error){
       return next(error);

@@ -16,7 +16,7 @@ async renderAuthorPage (req, res){
         author_id: req.params.id
       }
     });
-    res.render('author', {author, books});
+    res.render('authorCard', {author, books});
   } catch (error) {
   }
 }
