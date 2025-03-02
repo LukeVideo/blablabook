@@ -34,9 +34,11 @@ const mainController = {
         order: sequelize.literal('random()'), 
         limit: 3
     });
-    
 
-      res.render('index', {Allbooks, latestBooks, randomAuthors});
+    // Récupération de l'ID des auteurs aléatoires pour gérer les liens dans l'EJS
+    const authorIds = randomAuthors.map(author => author.id);
+
+      res.render('index', {Allbooks, latestBooks, randomAuthors, authorIds});
       
     } catch (error) {
       console.error(error);
@@ -82,37 +84,37 @@ const mainController = {
       // Récupérer les données du formulaire de contact
       const { userEmail, userMessage } = req.body;
 
-      // Vérifier si les champs sont présents
-      if (!userEmail || !userMessage) {
-        return res.status(400).json({
-          message: 'Email et message sont nécessaires.'
-        });
-      }
-
-      // Simuler l'envoi de l'email en logguant les informations
-      const mailOptions = {
-        from: userEmail,  // Utilisation de userEmail du formulaire
-        to: 'destinataire@example.com',
-        subject: 'Message de Contact',
-        text: userMessage,  // Utilisation de userMessage du formulaire
-      };
-
-      // Log de la simulation d'envoi d'email
-      console.log('Simulation d\'envoi d\'email avec les informations suivantes :');
-      console.log('De:', mailOptions.from);
-      console.log('À:', mailOptions.to);
-      console.log('Sujet:', mailOptions.subject);
-      console.log('Message:', mailOptions.text);
-
-      return res.status(200).json({
-        message: 'Email simulé envoyé avec succès. Vérifie les logs.',
+    // Vérifier si les champs sont présents
+    if (!userEmail || !userMessage) {
+      return res.status(400).json({
+        message: 'Email et message sont nécessaires.'
       });
-
-    } catch (error) {
-      console.error('Erreur lors de la simulation de l\'envoi du message:', error);
-      return next(error);
     }
-  },
+
+    // Simuler l'envoi de l'email en logguant les informations
+    const mailOptions = {
+      from: userEmail,  // Utilisation de userEmail du formulaire
+      to: 'destinataire@example.com',
+      subject: 'Message de Contact',
+      text: userMessage,  // Utilisation de userMessage du formulaire
+    };
+
+    // Log de la simulation d'envoi d'email
+    console.log('Simulation d\'envoi d\'email avec les informations suivantes :');
+    console.log('De:', mailOptions.from);
+    console.log('À:', mailOptions.to);
+    console.log('Sujet:', mailOptions.subject);
+    console.log('Message:', mailOptions.text);
+
+    return res.status(200).json({
+      message: 'Email simulé envoyé avec succès. Vérifie les logs.',
+    });
+
+  } catch (error) {
+    console.error('Erreur lors de la simulation de l\'envoi du message:', error);
+    return next(error);
+  }
+},
   
 }
 

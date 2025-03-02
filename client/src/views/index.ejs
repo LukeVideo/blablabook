@@ -15,7 +15,6 @@
       <% locals.latestBooks.forEach((book) => { %>
         <li>
           <%- include('partials/bookThumbnail', {book: book}) %> 
-          <!-- Assurez-vous que partials/bookThumbnail existe et accepte un objet book -->
         </li>
       <% }); %> 
     </ul>
@@ -28,7 +27,7 @@
     <ul>
       <% locals.randomAuthors.forEach((author) => { %>
         <li>
-          <%= author.firstname %><%= author.lastname %> <!-- Remplacer "name" par la propriété appropriée de ton modèle Author -->
+          <a href="/author/<%= author.id %>"><%= author.firstname %> <%= author.lastname %></a>
         </li>
       <% }); %>
     </ul>
