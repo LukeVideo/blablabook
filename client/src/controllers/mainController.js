@@ -81,41 +81,39 @@ const mainController = {
     try {
       // Récupérer les données du formulaire de contact
       const { userEmail, userMessage } = req.body;
-  
-      // On crée un transporteur Nodemailer
-      const transporter = nodemailer.createTransport({
-        // Il faut préciser le service utilisé : ici Gmail
-        service: 'gmail', 
-        auth: {
-          // il faut noter les variables d'environnement pour permettre la connexion à la boite mail reliéee au serveur
-          user: process.env.MAIL_USER,
-          pass: process.env.MAIL_PASSWORD,
-        },
-      });
-  
-      // Définir les options de l'email
+
+      // Vérifier si les champs sont présents
+      if (!userEmail || !userMessage) {
+        return res.status(400).json({
+          message: 'Email et message sont nécessaires.'
+        });
+      }
+
+      // Simuler l'envoi de l'email en logguant les informations
       const mailOptions = {
-        from: userEmail,
-        to: 'admin@example.com',
-        subject: 'Message de contact',  
-        text: userMessage, 
+        from: userEmail,  // Utilisation de userEmail du formulaire
+        to: 'destinataire@example.com',
+        subject: 'Message de Contact',
+        text: userMessage,  // Utilisation de userMessage du formulaire
       };
-  
-      // Simulation de l'envoi de l'email
-      const info = await transporter.sendMail(mailOptions);
-  
-      // Log de l'email envoyé
-      console.log('Email envoyé:', info.response);
-  
-      // Répondre à l'utilisateur après l'envoi du message
-      const message = 'Message envoyé ! Nous vous répondrons au plus vite !';
-      res.render('contact', { message });
-  
+
+      // Log de la simulation d'envoi d'email
+      console.log('Simulation d\'envoi d\'email avec les informations suivantes :');
+      console.log('De:', mailOptions.from);
+      console.log('À:', mailOptions.to);
+      console.log('Sujet:', mailOptions.subject);
+      console.log('Message:', mailOptions.text);
+
+      return res.status(200).json({
+        message: 'Email simulé envoyé avec succès. Vérifie les logs.',
+      });
+
     } catch (error) {
-      console.error('Erreur lors de l\'envoi du message:', error);
-      return next(error);  // Propager l'erreur à l'intercepteur d'erreurs (middleware)
+      console.error('Erreur lors de la simulation de l\'envoi du message:', error);
+      return next(error);
     }
-},
+  },
+  
 }
 
 export default mainController;

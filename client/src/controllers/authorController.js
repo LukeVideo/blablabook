@@ -18,7 +18,7 @@ async renderAuthorPage (req, res){
     });
     res.render('author', {author, books});
   } catch (error) {
-}
+  }
 }
 }
 
