@@ -11,7 +11,7 @@ const sessionController = {
 async renderLoginPage(req, res) {
 
   try {
-    res.render("login");
+    res.render("loginOrRegister");
 
   } catch (error) {
     console.error(error);
@@ -31,7 +31,7 @@ async handleLogin(req, res) {
     const reader = await  Reader.findOne({where:{email: `${email}`}});
     // console.log(reader)
     if(!reader){
-    res.render('login', {message:"identifiants incorrects"})
+    res.render('loginOrRegister', {message:"identifiants incorrects"})
     }
       
     // compare the hashed password in input with hashedPassword in database
@@ -39,7 +39,7 @@ async handleLogin(req, res) {
     const  loginSuccess =  await blablapass.verifyPassword(reader.reader_password, password)
     // console.log(`loginSuccess :${loginSuccess}`);
     if (!loginSuccess) {
-      res.render('login', {message:"identifiants incorrects"})
+      res.render('loginOrRegister', {message:"identifiants incorrects"})
       // console.log ('mot de passe incorrect')
     }
     // Delete the password used to log in the session
@@ -57,7 +57,7 @@ async handleLogin(req, res) {
     // console.log(`req.session.reader :${JSON.stringify(req.session.reader)}`);
 
     // Envoie message (login successfull) + redirection homepage
-    res.render('login', {message: `Welcome to Blablabook ${req.session.reader.nickname}`, reader:`${req.session.reader}`})
+    res.render('loginOrRegister', {message: `Welcome to Blablabook ${req.session.reader.nickname}`, reader:`${req.session.reader}`})
     
 
   } catch (error) {

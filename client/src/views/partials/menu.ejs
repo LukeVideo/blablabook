@@ -1,16 +1,17 @@
-  <section class="header-nav second-background">
+<section class="header-nav second-background">
+  <div class="nav-bookmark third-background"><a href="/index">Accueil</a></div>
 
-
-    <div class="nav-bookmark third-background"><a href="/index">Accueil</a></div>
-
-
-    <!--! Mettre une conditionnelle selon la session (si user  connecté = pas de login ni de register, juste un  logout) -->
-
-    <div class="nav-bookmark third-background"><a href="/login">login</a></div>
-    <div class="nav-bookmark third-background"><a href="/register">register</a></div>
-    <div class="nav-bookmark third-background"><a href="/search">search</a></div>
-    <div class="nav-bookmark third-background"><a href="/dashboard">dashboard</a></div>
-    <div class="nav-bookmark third-background"><a href="/bookshelf">Bookshelf</a> </div>
-
-  </section>
-
+  
+  <div class="nav-bookmark third-background"><a href="/search">Search</a></div>
+  <div class="nav-bookmark third-background"><a href="/dashboard">Dashboard</a></div>
+  
+  <div class="nav-bookmark third-background"><a href="/bookshelf">Bookshelf</a></div>
+  <!-- Si l'utilisateur n'est pas connecté -->
+  <% if (!locals.reader) { %>
+    <div class="nav-bookmark third-background"><a href="/login"> Login / Register </a></div>
+    <!-- <div class="nav-bookmark third-background"><a href="/register">Register</a></div> -->
+  <% } else { %>
+    <!-- Si l'utilisateur est connecté -->
+    <div class="nav-bookmark third-background"><a href="/logout">Déconnexion</a></div>
+  <% } %>
+</section>
