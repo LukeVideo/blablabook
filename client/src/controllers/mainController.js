@@ -1,5 +1,7 @@
 import sanitize from 'sanitize-html';
 import {Op} from 'sequelize';
+import { Sequelize } from 'sequelize'; // Pour récupérer l'objet Sequelize
+import sequelize from '../../database/connexion_db.js';
 import nodemailer from 'nodemailer';
 import {Author, Book} from '../models/associations.js';
 
@@ -29,9 +31,10 @@ const mainController = {
       
       // Afficher 3 auteurs aléatoires :
       const randomAuthors = await Author.findAll({
-        order: Sequelize.literal('random()'), 
+        order: sequelize.literal('random()'), 
         limit: 3
     });
+    
 
       res.render('index', {Allbooks, latestBooks, randomAuthors});
       
@@ -62,7 +65,7 @@ const mainController = {
     }
   },
 
-  async renderContactPage(req, res) {
+  async contactForm(req, res) {
     try {
       res.render('contact');
     } catch (error) {

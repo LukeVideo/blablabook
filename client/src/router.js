@@ -17,7 +17,6 @@ const router = Router();
 router.get("/", mainController.redirectHomePage);
 router.get("/index", mainController.renderHomePage);
 router.get("/cgu", mainController.renderCGU);
-router.get("/contact", mainController.renderContactPage);
 router.get("/mentions", mainController.renderMentionsPage);
 
 // Envoi de mail aux admins
