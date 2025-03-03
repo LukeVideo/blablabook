@@ -1,32 +1,38 @@
-import Role from '../models/Role.js';
+import {Role} from '../models/associations.js';
 
 const isAdmin = async (req, res, next) => {
-    // On a enchainé les middlewares, si on est la on a un user
-    // On va recupérer son rôle
     try {
-        const reader = req.session.reader
-        // if (!reader){
-        //     console.log('NO Reader !')
-        //     req.status = 404;
-        //     return next(new Error('la page n\'existe pas'));
-        // }
-        
-        const readerRole =  await Role.findOne({ where: { id: reader.reader_role_id } })
-        
-        
-        console.log(`readerRole.role_name : ${readerRole.role_name}`)
+        const reader = req.session.reader;
 
-        if (readerRole.role_name !== 'admin') {
-            console.log('NOT ADMIN Reader !');
-
-            throw new Error('notadmin');
-
+        // Vérification que l'utilisateur est bien authentifié
+        if (!reader) {
+            console.log('NO Reader !');
+            return res.status(404).send('User not found');
         }
 
+        // Récupérer le rôle de l'utilisateur
+        const readerRole = await Role.findOne({ where: { id: reader.reader_role_id } });
+
+        if (!readerRole) {
+            console.log('Rôle non trouvé');
+            return res.status(404).send('Role not found');
+        }
+
+        console.log(`readerRole.role_name : ${readerRole.role_name}`);
+
+        // On marque l'utilisateur comme admin ou non, mais sans redirection
+        if (readerRole.role_name === 'admin') {
+            console.log("go admin go !")
+            req.isAdmin = true;
+        } else {
+            req.isAdmin = false;
+        }
+
+        // Passe au middleware suivant
         return next();
-    }catch(e){
-        e.status = 404
-        return next(e);
+    } catch (error) {
+        error.status = 500;
+        return next(error);
     }
 };
 

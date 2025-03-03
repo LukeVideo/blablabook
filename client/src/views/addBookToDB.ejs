@@ -3,9 +3,9 @@
   <%- include('./partials/header') %>
   
   <% if (locals.reader) { %>
-    <h2>Bonjour <%= locals.reader.nickname %></h2>
+    <h2> Recherche d'un livre sur l'API Google Books</h2>
     <section>
-        <form action="/api/bookList" method="POST" type="submit" name="searchFromAPI">
+        <form action="/api/getBookList" method="POST" type="submit" name="searchFromAPI">
             <label for="titleFromAPI">Titre :</label>
             <input type="text" id="titleFromAPI" name="titleFromAPI" placeholder="Titre">
             <label for="authorFromAPI">Auteur :</label>
@@ -13,15 +13,40 @@
             <label for="isbnFromAPI">ISBN :</label>
             <input type="text" id="isbnFromAPI" name="isbnFromAPI" placeholder="ISBN">
             <button type="submit">Rechercher</button>
+          </form>
     
       <% if (locals.bookList) { %>
         
         <ul>
           <% locals.bookList.forEach((book) => { %>
-              <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
-              <li> Auteur: <%= book.authors ? book.authors.join(', ')  : 'Inconnu' %> <br>
-                  Titre: <%= book.title ? book.title : 'Non renseigné' %></li>
-          <% }); %> 
+            <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
+            <li>
+              <% if (book.imageLinks) { %>
+                <img src="<%= book.imageLinks %>" alt="">
+                <% }else{ %>
+                <p>'image non disponible'</p>
+              <% } %>
+            
+              Titre: <%= book.title ? book.title : 'Non renseigné' %><br>
+              Auteur: <%= book.authors ? book.authors.join(', ')  : 'Inconnu' %> <br>
+              ISBN-10: <%= book.isbn10 ? book.isbn10 : 'Non renseigné' %><br>
+              ISBN-13: <%= book.isbn13 ? book.isbn13 : 'Non renseigné' %><br>
+              Description <%= book.description ? book.description : 'Non renseigné' %><br>
+            
+            <!-- Formulaire pour ajouter le livre à la base de données -->
+            <form action="/api/addBookToDB" method="POST">
+              <input type="hidden" name="title" value="<%= book.title %>">
+              <input type="hidden" name="authors" value="<%= book.authors ? book.authors.join(', ') : 'Inconnu' %>">
+              <input type="hidden" name="isbn" value="<%= book.isbn10 ? book.isbn10 : book.isbn13 %>">
+              <input type="hidden" name="releaseDate" value="<%= book.releaseDate %>">
+              <input type="hidden" name="description" value="<%= book.description %>">
+              <input type="hidden" name="image" value="<%= book.imageLinks ? book.imageLinks.thumbnail : 'https://i.scdn.co/image/ab67616d0000b273908a375e3e4976eb7e94c94d' %>">
+              <input type="hidden" name="link" value="<%= book.selfLink %>">
+              
+              <button type="submit">Ajouter à la base de données</button>
+            </form>
+            </li>
+            <% }); %>
         </ul>
         
 

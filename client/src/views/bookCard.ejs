@@ -2,17 +2,17 @@
 
 <%- include('./partials/header') %>
 <div class="index-section">
-  <% if (locals.reader) { %>
+<% if (locals.reader) { %>
     <%- include('./partials/nickname', {nickname: locals.reader.nickname}) %>
 <% } %>
 
 
 <article class="book-detail second-background">
-    <img class="book-card-image" src="./images/photo.png" alt="">
+    <img class="book-card-image" src="/images/photo.png" alt="">
 
     <header class="book-card-header">
         <h2><%= book.title %></h2>
-        <h3><%= book.authors %></h3>
+        <h3>Auteur(s): <a href="/author/<%= book.author.id %>"><%= book.author.firstname %> <%= book.author.lastname %></a></h3>
 
 
         <% if (!locals.displayRemoveButton) { %>
@@ -23,9 +23,7 @@
                     Ajouter à ma Bookshelf</button>
             </form>
                 
-        <% } %>
-
-        <% if (locals.displayRemoveButton) { %>
+        <% }else{ %>
 
             <form action="/deleteBookFromBookshelf" method="POST">
                 <input type="hidden" name="book_id" value="<%= book.id %>">

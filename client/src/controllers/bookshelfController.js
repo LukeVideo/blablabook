@@ -27,8 +27,8 @@ const bookshelfController = {
         //         association: 'books', include : 'author'
         //     }
         // })
-        console.log('books in bookshelf :', JSON.stringify(bookshelf, null, 2))
-        console.log('reader',reader);
+        // console.log('books in bookshelf :', JSON.stringify(bookshelf, null, 2))
+        // console.log('reader',reader);
         // Recherche la bookshelf du Reader via son id en associant les livres contenus dedans
         
         // On renvoie le reader et la bookshelf au template
@@ -43,23 +43,23 @@ const bookshelfController = {
     },
     // Se déclenche lorsqu'on appuie sur le bouton "ajouter à ma bookshelf" sur la page de présentation du livre
     async addBookToBookshelf (req, res) {
-        console.log("Appel de bookshelfController.addBookToBookshelf");
-        console.log(req.body);
+        // console.log("Appel de bookshelfController.addBookToBookshelf");
+        // console.log(req.body);
         try {
             // On récupère l'id de reader dans la session + id du livre à ajouter
             const reader = req.session.reader.id;
-            console.log(`Id du reader qui demande l'ajout ${reader}`);
+            //console.log(`Id du reader qui demande l'ajout ${reader}`);
             const book = req.body.book_id;
-            console.log(`Id du livre à ajouter ${book}`);
+            //console.log(`Id du livre à ajouter ${book}`);
             const bookToAdd = await Book.findByPk(book);
 
             // On récupère l'id de la bookshelf du reader
             const myBookshelf = await Bookshelf.findOne({where:{reader_id: `${reader}`}});  
-            console.log('bookshelf id', myBookshelf?.id);
+            //console.log('bookshelf id', myBookshelf?.id);
 
             // On vérifie que le livre n'est pas déjà dans la bookshelf en comparant les id de bookToAdd et des livres dans MyBookshelf
             const alreadyInBookshelf = await BookInBookshelf.findOne({where:{book_id: `${bookToAdd.id}`, bookshelf_id: `${myBookshelf.id}`}});
-            console.log('already in bookshelf :', JSON.stringify(alreadyInBookshelf, null, 2))
+            //console.log('already in bookshelf :', JSON.stringify(alreadyInBookshelf, null, 2))
             // Si le livre est deja dans la bookshelf, on affiche un message d'erreur
             if (alreadyInBookshelf) {
                 //* revoir la route du render
@@ -79,7 +79,7 @@ const bookshelfController = {
                 created_at: new Date(),
                 updated_at: new Date()
             });
-            console.log('record created : ', JSON.stringify(recordCreated, null, 2))
+            //console.log('record created : ', JSON.stringify(recordCreated, null, 2))
             //! Ajouter message confirmation de l'ajout dans la bookshelf
             res.redirect('/bookshelf');
 
@@ -95,13 +95,13 @@ const bookshelfController = {
         try {
             // Récupérer l'id du lecteur et du livre à supprimer
             const reader = req.session.reader.id;
-            console.log(`Id du reader qui demande la suppression ${reader}`);
+            //console.log(`Id du reader qui demande la suppression ${reader}`);
             const book = req.body.book_id;
-            console.log(`Id du livre à supprimer ${book}`);
+            //console.log(`Id du livre à supprimer ${book}`);
     
             // Trouver la bookshelf du reader
             const myBookshelf = await Bookshelf.findOne({ where: { reader_id: `${reader}` } });  
-            console.log('bookshelf id', myBookshelf?.id);
+            //console.log('bookshelf id', myBookshelf?.id);
     
             // Vérifier si le livre est bien dans la bookshelf
             const bookInBookshelf = await BookInBookshelf.findOne({
@@ -117,7 +117,7 @@ const bookshelfController = {
                 where: { book_id: `${book}`, bookshelf_id: `${myBookshelf.id}` }
             });
     
-            console.log(`Livre ID ${book} supprimé de la bookshelf ID ${myBookshelf.id}`);
+            //console.log(`Livre ID ${book} supprimé de la bookshelf ID ${myBookshelf.id}`);
     
             //! Ajouter un message de confirmation
             res.redirect('/bookshelf');

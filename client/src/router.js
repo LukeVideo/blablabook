@@ -1,9 +1,9 @@
 import { Router } from 'express';
+import mainController from './controllers/mainController.js';
 import adminController from './controllers/adminController.js';
 import authorController from './controllers/authorController.js';
 import bookController from "./controllers/bookController.js"
 import bookshelfController from './controllers/bookshelfController.js';
-import mainController from './controllers/mainController.js';
 import registerController from './controllers/registerController.js';
 import sessionController from './controllers/sessionController.js';
 import authValidator from './utils/authentificator.js';
@@ -17,9 +17,11 @@ const router = Router();
 router.get("/", mainController.redirectHomePage);
 router.get("/index", mainController.renderHomePage);
 router.get("/cgu", mainController.renderCGU);
-router.get("/contact", mainController.renderContactPage);
 router.get("/mentions", mainController.renderMentionsPage);
-router.get("/sendMailToAdmin", mainController.sendMailToAdmin);
+
+// Envoi de mail aux admins
+router.get("/contact", mainController.contactForm);
+router.post("/contact", mainController.sendContactMail);
 
 router.get("/register", registerController.renderRegisterPage);
 router.post("/register", registerController.handleRegister);
@@ -30,8 +32,8 @@ router.post("/login", sessionController.handleLogin);
 
 router.get("/dashboard", [authValidator, isAdmin], adminController.dashboard);
 
-router.get("/api/bookList", [authValidator, isAdmin], adminController.searchBook);
-router.post("/api/bookList", [authValidator, isAdmin], adminController.getBookList);
+router.get("/api/search", [authValidator, isAdmin], adminController.searchBookFromAPI);
+router.post("/api/getBookList", [authValidator, isAdmin], adminController.getBookList);
 
 router.post("/addBookToBookshelf", bookshelfController.addBookToBookshelf);
 router.post("/deleteBookFromBookshelf", bookshelfController.deleteBookFromBookshelf);
@@ -47,6 +49,8 @@ router.get("/bookshelf", [authValidator], bookshelfController.displayBookshelf);
 
 router.get("/author/:id", authorController.renderAuthorPage);
 
+
+// router.post("/test", mainController.test);
 
 
 
