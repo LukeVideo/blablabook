@@ -1,21 +1,19 @@
 <%- include('./partials/head') %>
-
-
-<body>
     <%- include('./partials/header') %>
 
     <main>
         <h1>Formulaire de contact</h1>
 
         <section>
-            <p>Une question ou une suggestion ? Ecrivez votre Blabla ici et nous vous répondrons avec le nôtre rapidement !</p>
+            <p>Une question, une remarque, un problème ou une suggestion ? </p>
+            <p>Ecrivez votre Blabla ici et nous vous répondrons avec le nôtre rapidement !</p>
 
             <form action="/contact" method="POST">
                 <label for="email">Votre adresse e-mail :</label>
-                <input type="email" id="email" name="email" required placeholder="Adresse email">
+                <input type="email" id="email" name="userEmail" required placeholder="Adresse email">
 
                 <label for="message">Votre message :</label>
-                <textarea id="message" name="contactMessage" required placeholder="Écrivez votre message ici..."></textarea>
+                <textarea id="message" name="userMessage" required placeholder="Écrivez votre message ici..."></textarea>
 
                 <button action= "/sendMailToAdmin" type="submit">Envoyer</button>
             </form>

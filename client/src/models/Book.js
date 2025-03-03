@@ -1,7 +1,8 @@
 
-import { Model, DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import sequelize from '../../database/connexion_db.js';
 import Author from './Author.js';
+import { timeStamp } from 'console';
 
 
 class Book extends Model {}
@@ -20,16 +21,20 @@ Book.init(
             type: DataTypes.TEXT,
             allowNull: false,
             unique: true,
-          },
+        },
         
         author_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
-          },
+        },
+        category_id: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+        },
         title: {
             type: DataTypes.TEXT,
             allowNull: false,
-          },
+        },
         release_date: {
             type: DataTypes.DATE,
             allowNull: false,
@@ -43,16 +48,18 @@ Book.init(
             type: DataTypes.TEXT,
             allowNull: false,
         },
-        created_at: {
+        createdAt: {
             type: DataTypes.DATE,
             allowNull: false,
             defaultValue: DataTypes.NOW,
+            field: "created_at",
 
         },
-        updated_at: {
+        updatedAt: {
             type: DataTypes.DATE,
             allowNull: false,
             defaultValue: DataTypes.NOW,
+            field : "updated_at",
 
         },
     },
@@ -62,20 +69,20 @@ Book.init(
         sequelize,
         modelName : 'Book',
         tableName: 'book',
+        timeStamps: true,
+        underscored: true,
         hooks: {
             beforeCreate: (book, options) => {
-                reader.updated_at = new Date();
+                book.updated_at = new Date();
                 
             },
             beforeUpdate: (book, options) => {
-                reader.updated_at = new Date();
+                book.updated_at = new Date();
             },
         },
         
     }
 );
 
-// Define the association with ...
-Book.belongsTo(Author, { foreignKey: 'author_id' });
 
 export default Book;

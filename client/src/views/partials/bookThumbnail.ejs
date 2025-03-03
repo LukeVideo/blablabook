@@ -1,9 +1,34 @@
-<article class="book-card">
-    <!-- <img class="book-card-image" src="./images/photo.png" alt=""> -->
+
+<article class="book-card second-background">
+    <img class="book-card-image" src="./images/photo.png" alt="">
+
     <header class="book-card-header">
         <h2><%= book.title %></h2>
-        <h2><%= book.authors %></h2>
+        <h3><%= book.authors %></h3>
+
+
+        <% if (!locals.displayRemoveButton) { %>
+    
+            <form action="/addBookToBookshelf" method="POST">
+                <input type="hidden" name="book_id" value="<%= book.id %>">
+                <button  type="submit" alt="Ajouter <%= book.title %> à ma Bookshelf">
+                    Ajouter à ma Bookshelf</button>
+            </form>
+                
+        <% } %>
+
+        <% if (locals.displayRemoveButton) { %>
+
+            <form action="/deleteBookFromBookshelf" method="POST">
+                <input type="hidden" name="book_id" value="<%= book.id %>">
+                <button  type="submit" alt="Retirer <%= book.title %> de ma Bookshelf">
+                    Retirer de ma Bookshelf</button>
+            </form>
+                
+        <% } %>
 
     </header>
-    <p class="book-card-description"><% book.book_description %></p>
+    <p class="book-card-description"><%= book.book_description %></p>
+    <a href="/book/<%= book.id %>"><button>Détails</button></a>
 </article>
+

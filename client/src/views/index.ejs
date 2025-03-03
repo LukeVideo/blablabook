@@ -1,17 +1,54 @@
-  <%- include('./partials/head') %>
+<%- include('./partials/head') %>
+
+<%- include('./partials/header') %>
+<div class="index-section">
 
 
+<% if (locals.message) { %>
+  <p><%= locals.message %></p>
+<% } %>
 
-  <%- include('./partials/header') %>
-  
-  <% if (locals.reader) { %>
-    <h2><%= locals.reader.nickname %></h2>
-    <p>Voulez-vous vous déconnecter ? </p>
-    <form action="/logout" method="POST" type="submit" name="logout"><button>déconnexion</button>
-<% } %>  
-  
-  <% if (locals.message) { %>
-    <p><%= locals.message %></p>
-  <% } %>
-  
-  <%- include('./partials/footer') %>
+<% if (locals.latestBooks && locals.latestBooks.length > 0) { %>
+  <section class="latest-books-section">
+    <h2>Les 5 derniers livres ajoutés :</h2>
+    <ul>
+      <% locals.latestBooks.forEach((book) => { %>
+        <li>
+          <%- include('partials/bookThumbnail', {book: book}) %> 
+        </li>
+      <% }); %> 
+    </ul>
+  </section>
+<% } %>
+
+<% if (locals.randomAuthors && locals.randomAuthors.length > 0) { %>
+  <section class="random-authors-section">
+    <h2>Auteurs aléatoires :</h2>
+    <ul>
+      <% locals.randomAuthors.forEach((author) => { %>
+        <li>
+          <a href="/author/<%= author.id %>"><%= author.firstname %> <%= author.lastname %></a>
+        </li>
+      <% }); %>
+    </ul>
+  </section>
+<% } %>
+
+<% if (locals.bookList) { %>
+  <section class="booklist-section">
+    
+    <ul>
+      
+      <% locals.bookList.forEach((book) => { %>
+        <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
+        
+        <li><%- include('partials/bookThumbnail', {book: book}) %></li>
+        
+      <% }); %> 
+    </ul>
+      
+  </section>
+<% } %>
+</div>
+
+<%- include('./partials/footer') %>

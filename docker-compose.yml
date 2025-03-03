@@ -23,7 +23,7 @@ services:
         - SECRET_KEY=${SECRET_KEY}
         - DEV_ENV= ${DEV_ENV}
         - API_KEY= ${API_KEY}
- 
+
       depends_on:
         - db
       ports:

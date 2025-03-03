@@ -35,13 +35,17 @@ CREATE TABLE author(
 
 CREATE TABLE book_status(
   id SERIAL PRIMARY KEY,
-  book_status TEXT NOT NULL
+  book_status TEXT NOT NULL DEFAULT 'à lire',
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE category(
   id SERIAL PRIMARY KEY,
   label TEXT NOT NULL,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+
 );
 
 
@@ -139,9 +143,9 @@ INSERT INTO category (label) VALUES
 
 INSERT INTO book_status (book_status) VALUES 
 ('à lire'),
-('à acheter'),
+('en cours'),
 ('lu'),
-('en cours');
+('à acheter');
 
 INSERT INTO reader_role (role_name) VALUES
 ('admin'),
@@ -160,7 +164,17 @@ INSERT INTO author (firstname, lastname, biography, created_at, updated_at) VALU
 ('Michel', 'Onfray', 'Michel Onfray est un philosophe français contemporain, connu pour ses ouvrages sur l’athéisme et la pensée critique.', NOW(), NOW()),
 ('Bernard', 'Werber', 'Bernard Werber est un écrivain français de science-fiction, connu pour sa trilogie des "Fourmis".', NOW(), NOW());
 
-
+INSERT INTO book (isbn, title, author_id, category_id, release_date, book_description, book_cover) VALUES 
+('9780261102385', 'Le Seigneur des Anneaux', 1, 1, '1954-07-29 00:00:00', 'Une quête épique pour détruire un anneau maléfique.','https://content.rozetka.com.ua/goods/images/big/424256502.jpg'),
+('9782253006329', 'Vingt mille lieues sous les mers', 2, 2, '1869-06-20 00:00:00', 'Les aventures du capitaine Nemo et du sous-marin Nautilus.', 'https://example.com/verne.jpg'),
+('9782070408500', 'Les Misérables', 3, 5, '1862-04-03 00:00:00', 'L’histoire de Jean Valjean et son combat contre l’injustice.', 'https://example.com/hugo.jpg'),
+('9782253009450', 'Le Fantôme de l’Opéra', 4, 11, '1910-09-23 00:00:00', 'Un mystérieux fantôme hante l’Opéra de Paris.', 'https://example.com/leroux.jpg'),
+('9782070323513', 'Le Deuxième Sexe', 5, 10, '1949-05-01 00:00:00', 'Un essai féministe majeur du XXe siècle.', 'https://example.com/beauvoir.jpg'),
+('9782070360020', 'L’Étranger', 6, 14, '1942-06-19 00:00:00', 'Un roman existentialiste sur l’absurdité de la vie.', 'https://example.com/camus.jpg'),
+('9782253073498', 'Stupeur et tremblements', 7, 3, '1999-08-20 00:00:00', 'Un roman inspiré par l’expérience japonaise de l’auteure.', 'https://example.com/nothomb.jpg'),
+('9782253167611', 'Arsène Lupin, gentleman cambrioleur', 8, 12, '1907-06-10 00:00:00', 'Les aventures du célèbre voleur au grand cœur.', 'https://example.com/leblanc.jpg'),
+('9782757877923', 'Traité d’athéologie', 9, 13, '2005-09-01 00:00:00', 'Un essai sur l’athéisme et la critique des religions.', 'https://example.com/onfray.jpg'),
+('9782221126380', 'Les Fourmis', 10, 14, '1991-09-01 00:00:00', 'Une épopée fascinante sur le monde des fourmis.', 'https://example.com/werber.jpg');
 
 INSERT INTO reader (firstname, lastname, nickname, email, reader_password, reader_role_id)
 

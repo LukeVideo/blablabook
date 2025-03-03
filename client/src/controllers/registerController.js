@@ -71,7 +71,7 @@ const registerController = {
       }
       // verify the nickname is not already registered in database
       const nickNameIsUnavailable = await Reader.findOne({where:{nickname: `${nicknameToVerify}`}});
-      console.log(nickNameIsUnavailable)
+      // console.log(nickNameIsUnavailable)
       if (nickNameIsUnavailable){
         res.render('register', {
           error: 'Ce nom d\'utilisateur n\'est pas disponible !',
@@ -82,8 +82,8 @@ const registerController = {
       console.log (`${hashedPassword} is registered in database`)
         
       const reader_default_role  = await  Role.findOne({where:{role_name: 'reader'}});
-      console.log("reader_default_role")
-      console.log(reader_default_role.id)
+      // console.log("reader_default_role")
+      // console.log(reader_default_role.id)
       // // sauvegarder Reader
       await Reader.create({
         firstname: firstnameToVerify,
