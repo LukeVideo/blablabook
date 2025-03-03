@@ -4,8 +4,8 @@
 <div class="index-section">
 
 
-<% if (locals.message) { %>
-  <p><%= locals.message %></p>
+  <% if (locals.message) { %>
+    <p><%= locals.message %></p>
 <% } %>
 
 <% if (locals.latestBooks && locals.latestBooks.length > 0) { %>
@@ -47,8 +47,9 @@
       <% }); %> 
     </ul>
       
+    <% } %>
+    
+    
   </section>
-<% } %>
 </div>
-
 <%- include('./partials/footer') %>

@@ -63,6 +63,9 @@ header {
     margin: 0 0.2rem 0 0.2rem;
     box-shadow: 0px 0px 5px rgba(47, 46, 73, 0.542);
 }
+.nav-bookmark-disabled{
+    margin-top: 3rem;
+}
 
 .nav-bookmark a {
     text-decoration: none;
