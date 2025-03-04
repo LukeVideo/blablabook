@@ -1,7 +1,7 @@
 // IMPORTER ICI
 import sanitize from 'sanitize-html';
 import {Op} from 'sequelize';
-import {Author, Book} from '../models/associations.js';
+import {Author, Book, Reader, BookHasReview} from '../models/associations.js';
 import authValidator from '../utils/authentificator.js';
 
 const bookController = {
@@ -86,19 +86,40 @@ const bookController = {
     const selectedBook = await Book.findByPk(bookId, {
       where: {id: bookId},
       include:[
-        {model: Author, as: 'author'},
-        ]
+        {model: 
+          Author, as: 'author'
+        },
+        {model:
+          BookHasReview, as: 'BookHasReview',
+          include:[{model:Reader, as: 'reader'}]
+        }  
+      ]
     });
+
     if (!selectedBook){
       return res.status(404).send('Book not found');
     }
-    console.log('selectedBook', selectedBook);
+    console.log('Livre sélectionné pour affichage détaillé  :', selectedBook);
     res.render('bookCard', {book: selectedBook});
     }catch(error){
       return next(error);
   }
   
 },
+
+  async handleReview(req, res, next) {
+    try {
+      const bookId = req.params.id;
+      const book = await Book.findByPk(bookId);
+  }catch(error){
+    return next(error);
+  }
+    if (!book) {
+      return res.status(404).send('Book not found');
+    }
+    res.render('addReview', {book});
+  },
+
 }
 
 

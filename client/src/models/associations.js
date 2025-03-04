@@ -11,7 +11,10 @@ import BookStatus from './bookStatus.js';
 Reader.hasOne(Bookshelf, { foreignKey: 'reader_id' });
 Bookshelf.belongsTo(Reader, { foreignKey: 'reader_id' });
 
-Book.hasMany(BookHasReview, { foreignKey: 'book_id' });
+Reader.hasMany(BookHasReview, { foreignKey: 'reader_id', as: 'review' });
+BookHasReview.belongsTo(Reader, { foreignKey: 'reader_id', as: 'reader' });
+
+Book.hasMany(BookHasReview, { foreignKey: 'book_id', as: 'BookHasReview' });
 BookHasReview.belongsTo(Book, { foreignKey: 'book_id' });
 
 Role.hasMany(Reader, { foreignKey: 'reader_role_id' });
@@ -34,5 +37,7 @@ Book.hasMany(BookInBookshelf, { foreignKey: 'book_id' });
 
 Book.belongsTo(Author, { foreignKey: 'author_id', as : 'author' });
 Author.hasMany(Book, { foreignKey: 'author_id', as : 'books' });
+
+
 
 export {Reader, Bookshelf, Book, Role, BookHasReview, BookInBookshelf, Author, BookStatus};
