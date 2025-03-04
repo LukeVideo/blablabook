@@ -81,6 +81,10 @@ const bookController = {
 
   async bookDetails (req, res,  next){
     
+    //! AJOUTER FONCTION POUR RECUPERER LES NOTES ET EN FAIRE UNE MOYENNE A AFFICHER SUR LA VUE
+    //! BookHasReview.findAll where book_id = bookId et attributes note
+    //!const averageNote = Number(somme des notes / notes.length)
+
     try{
     const bookId = req.params.id;
     const selectedBook = await Book.findByPk(bookId, {
@@ -109,15 +113,54 @@ const bookController = {
 
   async handleReview(req, res, next) {
     try {
-      const bookId = req.params.id;
+      const bookId = sanitize(req.params.id);
+      const note = sanitize(req.body.note);
+      const review = sanitize(req.body.review);
+      // const { note, review } = sanitize(req.body);
+      console.log('req.body.note :', req.body.note);
+      console.log('req.body.review :', req.body.review);
+      console.log('Note & review', note, review);
+      console.log('bookId via params', bookId);
+
+      // Vérifier si l'utilisateur a déjà donné  un avis sur ce livre
+
+      // Récupérer l'id du reader connecté
+      const readerId = req.session.reader.id;
+
+      if(!readerId) {
+        return res.status(401).send('Unauthorized');
+      }
+
+      // Récupérer le livre sur lequel il faut ajouter un avis
       const book = await Book.findByPk(bookId);
-  }catch(error){
-    return next(error);
-  }
-    if (!book) {
-      return res.status(404).send('Book not found');
+
+      // Vérifier si le livre existe
+      if (!book) {
+        return res.status(404).send('Book not found');
+      }
+
+      // Vérifier le format de note
+      console.log('note avant parseInt', note);
+      const parsedNote = Number.parseInt(note, 10);
+      console.log("note apres parseInt", parsedNote);
+      if(parsedNote < 0 || parsedNote > 5) {
+      throw new Error('Invalid note format');
+      }
+      
+      // Ajouter la note et l'avis
+      await BookHasReview.create({
+        book_id: bookId,
+        reader_id: readerId,
+        note: parsedNote,
+        review: review
+      });
+      res.render('bookCard', {book});
+
+    }catch(error){
+      return next(error);
+
     }
-    res.render('addReview', {book});
+    
   },
 
 }

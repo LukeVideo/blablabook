@@ -55,19 +55,19 @@
 
 <% if (locals.reader) { %>    
     <section>
-        <form action="/book/{id}/review" method="POST">
+        <form action="/book/<%= book.id %>/review" method="POST">
             <label for="note">Note</label>
-            <select name="" id="note">
+            <select name="note" id="note">
                 <option value="0">Noter ce livre</option>
-                <option value="5">★★★★★</option>">
-                <option value="4">★★★★</option>">
-                <option value="3">★★★</option>">
+                <option value="5">★★★★★</option>
+                <option value="4">★★★★</option>
+                <option value="3">★★★</option>
                 <option value="2">★★</option>
                 <option value="1">★</option>
             </select>
             
-            <label for="commentaire">Commentaire</label>
-            <textarea name="" id="" placeholder="Ecrire un commentaire"></textarea>
+            <label for="review">Commentaire</label>
+            <textarea name="review" id="" placeholder="Ecrire un commentaire"></textarea>
             <button type="submit">Envoyer</button>
         </form>
     </section>
