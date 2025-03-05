@@ -12,6 +12,10 @@
     <!-- <div class="nav-bookmark third-background"><a href="/register">Register</a></div> -->
   <% } else { %>
     <!-- Si l'utilisateur est connecté -->
-    <div class="nav-bookmark third-background"><a href="/logout">Déconnexion</a></div>
+    <div class="nav-bookmark third-background">
+      <form action="/logout" method="POST">
+        <button type="submit" name="logout" id="logout">Déconnexion</button>
+      </form>
+    </div>
   <% } %>
 </section>
