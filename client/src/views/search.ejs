@@ -8,9 +8,10 @@
 
 
 <% if (locals.reader) { %>
-  <% if (locals.reader) { %>
-    <%- include('./partials/nickname', {nickname: locals.reader.nickname}) %>
-  <% } %>
+  
+  <h1>Recherche</h1>
+  <p>Recherchez un livre sur Blablabook. Vous pourez ensuite l'ajouter a votre Bookshelf.</p>
+
 
   <form action="/search" method="POST" type="submit" name="search">
     <label for="query">recherche :</label>
