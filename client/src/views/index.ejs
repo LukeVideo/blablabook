@@ -4,13 +4,13 @@
 <div class="index-section">
 
 
-  <% if (locals.message) { %>
-    <p><%= locals.message %></p>
+<% if (locals.message) { %>
+  <p><%= locals.message %></p>
 <% } %>
 
 <% if (locals.latestBooks && locals.latestBooks.length > 0) { %>
-  <h2>Les 5 derniers livres ajoutés :</h2>
-  <section class="booklist-section">
+  <section class="latest-books-section">
+    <h2>Les 5 derniers livres ajoutés :</h2>
     <ul>
       <% locals.latestBooks.forEach((book) => { %>
         <li>
@@ -47,9 +47,8 @@
       <% }); %> 
     </ul>
       
-    <% } %>
-    
-    
   </section>
+<% } %>
 </div>
+
 <%- include('./partials/footer') %>

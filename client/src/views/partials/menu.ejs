@@ -2,19 +2,15 @@
   <div class="nav-bookmark third-background"><a href="/index">Accueil</a></div>
 
   
-  <% if (!locals.reader) { %>
-  <div class="nav-bookmark nav-bookmark-disabled third-background">Search</div>
-  <div class="nav-bookmark nav-bookmark-disabled third-background">Dashboard</div>
+  <div class="nav-bookmark third-background"><a href="/search">Search</a></div>
+  <div class="nav-bookmark third-background"><a href="/dashboard">Dashboard</a></div>
   
-  <div class="nav-bookmark nav-bookmark-disabled third-background">Bookshelf</div>
+  <div class="nav-bookmark third-background"><a href="/bookshelf">Bookshelf</a></div>
   <!-- Si l'utilisateur n'est pas connecté -->
+  <% if (!locals.reader) { %>
     <div class="nav-bookmark third-background"><a href="/login"> Login / Register </a></div>
     <!-- <div class="nav-bookmark third-background"><a href="/register">Register</a></div> -->
   <% } else { %>
-    <div class="nav-bookmark third-background"><a href="/search">Search</a></div>
-    <div class="nav-bookmark third-background"><a href="/dashboard">Dashboard</a></div>
-    
-    <div class="nav-bookmark third-background"><a href="/bookshelf">Bookshelf</a></div>
     <!-- Si l'utilisateur est connecté -->
     <div class="nav-bookmark third-background">
       <form action="/logout" method="POST">
