@@ -1,7 +1,7 @@
 // IMPORTER ICI
 import sanitize from 'sanitize-html';
 import {Op} from 'sequelize';
-import {Author, Book} from '../models/associations.js';
+import {Author, Book, Reader, BookHasReview} from '../models/associations.js';
 import authValidator from '../utils/authentificator.js';
 
 const bookController = {
@@ -82,23 +82,96 @@ const bookController = {
   async bookDetails (req, res,  next){
     
     try{
-    const bookId = req.params.id;
-    const selectedBook = await Book.findByPk(bookId, {
-      where: {id: bookId},
-      include:[
-        {model: Author, as: 'author'},
+      const bookId = req.params.id;
+      const selectedBook = await Book.findByPk(bookId, {
+        where: {id: bookId},
+        include:[
+          {model: 
+            Author, as: 'author'
+          },
+          {model:
+            BookHasReview, as: 'BookHasReview',
+            include:[{model:Reader, as: 'reader'}]
+          }  
         ]
-    });
-    if (!selectedBook){
-      return res.status(404).send('Book not found');
-    }
-    console.log('selectedBook', selectedBook);
-    res.render('bookCard', {book: selectedBook});
+      });
+      
+      if (!selectedBook){
+        return res.status(404).send('Book not found');
+      }
+
+      // Récupérer les notes des lecteurs sous forme de tableau
+      const reviews = selectedBook.BookHasReview || [];
+      // console.log('notes:', reviews);
+      
+      // Si c'est le cas, afficher un message d'erreur
+      //  Si length > 0, map sur les notes pour les récupérer
+      const notes = reviews.map(review => review.note);
+
+      // Calculer la moyenne à partir des notes récupérées et en faire une String a passer au template
+      const bookAvgNote  = notes.length > 0 ? `${Number(notes.reduce((accumulator, note) => accumulator + note, 0))  / notes.length} / 5`: "Aucune note pour ce livre";
+
+
+      
+    console.log('Livre sélectionné pour affichage détaillé  :', selectedBook);
+    res.render('bookCard', {book: selectedBook, bookAvgNote});
     }catch(error){
       return next(error);
   }
   
 },
+
+  async handleReview(req, res, next) {
+    try {
+      const bookId = sanitize(req.params.id);
+      const note = sanitize(req.body.note);
+      const review = sanitize(req.body.review);
+      // console.log('req.body.note :', req.body.note);
+      // console.log('req.body.review :', req.body.review);
+      // console.log('Note & review', note, review);
+      // console.log('bookId via params', bookId);
+
+      // Vérifier si l'utilisateur a déjà donné  un avis sur ce livre
+
+      // Récupérer l'id du reader connecté
+      const readerId = req.session.reader.id;
+
+      if(!readerId) {
+        return res.status(401).send('Unauthorized');
+      }
+
+      // Récupérer le livre sur lequel il faut ajouter un avis
+      const book = await Book.findByPk(bookId);
+
+      // Vérifier si le livre existe
+      if (!book) {
+        return res.status(404).send('Book not found');
+      }
+
+      // Vérifier le format de note
+      // console.log('note avant parseInt', note);
+      const parsedNote = Number.parseInt(note, 10);
+      // console.log("note apres parseInt", parsedNote);
+      if(parsedNote < 0 || parsedNote > 5) {
+      throw new Error('Invalid note format');
+      }
+      
+      // Ajouter la note et l'avis
+      await BookHasReview.create({
+        book_id: bookId,
+        reader_id: readerId,
+        note: parsedNote,
+        review: review
+      });
+      res.render('bookCard', {book});
+
+    }catch(error){
+      return next(error);
+
+    }
+    
+  },
+
 }
 
 
