@@ -18,16 +18,16 @@ BookHasReview.init(
         book_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
-          },
+        },
         
         reader_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
-          },
+        },
         note: {
             type: DataTypes.INTEGER,
             allowNull: true,
-          },
+        },
         review: {
             type: DataTypes.TEXT,
             allowNull: true,

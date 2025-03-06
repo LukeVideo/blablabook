@@ -36,6 +36,9 @@
 
     <section>
         <h2>Avis des lecteurs</h2>
+
+        <p>Note moyenne : <%= bookAvgNote %></p>
+
         <% if (book.BookHasReview.length > 0) { %>
             <ul>
                 <% book.BookHasReview.forEach(review => { %>
