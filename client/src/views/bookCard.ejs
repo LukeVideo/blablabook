@@ -33,6 +33,13 @@
 
     </header>
     <p class="book-card-description"><%= book.book_description %></p>
+    
+    <% if (locals.reader) { %>
+        <section>
+            <h3>Statut du livre : <%= status %></h3>
+    
+        </section>
+    <% } %>
 
     <section>
         <h2>Avis des lecteurs</h2>
@@ -44,6 +51,7 @@
                 <% book.BookHasReview.forEach(review => { %>
                     <li>
                         <p><%= review.reader.firstname %> <%= review.reader.lastname %>:</p>
+                        <p><%= review.created_at %></p>
                         <p>Note : <%= review.note %>/5 </p>
                         <p>"<%= review.review %>"</p>
                     </li>

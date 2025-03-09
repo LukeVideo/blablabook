@@ -1,7 +1,7 @@
 // IMPORTER ICI
 import sanitize from 'sanitize-html';
 import {Op} from 'sequelize';
-import {Author, Book, Reader, BookHasReview} from '../models/associations.js';
+import {Author, Book, Reader, BookHasReview, BookStatus} from '../models/associations.js';
 import authValidator from '../utils/authentificator.js';
 
 const bookController = {
@@ -100,6 +100,13 @@ const bookController = {
         return res.status(404).send('Book not found');
       }
 
+
+      // Récupération et affichage du statut du livre pour l'utilisateur (lu, à lire, en cours...)
+      const bookStatus = selectedBook.BookStatus || null;
+
+      // Si le livre à un statut, renvoie vers la vue, sinon message par défaut
+      const status = bookStatus ? bookStatus.book_status : 'Aucun statut pour ce livre';
+
       // Récupérer les notes des lecteurs sous forme de tableau
       const reviews = selectedBook.BookHasReview || [];
       // console.log('notes:', reviews);
@@ -114,7 +121,7 @@ const bookController = {
 
       
     console.log('Livre sélectionné pour affichage détaillé  :', selectedBook);
-    res.render('bookCard', {book: selectedBook, bookAvgNote});
+    res.render('bookCard', {book: selectedBook, bookAvgNote, status});
     }catch(error){
       return next(error);
   }
@@ -156,14 +163,18 @@ const bookController = {
       throw new Error('Invalid note format');
       }
       
+      const date  = new Date(now).toLocaleString('fr-FR');
+
       // Ajouter la note et l'avis
       await BookHasReview.create({
         book_id: bookId,
         reader_id: readerId,
         note: parsedNote,
-        review: review
+        review: review,
+        created_at: new Date(now).toLocaleString('fr-FR'),
       });
-      res.render('bookCard', {book});
+      console.log('date')
+      res.redirect(`/book/:${bookId}`);
 
     }catch(error){
       return next(error);
