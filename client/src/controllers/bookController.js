@@ -1,7 +1,7 @@
 // IMPORTER ICI
 import sanitize from 'sanitize-html';
 import {Op} from 'sequelize';
-import {Author, Book, Reader, BookHasReview, BookStatus} from '../models/associations.js';
+import {Author, Book, Reader, BookHasReview, Bookshelf, Role, BookStatus} from '../models/associations.js';
 import authValidator from '../utils/authentificator.js';
 
 const bookController = {
@@ -101,15 +101,8 @@ const bookController = {
       }
 
 
-      // Récupération et affichage du statut du livre pour l'utilisateur (lu, à lire, en cours...)
-      const bookStatus = selectedBook.BookStatus || null;
-
-      // Si le livre à un statut, renvoie vers la vue, sinon message par défaut
-      const status = bookStatus ? bookStatus.book_status : 'Aucun statut pour ce livre';
-
       // Récupérer les notes des lecteurs sous forme de tableau
       const reviews = selectedBook.BookHasReview || [];
-      // console.log('notes:', reviews);
       
       // Si c'est le cas, afficher un message d'erreur
       //  Si length > 0, map sur les notes pour les récupérer
@@ -121,7 +114,7 @@ const bookController = {
 
       
     console.log('Livre sélectionné pour affichage détaillé  :', selectedBook);
-    res.render('bookCard', {book: selectedBook, bookAvgNote, status});
+    res.render('bookCard', {book: selectedBook, bookAvgNote});
     }catch(error){
       return next(error);
   }
