@@ -34,14 +34,23 @@ const mainController = {
         limit: 5
       })
       const latestBookWithAvgNote = latestBooks.map(book => {
-        if (book.dataValues.book_reviews && book.dataValues.book_reviews.length > 0 ) {
-          const notes = book.dataValues.book_reviews
+        if (book.dataValues.book_reviews  ) {
+          const notes = book.dataValues.book_reviews.map(review => {
+            // console.log('review.dataValues.note : **************');
+            // console.log(review.dataValues.note)
+            return review.dataValues.note
+          })
+          console.log(notes)
 
           const bookAvgNote  = notes.length > 0 ? `${Number(notes.reduce((accumulator, note) => accumulator + note, 0))  / notes.length} / 5`: "Aucune note pour ce livre";
+          console.log(bookAvgNote)
+          book.avg_note = bookAvgNote;
+          return book
         }
-        console.log('book review : **************');
-        console.log(book.dataValues.book_reviews);
+        // console.log('book review : **************');
+        // console.log(book.dataValues.book_reviews);
       })
+      console.log(latestBookWithAvgNote)
       // Afficher 3 auteurs aléatoires :
       const randomAuthors = await Author.findAll({
         order: sequelize.literal('random()'), 
@@ -51,7 +60,7 @@ const mainController = {
     // Récupération de l'ID des auteurs aléatoires pour gérer les liens dans l'EJS
     const authorIds = randomAuthors.map(author => author.id);
 
-      res.render('index', {latestBooks, randomAuthors, authorIds});
+      res.render('index', {'latestBooks' : latestBookWithAvgNote, randomAuthors, authorIds});
       
     } catch (error) {
       console.error(error);
