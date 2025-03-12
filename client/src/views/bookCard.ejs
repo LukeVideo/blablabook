@@ -41,7 +41,7 @@
 
         <p>Note moyenne : <%= bookAvgNote %></p>
 
-        <% if (book.BookHasReview.length > 0) { %>
+        <% if (book.BookHasReview && book.BookHasReview.length > 0) { %>
             <ul>
                 <% book.BookHasReview.forEach(review => { %>
                     <li>

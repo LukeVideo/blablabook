@@ -8,6 +8,7 @@ const bookshelfController = {
         try {
         const displayRemoveButton = true;
         const reader = req.session.reader;
+
         const bookshelf = await Bookshelf.findOne({
             where: { reader_id: reader.id },
             include: {
@@ -15,17 +16,26 @@ const bookshelfController = {
                 as: 'books',
                 include: [
                     { model: Author, as: 'author' }, // Récupérer l'auteur du livre
+                    { model: BookInBookshelf, as: 'BookInBookshelves' },
+
                     ],
             },
         });
+
+
         console.log(`*************bookshelf : ${bookshelf}`);
         console.log(bookshelf);
 
-        const bookFormater = bookshelf.books.map((book) =>{
-            return book.bookInBookshelf.BookStatus
-        })
-        console.log(`*************bookFormater : ${bookFormater}`);
-
+        const bookFormater = await Promise.all(bookshelf.books.map(async (book) =>{
+            const bookInBookshelfData = await BookInBookshelf.findOne({
+              where: { book_id: book.id },
+              attributes: ['Book_status']
+            });
+            console.log(`++++++++++++++++++++++++++bookInBookshelfData : ${bookInBookshelfData}`);
+            return bookInBookshelfData?.BookStatus;
+          }))
+          console.log(`----------------------------------bookFormater : ${bookFormater}`);
+        
         const statusOfBook = await BookInBookshelf.findAll({
             where: { bookshelf_id: bookshelf.id },
             include: {

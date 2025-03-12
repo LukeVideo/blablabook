@@ -3,7 +3,7 @@ import {Op} from 'sequelize';
 import { Sequelize } from 'sequelize'; // Pour récupérer l'objet Sequelize
 import sequelize from '../../database/connexion_db.js';
 import nodemailer from 'nodemailer';
-import {Author, Book} from '../models/associations.js';
+import {Author, Book, BookHasReview, Reader} from '../models/associations.js';
 
 const mainController = {
   async redirectHomePage(req, res) {
@@ -21,14 +21,27 @@ const mainController = {
   async renderHomePage(req, res, next) {
     try {
       
-      const Allbooks = await Book.findAll();
+      //const Allbooks = await Book.findAll();
 
       // Afficher les 5 derniers livres ajoutés :
       const latestBooks = await Book.findAll({
+        include:[
+        {model:
+          BookHasReview, as: 'book_reviews',
+          include:[{model:Reader, as: 'reader'}]
+        }],
         order : [['createdAt', 'DESC']],
         limit: 5
       })
-      
+      const latestBookWithAvgNote = latestBooks.map(book => {
+        if (book.dataValues.book_reviews && book.dataValues.book_reviews.length > 0 ) {
+          const notes = book.dataValues.book_reviews
+
+          const bookAvgNote  = notes.length > 0 ? `${Number(notes.reduce((accumulator, note) => accumulator + note, 0))  / notes.length} / 5`: "Aucune note pour ce livre";
+        }
+        console.log('book review : **************');
+        console.log(book.dataValues.book_reviews);
+      })
       // Afficher 3 auteurs aléatoires :
       const randomAuthors = await Author.findAll({
         order: sequelize.literal('random()'), 
@@ -38,7 +51,7 @@ const mainController = {
     // Récupération de l'ID des auteurs aléatoires pour gérer les liens dans l'EJS
     const authorIds = randomAuthors.map(author => author.id);
 
-      res.render('index', {Allbooks, latestBooks, randomAuthors, authorIds});
+      res.render('index', {latestBooks, randomAuthors, authorIds});
       
     } catch (error) {
       console.error(error);

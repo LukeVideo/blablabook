@@ -90,7 +90,7 @@ const bookController = {
             Author, as: 'author'
           },
           {model:
-            BookHasReview, as: 'BookHasReview',
+            BookHasReview, as: 'book_reviews',
             include:[{model:Reader, as: 'reader'}]
           }  
         ]
@@ -156,7 +156,7 @@ const bookController = {
       throw new Error('Invalid note format');
       }
       
-      const date  = new Date(now).toLocaleString('fr-FR');
+      const date  = Date.now().toLocaleString('fr-FR');
 
       // Ajouter la note et l'avis
       await BookHasReview.create({
@@ -164,10 +164,10 @@ const bookController = {
         reader_id: readerId,
         note: parsedNote,
         review: review,
-        created_at: new Date(now).toLocaleString('fr-FR'),
+        created_at: Date.now()//.toLocaleString('fr-FR'),
       });
       console.log('date')
-      res.redirect(`/book/:${bookId}`);
+      res.redirect(`/book/${bookId}`);
 
     }catch(error){
       return next(error);
