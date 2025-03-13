@@ -5,7 +5,7 @@ import BookInBookshelf from './BookInBookshelf.js';
 import Bookshelf from './Bookshelf.js';
 import Reader from './Reader.js';
 import Role from './Role.js';
-import BookStatus from './bookStatus.js';
+import BookStatus from './BookStatus.js';
 
 
 Reader.hasOne(Bookshelf, { foreignKey: 'reader_id' });
@@ -20,17 +20,17 @@ BookHasReview.belongsTo(Book, { foreignKey: 'book_id', as: 'book_review' });
 Role.hasMany(Reader, { foreignKey: 'reader_role_id' });
 Reader.belongsTo(Role, { foreignKey: 'reader_role_id' });
 
-BookStatus.hasMany(BookInBookshelf, {foreignKey : 'book_status_id'});
+BookStatus.hasMany(BookInBookshelf, {foreignKey : 'book_status_id', as: 'bookInBookShelfStatus'});
 BookInBookshelf.belongsTo(BookStatus, {foreignKey : 'book_status_id'});
 
 BookInBookshelf.belongsTo(Bookshelf, {foreignKey : 'bookshelf_id'});
 Bookshelf.hasMany(BookInBookshelf, {foreignKey : 'bookshelf_id'});
 
-Book.belongsToMany(BookStatus, { through: BookInBookshelf, foreignKey: 'book_id', otherKey: 'book_status_id', as: 'status' });
-BookStatus.belongsToMany(Book, { through: BookInBookshelf, foreignKey: 'book_status_id', otherKey: 'book_id', as: 'books' });
+Book.belongsToMany(BookStatus, { through: BookInBookshelf, foreignKey: 'book_id', otherKey: 'book_status_id', as: 'statusBook' });
+BookStatus.belongsToMany(Book, { through: BookInBookshelf, foreignKey: 'book_status_id', otherKey: 'book_id', as: 'bookStatus' });
 
-Bookshelf.belongsToMany(Book, {through: BookInBookshelf, foreignKey: 'bookshelf_id', other_key: 'book_id', as: 'books'});
-Book.belongsToMany(Bookshelf, {through: BookInBookshelf, foreignKey: 'book_id', other_key: 'bookshelf_id', as: 'bookshelves'})
+Bookshelf.belongsToMany(Book, {through: BookInBookshelf, foreignKey: 'bookshelf_id', otherKey: 'book_id', as: 'books'});
+Book.belongsToMany(Bookshelf, {through: BookInBookshelf, foreignKey: 'book_id', otherKey: 'bookshelf_id', as: 'bookshelves'})
 
 BookInBookshelf.belongsTo(Book, { foreignKey: 'book_id' });
 Book.hasMany(BookInBookshelf, { foreignKey: 'book_id' });
