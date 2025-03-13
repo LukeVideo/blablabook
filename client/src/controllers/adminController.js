@@ -155,8 +155,9 @@ async  getBookList(req, res) {
         // Ajouter le livre à la base de données avec `author_id`
         const newBook = await Book.create({
             title,
-            author_id: author.id, // L'ID de l'auteur
+            author_id: author.id,
             isbn,
+            category_id : Number(16),
             release_date: releaseDate || new Date(),
             book_description: description || null,
             book_cover: image,
