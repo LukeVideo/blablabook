@@ -33,17 +33,20 @@
 
     </header>
     <p class="book-card-description"><%= book.book_description %></p>
+    
+
 
     <section>
         <h2>Avis des lecteurs</h2>
 
         <p>Note moyenne : <%= bookAvgNote %></p>
 
-        <% if (book.BookHasReview.length > 0) { %>
+        <% if (book.BookHasReview && book.BookHasReview.length > 0) { %>
             <ul>
                 <% book.BookHasReview.forEach(review => { %>
                     <li>
                         <p><%= review.reader.firstname %> <%= review.reader.lastname %>:</p>
+                        <p><%= review.created_at %></p>
                         <p>Note : <%= review.note %>/5 </p>
                         <p>"<%= review.review %>"</p>
                     </li>
