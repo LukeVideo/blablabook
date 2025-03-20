@@ -7,7 +7,6 @@ import Reader from './Reader.js';
 import Role from './Role.js';
 import BookStatus from './BookStatus.js';
 
-
 Reader.hasOne(Bookshelf, { foreignKey: 'reader_id' });
 Bookshelf.belongsTo(Reader, { foreignKey: 'reader_id' });
 

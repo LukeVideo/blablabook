@@ -30,7 +30,11 @@
     </header>
     <p class="book-card-description"><%= book.book_description %></p>
     <a href="/book/<%= book.id %>"><button>Détails</button></a>
-    <p>Note moyenne : <%= book.avg_note %></p>
+    <p>Note moyenne : <% if (book.avg_note === -1) { %>
+     <%= "Aucune note" %>
+     <% } else { %>
+        <%= book.avg_note %>
+    <% } %></p>
     <p>Statut du livre : <%= book.status %></p>
 </article>
 
