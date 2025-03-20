@@ -2,7 +2,7 @@
     border: solid black 1px
 } */
 
-@import url(https://fonts.bunny.net/css);
+@import url(https://fonts.bunny.net/css?family=roboto:100,500,700,900);
  *{
     margin: 0;
     padding: O;
@@ -11,15 +11,18 @@
 html {
     height: 100vh;
     margin: 0;
+    display: flex;
+    justify-content: center;
+    background-color: #ececec;
   }
 
 body{
     font-family: 'roboto', sans-serif;
-
     height: 100vh;
-    padding: 0;
     margin: 0;
     display: flex;
+    align-items: center;
+    width: 80%;
     flex-direction: column;
     justify-content: space-between;
     overflow-x: hidden;
@@ -177,8 +180,6 @@ footer a {
     flex-wrap: nowrap;
 }    
 
-    
-
 .book-card {
     box-shadow: 0px 0px 5px rgba(47, 46, 73, 0.542);
     border-radius: 0.5rem;
@@ -186,8 +187,9 @@ footer a {
     width : 300px;
     min-width: 300px;
     display:flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
+
 .book-detail {
     box-shadow: 0px 0px 5px rgba(47, 46, 73, 0.542);
     border-radius: 0.5rem;
@@ -211,6 +213,29 @@ footer a {
 
 .book-card-paragraphe{
     width: 100%;
+}
+
+
+.book-card-buttons {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    margin-top: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.add-button {
+    background-color: #eec124;
+    text-shadow: #000;
+    color: #ffffff;
+}
+
+.details-button {
+    background-color: #eec124;
+    color: #ffffff;
+    
+
 }
 
 .comment-section{
