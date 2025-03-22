@@ -20,33 +20,58 @@ const mainController = {
   
   async renderHomePage(req, res, next) {
     try {
-      
-      const Allbooks = await Book.findAll();
+      // Fonction limitDescription utilisant un littéral de gabarit
+      const limitDescription = (description, wordLimit = 30) => {
+        const words = description.split(' ');
+        return words.length > wordLimit 
+          ? `${words.slice(0, wordLimit).join(' ')}...`  // Utilisation de littéral de gabarit
+          : description;
+      };
+
+      const Allbooks = await Book.findAll({
+        include: [
+          { model: Author, as: 'author' },
+        ]
+      });
+
+      // Limiter les descriptions des livres à 50 mots
+      Allbooks.forEach(book => {
+        book.book_description = limitDescription(book.book_description);
+      });
 
       // Afficher les 5 derniers livres ajoutés :
       const latestBooks = await Book.findAll({
-        order : [['createdAt', 'DESC']],
+        include: [
+          { model: Author, as: 'author' }
+        ],
+        order: [['createdAt', 'DESC']],
         limit: 5
-      })
-      
+      });
+
+      // Limiter les descriptions des livres récents à 50 mots
+      latestBooks.forEach(book => {
+        book.book_description = limitDescription(book.book_description);
+      });
+
       // Afficher 3 auteurs aléatoires :
       const randomAuthors = await Author.findAll({
         order: sequelize.literal('random()'), 
         limit: 3
-    });
+      });
 
-    // Récupération de l'ID des auteurs aléatoires pour gérer les liens dans l'EJS
-    const authorIds = randomAuthors.map(author => author.id);
+      // Récupération de l'ID des auteurs aléatoires pour gérer les liens dans l'EJS
+      const authorIds = randomAuthors.map(author => author.id);
 
-      res.render('index', {Allbooks, latestBooks, randomAuthors, authorIds});
+      res.render('index', { Allbooks, latestBooks, randomAuthors, authorIds });
       
     } catch (error) {
       console.error(error);
-      error.status =404
-      error.message="Problème avec index"
-      next(error)
+      error.status = 404;
+      error.message = "Problème avec index";
+      next(error);
     }
-  },
+},
+
 
   async renderCGU(req, res) {
     try {

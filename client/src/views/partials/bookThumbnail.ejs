@@ -1,16 +1,35 @@
-<article class="book_thumbnail second-background">
-    <div class="book_thumbnail_content">
-        <img src="/images/DefaultBookCover.jpg" alt="Couverture par défaut"
-        class="zone zone1"> book_cover_img</div>
-        <div class="zone zone2">book_infos</div>
-        <div class="zone zone3">book_buttons</div>
+<article class="book-card second-background">
+    <div class="book-card-container">
+        <img class="book-card-image" src="./images/photo.png" alt="">
+
+        <div class="book-card-info">
+            <header class="book-card-header">
+                <h2><%= book.title %></h2>
+                <h3><%= book.author.firstname %> <%= book.author.lastname %></h3>
+            </header>
+            <p class="book-card-description"><%= book.book_description %></p>
+        </div>
     </div>
 
+    <div class="book-card-buttons">
+        <% if (!locals.displayRemoveButton) { %>
+            <form action="/addBookToBookshelf" method="POST">
+                <input type="hidden" name="book_id" value="<%= book.id %>">
+                <button type="submit" alt="Ajouter <%= book.title %> à ma Bookshelf">
+                    Ajouter à ma Bookshelf
+                </button>
+            </form>
+        <% } %>
+
+        <% if (locals.displayRemoveButton) { %>
+            <form action="/deleteBookFromBookshelf" method="POST">
+                <input type="hidden" name="book_id" value="<%= book.id %>">
+                <button type="submit" alt="Retirer <%= book.title %> de ma Bookshelf">
+                    Retirer de ma Bookshelf
+                </button>
+            </form>
+        <% } %>
+        <a href="/book/<%= book.id %>"><button>Détails</button></a>
+
+    </div>
 </article>
-
-
-
-
-
-
-
