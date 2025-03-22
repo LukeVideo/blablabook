@@ -177,17 +177,7 @@ footer a {
     flex-wrap: nowrap;
 }    
 
-    
 
-.book-card {
-    box-shadow: 0px 0px 5px rgba(47, 46, 73, 0.542);
-    border-radius: 0.5rem;
-    padding: 0.5rem;
-    width : 300px;
-    min-width: 300px;
-    display:flex;
-    flex-wrap: wrap;
-}
 .book-detail {
     box-shadow: 0px 0px 5px rgba(47, 46, 73, 0.542);
     border-radius: 0.5rem;
@@ -197,17 +187,41 @@ footer a {
     flex-wrap: wrap;
 }
 
+/*-------EJS BOOK_THUMBNAIL-------*/
 
-.book-card-image {
-    width: 20%;
-}
-
-.book-card-header{
-    width: 80%;
+/* Cadre principal */
+.book_thumbnail_content {
     display: flex;
-    flex-direction: column;
-    font-size: 0.8rem;
+    flex-wrap: wrap;
+    width: 600px; /* Largeur du cadre */
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+/* Zones 1 et 2 côte à côte */
+.zone1, .zone2 {
+    flex: 1;
+    min-height: 150px; /* Hauteur fixe */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    margin: 5px;
+}
+
+/* Zone 3 en dessous des deux autres */
+.zone3 {
+    width: 100%;
+    min-height: 100px; /* Hauteur fixe */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    margin: 5px;
+}
+
 
 .book-card-paragraphe{
     width: 100%;
