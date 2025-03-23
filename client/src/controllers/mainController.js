@@ -33,10 +33,14 @@ const mainController = {
       // Afficher les 5 derniers livres ajoutés :
       const latestBooks = await Book.findAll({
         include:[
-        {model:
-          BookHasReview, as: 'book_reviews',
-          include:[{model:Reader, as: 'reader'}]
-        }],
+          {model:Author, as: 'author'},
+
+          {model:
+            BookHasReview, as: 'book_reviews',
+            include:[
+              {model:Reader, as: 'reader'},
+            ]
+          }],
         order : [['createdAt', 'DESC']],
         limit: 5
       })

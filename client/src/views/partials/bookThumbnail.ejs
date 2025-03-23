@@ -1,13 +1,16 @@
-
 <article class="book_thumbnail">
     <div class="book_thumbnail_header">
-        <p class="book_thumbnail_title"><%= book.title %> <span class="book_thumbnail_author"> (<%= book.author.firstname %> <%= book.author.lastname %>)</span>
+        <p class="book_thumbnail_title">
+            <%= book.title %> 
+            <span class="book_thumbnail_author"> 
+                (<%= book.author.firstname %> <%= book.author.lastname %>)
+            </span>
         </p>
     </div>
     
     <div class="book_thumbnail_infos">
         <div class="book_thumbnail_image">
-            <img class="book_thumbnail_image_cover" src="<%= book.cover_image || './images/DefaultBookCoverImg.png' %>" alt="Couverture du livre <%= book.title %>">
+            <img class="book_thumbnail_image_cover" src="<%= book.book_cover|| './images/DefaultBookCoverImg.png' %>" alt="Couverture du livre <%= book.title %>">
         </div>
         <div class="book_thumbnail_summary">
             <p>Résumé :</p>

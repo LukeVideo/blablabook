@@ -31,6 +31,8 @@ const bookController = {
   
       // Recherche des livres
       const booksToFind = await Book.findAll({
+        include :{model:Author, as: 'author'},
+
         where: {
           title: {
             [Op.iLike]: `%${searchInput}%`,

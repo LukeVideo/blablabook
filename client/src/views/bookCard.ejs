@@ -1,84 +1,65 @@
 <%- include('./partials/head') %>
-
 <%- include('./partials/header') %>
-<div class="index-section">
-
-
-
-<article class="book-detail second-background">
-    <img class="book-card-image" src="/images/photo.png" alt="">
-
-    <header class="book-card-header">
-        <h2><%= book.title %></h2>
-        <h3>Auteur(s): <a href="/author/<%= book.author.id %>"><%= book.author.firstname %> <%= book.author.lastname %></a></h3>
-
-
-        <% if (!locals.displayRemoveButton) { %>
-    
-            <form action="/addBookToBookshelf" method="POST">
-                <input type="hidden" name="book_id" value="<%= book.id %>">
-                <button  type="submit" alt="Ajouter <%= book.title %> à ma Bookshelf">
-                    Ajouter à ma Bookshelf</button>
-            </form>
-                
-        <% }else{ %>
-
-            <form action="/deleteBookFromBookshelf" method="POST">
-                <input type="hidden" name="book_id" value="<%= book.id %>">
-                <button  type="submit" alt="Retirer <%= book.title %> de ma Bookshelf">
-                    Retirer de ma Bookshelf</button>
-            </form>
-                
-        <% } %>
-
-    </header>
-    <p class="book-card-description"><%= book.book_description %></p>
-    
-
-
-    <section>
-        <h2>Avis des lecteurs</h2>
-
-        <p>Note moyenne : <%= bookAvgNote %></p>
-
-        <% if (book.BookHasReview && book.BookHasReview.length > 0) { %>
-            <ul>
-                <% book.BookHasReview.forEach(review => { %>
-                    <li>
-                        <p><%= review.reader.firstname %> <%= review.reader.lastname %>:</p>
-                        <p><%= review.created_at %></p>
-                        <p>Note : <%= review.note %>/5 </p>
-                        <p>"<%= review.review %>"</p>
-                    </li>
-                <% }) %>
-            </ul>
-        <% } else { %>
-            <p>Aucun avis pour ce livre.</p>
-        <% } %>
-    </section>
-    
-</article>
-
-<% if (locals.reader) { %>    
-    <section>
-        <form action="/book/<%= book.id %>/review" method="POST">
-            <label for="note">Note</label>
-            <select name="note" id="note">
-                <option value="0">Noter ce livre</option>
-                <option value="5">★★★★★</option>
-                <option value="4">★★★★</option>
-                <option value="3">★★★</option>
-                <option value="2">★★</option>
-                <option value="1">★</option>
-            </select>
-            
-            <label for="review">Commentaire</label>
-            <textarea name="review" id="" placeholder="Ecrire un commentaire"></textarea>
-            <button type="submit">Envoyer</button>
-        </form>
-    </section>
+<% if (locals.reader) { %>
+    <%- include('./partials/nickname', {nickname: locals.reader.nickname}) %>
 <% } %>
+
+<div class="book_details">
+    <div class="book_group">
+        <div class="book_cover">
+            <img src="<%= book.book_cover || './images/DefaultBookCoverImg.png' %>" alt="Couverture du livre <%= book.title %>">
+        </div>
+        <div class="book_settings">
+            <button>Statut</button>
+            <div class="book_thumbnail_button">
+                <% if (!locals.displayRemoveButton) { %>
+                    <form action="/addBookToBookshelf" method="POST">
+                        <input type="hidden" name="book_id" value="<%= book.id %>">
+                        <button  class="book_thumbnail_button"type="submit" alt="Ajouter <%= book.title %> à ma Bookshelf">
+                            Ajouter à ma Bookshelf
+                        </button>
+                    </form>
+                <% } %>
+        
+                <% if (locals.displayRemoveButton) { %>
+                    <form action="/deleteBookFromBookshelf" method="POST">
+                        <input type="hidden" name="book_id" value="<%= book.id %>">
+                        <button class="book_thumbnail_button" type="submit" alt="Retirer <%= book.title %> de ma Bookshelf">
+                            Retirer de ma Bookshelf
+                        </button>
+                    </form>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    <div class="book_infos">
+        <div class="book_infos_header">
+            <div class="book_title"><%= book.title %></div>
+            <div class="book_author">
+                Auteur(s): <a href="/author/<%= book.author.id %>"><%= book.author.firstname %> <%= book.author.lastname %></a>    
+            </div>
+        </div>
+        <div class="book_infos_review">
+            <div class="book_AvgNote">Note Moyenne : </div>
+            <div class="book_NbComment">Nombre d'avis: </div>
+        </div>
+        <div class="book_description">
+            <p>Synopsis : 
+                <p><%= book.book_description %></p>
+            </p>
+        </div>
+    </div>
+</div>
+<div class="book_reviews">
+    <article class="book_readerReview">
+        <div class="Reader_avatar">
+            <img src="avatar.jpg" alt="Avatar de l'utilisateur">
+        </div>
+        <div class="Reader_nickname">Pseudo de l'utilisateur</div>
+        <div class="review_date">Date de dépôt de l'avis</div>
+        <div class="Reader_reviewNote">Note laissée par l'utilisateur</div>
+        <div class="Reader_comment">Commentaire de l'utilisateur</div>
+    </article>
 </div>
 
 <%- include('./partials/footer') %>
-
