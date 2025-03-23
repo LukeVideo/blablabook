@@ -189,112 +189,6 @@ footer a {
 }    
 
     
-/* Styles généraux pour la carte du livre */
-.book-card {
-    display: flex;
-    flex-direction: column;
-    background-color: #f4f4f4;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin: 20px;
-    padding: 20px;
-    width: 300px; /* Taille fixe de la carte */
-    height: 500px; /* Taille fixe de la carte pour éviter que le contenu ne déborde */
-    overflow: hidden; /* Cache tout débordement */
-    display: flex;
-    flex-direction: column;
-}
-
-/* Conteneur des éléments de la carte (image + infos) */
-.book-card-container {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 15px;
-    flex-grow: 1;
-    align-items: flex-start;
-}
-
-/* Style pour l'image du livre */
-.book-card-image {
-    width: 120px; /* Taille fixe de l'image */
-    height: 160px; /* Taille fixe de l'image */
-    object-fit: cover;
-    border-radius: 8px;
-    margin-right: 15px;
-    flex-shrink: 0; /* Empêche l'image de se réduire */
-}
-
-/* Conteneur des informations du livre */
-.book-card-info {
-    flex-grow: 1; /* Prend l'espace restant */
-    display: flex;
-    flex-direction: column;
-}
-
-/* Titre du livre */
-.book-card-header h2 {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin: 0;
-}
-
-/* Auteur du livre */
-.book-card-header h3 {
-    font-size: 1rem;
-    color: #555;
-    margin-top: 5px;
-    margin-bottom: 0;
-}
-
-/* Description du livre */
-.book-card-description {
-    font-size: 0.9rem;
-    color: #666;
-    margin-top: 10px;
-    line-height: 1.4;
-    flex-grow: 1; /* Permet à la description de remplir l'espace restant */
-    overflow: hidden;
-}
-
-/* Style pour les boutons */
-.book-card-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-    gap: 10px;
-}
-
-.book-card-buttons form,
-.book-card-buttons a {
-    margin: 0;
-    width: 48%; /* Les boutons prennent 48% de la largeur */
-}
-
-.book-card-buttons button {
-    background-color: rgb(175, 87, 5);
-    color: #fff;
-    font-size: 1rem;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    width: 100%; /* Les boutons prennent toute la largeur de leur conteneur */
-    box-sizing: border-box;
-}
-
-.book-card-buttons button:hover {
-    background-color: rgb(211, 150, 19);
-}
-
-/* Pour garantir que le contenu ne déborde pas */
-.book-card .book-card-info,
-.book-card .book-card-buttons {
-    overflow: hidden;
-}
-
-
-
 .book-detail {
     box-shadow: 0px 0px 5px rgba(47, 46, 73, 0.542);
     border-radius: 0.5rem;
@@ -331,4 +225,77 @@ footer a {
 
 .comment-card-paragraphe{
     width: 100%;
+}
+
+/*----- BookThumbnail.ejs-----*/
+.book_thumbnail {
+    border: 2px solid #000;
+    background-color: #fff;
+    padding: 10px;
+    width: 600px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-left : 1rem;
+}
+
+.book_thumbnail_header {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    margin-bottom: 10px;
+    margin-left : 1rem;
+}
+
+.book_thumbnail_title {
+    font-size: large;
+    font-weight: bold;
+    padding: 5px;
+    flex: 1;
+}
+
+.book_thumbnail_author {
+    font-weight: 400;
+    padding: 5px;
+    flex: 1;
+}
+
+.book_thumbnail_infos {
+    display: flex;
+    padding: 10px;
+}
+
+.book_thumbnail_image img {
+    aspect-ratio: 1/1.5;
+    width: 100%;
+    height: 250px;
+    border: 2px solid #000;
+    margin-left: 1rem;
+}
+
+.book_thumbnail_summary {
+    padding: 10px;
+    margin-left: 2rem;
+    flex: 1;
+}
+
+.book_thumbnail_options {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.book_thumbnail_button {
+    border: 2px solid #ffa500;
+    background-color: #ffa500;
+    width: 250px;
+    padding: 10px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    flex: 1;
+    margin: 0 5px;
+}
+
+.book_thumbnail_button:hover {
+    background-color: #e59400;
 }
