@@ -42,9 +42,21 @@ const mainController = {
           })
           console.log(notes)
 
-          const bookAvgNote  = notes.length > 0 ? `${Number(notes.reduce((accumulator, note) => accumulator + note, 0))  / notes.length} / 5`: "Aucune note pour ce livre";
-          console.log(bookAvgNote)
-          book.avg_note = bookAvgNote;
+
+          // const bookAvgNote  = notes.length > 0 ? `${Number(notes.reduce((accumulator, note) => accumulator + note, 0)).toFixed(2)  / notes.length} / 5`: "Aucune note pour ce livre";
+          // console.log(typeof(bookAvgNote))
+          const bookAvgNote = (function () {
+            if (!notes.length) {
+              return -1
+            }
+            const  avg = Number(notes.reduce((accumulator, note) => accumulator + note, 0))/ notes.length ;
+            return avg.toFixed(2);
+          })()
+
+          book.avg_note = bookAvgNote
+            
+ 
+
           return book
         }
         // console.log('book review : **************');

@@ -22,16 +22,16 @@ const bookshelfController = {
             },
         });
 
-
         console.log(`*************bookshelf : ${bookshelf}`);
         console.log(bookshelf);
 
         const bookFormater = await Promise.all(bookshelf.books.map(async (book) =>{
             const bookInBookshelfData = await BookInBookshelf.findOne({
               where: { book_id: book.id },
-              attributes: ['Book_status']
+              attributes: ['book_status_id']
             });
             console.log(`++++++++++++++++++++++++++bookInBookshelfData : ${bookInBookshelfData}`);
+            console.log(bookInBookshelfData)
             return bookInBookshelfData?.BookStatus;
           }))
           console.log(`----------------------------------bookFormater : ${bookFormater}`);
