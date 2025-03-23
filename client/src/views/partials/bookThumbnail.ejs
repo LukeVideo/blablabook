@@ -1,55 +1,44 @@
 
-<article class="book-card second-background">
-    <div class="book-card-content">
-
-        <div class="book-card-cover">
-            <img class="book-card-cover--image" src="./images/photo.png" alt="Couverture du livre <%= book.title  %>">
+<article class="book_thumbnail">
+    <div class="book_thumbnail_header">
+        <p class="book_thumbnail_title"><%= book.title %> <span class="book_thumbnail_author"> (<%= book.author.firstname %> <%= book.author.lastname %>)</span>
+        </p>
+    </div>
+    
+    <div class="book_thumbnail_infos">
+        <div class="book_thumbnail_image">
+            <img class="book_thumbnail_image_cover" src="<%= book.cover_image || './images/DefaultBookCoverImg.png' %>" alt="Couverture du livre <%= book.title %>">
         </div>
+        <div class="book_thumbnail_summary">
+            <p>Résumé :</p>
+            <p><%= book.book_description %></p>
 
-        
-        <div class="book-card-info">
-            <header class="book-card-header">
-                <h2 class="book-card-title"><%= book.title %></h2>
-                <h3 class="book-card-author"><%= book.authors %></h3>
-                <p class="book-card-description"><%= book.book_description %></p>
-                <p>Note moyenne : 
-                    <% if (book.avg_note === -1) { %>
-                        <%= "Aucune note" %>
-                    <% } else { %>
-                        <%= book.avg_note %>
-                    <% } %>
-                </p>
-            </header>
-
-            <div class="book-card-options">
-                <div class="book-card-button">
-                <a href="/book/<%= book.id %>">
-                    <button class="book-card-button details-button">Détails</button>
-                </a>
-            </div>
-            <div class="book-card-button">
-
-                <% if (!locals.displayRemoveButton) { %>
-                    <form action="/addBookToBookshelf" method="POST">
-                        <input type="hidden" name="book_id" value="<%= book.id %>">
-                        <button class="book-card-button add-button" type="submit">
-                            Ajouter à ma Bookshelf
-                        </button>
-                    </form>
-                <% } %>
-
-                <% if (locals.displayRemoveButton) { %>
-                    <form action="/deleteBookFromBookshelf" method="POST">
-                        <input type="hidden" name="book_id" value="<%= book.id %>">
-                        <button class="book-card-button remove-button" type="submit">
-                            Retirer de ma Bookshelf
-                        </button>
-                    </form>
-                <% } %>
-            </div>
-
-            </div>
+        </div>
+    </div>
+    <div class="book_thumbnail_options">
+        <div >
+            <form action="/book/<%= book.id %>" method="GET">
+                <button class="book_thumbnail_button">Détails</button>
+            </form>
+        </div>
+        <div>
+            <% if (!locals.displayRemoveButton) { %>
+                <form action="/addBookToBookshelf" method="POST">
+                    <input type="hidden" name="book_id" value="<%= book.id %>">
+                    <button  class="book_thumbnail_button"type="submit" alt="Ajouter <%= book.title %> à ma Bookshelf">
+                        Ajouter à ma Bookshelf
+                    </button>
+                </form>
+            <% } %>
+    
+            <% if (locals.displayRemoveButton) { %>
+                <form action="/deleteBookFromBookshelf" method="POST">
+                    <input type="hidden" name="book_id" value="<%= book.id %>">
+                    <button class="book_thumbnail_button" type="submit" alt="Retirer <%= book.title %> de ma Bookshelf">
+                        Retirer de ma Bookshelf
+                    </button>
+                </form>
+            <% } %>
         </div>
     </div>
 </article>
-

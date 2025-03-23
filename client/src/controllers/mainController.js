@@ -20,8 +20,15 @@ const mainController = {
   
   async renderHomePage(req, res, next) {
     try {
+
       
-      //const Allbooks = await Book.findAll();
+      // Fonction limitDescription utilisant un littéral de gabarit
+      const limitDescription = (description, wordLimit = 30) => {
+        const words = description.split(' ');
+        return words.length > wordLimit 
+          ? `${words.slice(0, wordLimit).join(' ')}...`  // Utilisation de littéral de gabarit
+          : description;
+      };
 
       // Afficher les 5 derniers livres ajoutés :
       const latestBooks = await Book.findAll({
@@ -33,6 +40,10 @@ const mainController = {
         order : [['createdAt', 'DESC']],
         limit: 5
       })
+      // Limiter les descriptions des livres récents à 50 mots
+      latestBooks.forEach(book => {
+        book.book_description = limitDescription(book.book_description);
+      });
       const latestBookWithAvgNote = latestBooks.map(book => {
         if (book.dataValues.book_reviews  ) {
           const notes = book.dataValues.book_reviews.map(review => {
@@ -63,24 +74,28 @@ const mainController = {
         // console.log(book.dataValues.book_reviews);
       })
       console.log(latestBookWithAvgNote)
+
       // Afficher 3 auteurs aléatoires :
       const randomAuthors = await Author.findAll({
         order: sequelize.literal('random()'), 
         limit: 3
-    });
+      });
 
-    // Récupération de l'ID des auteurs aléatoires pour gérer les liens dans l'EJS
-    const authorIds = randomAuthors.map(author => author.id);
+      // Récupération de l'ID des auteurs aléatoires pour gérer les liens dans l'EJS
+      const authorIds = randomAuthors.map(author => author.id);
+
 
       res.render('index', {'latestBooks' : latestBookWithAvgNote, randomAuthors, authorIds});
+
       
     } catch (error) {
       console.error(error);
-      error.status =404
-      error.message="Problème avec index"
-      next(error)
+      error.status = 404;
+      error.message = "Problème avec index";
+      next(error);
     }
-  },
+},
+
 
   async renderCGU(req, res) {
     try {

@@ -27,7 +27,7 @@
     <ul>
       <% locals.randomAuthors.forEach((author) => { %>
         <li>
-          <a href="/author/<%= author.id %>"><%= author.firstname %> <%= author.lastname %></a>
+          <a class="random_authors_link" href="/author/<%= author.id %>"><%= author.firstname %> <%= author.lastname %></a>
         </li>
       <% }); %>
     </ul>
