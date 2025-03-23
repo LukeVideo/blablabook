@@ -2,9 +2,7 @@
 
 <%- include('./partials/header') %>
 <div class="index-section">
-<% if (locals.reader) { %>
-    <%- include('./partials/nickname', {nickname: locals.reader.nickname}) %>
-<% } %>
+
 
 
 <article class="book-detail second-background">
@@ -36,7 +34,50 @@
     </header>
     <p class="book-card-description"><%= book.book_description %></p>
     
+
+
+    <section>
+        <h2>Avis des lecteurs</h2>
+
+        <p>Note moyenne : <%= bookAvgNote %></p>
+
+        <% if (book.BookHasReview && book.BookHasReview.length > 0) { %>
+            <ul>
+                <% book.BookHasReview.forEach(review => { %>
+                    <li>
+                        <p><%= review.reader.firstname %> <%= review.reader.lastname %>:</p>
+                        <p><%= review.created_at %></p>
+                        <p>Note : <%= review.note %>/5 </p>
+                        <p>"<%= review.review %>"</p>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } else { %>
+            <p>Aucun avis pour ce livre.</p>
+        <% } %>
+    </section>
+    
 </article>
+
+<% if (locals.reader) { %>    
+    <section>
+        <form action="/book/<%= book.id %>/review" method="POST">
+            <label for="note">Note</label>
+            <select name="note" id="note">
+                <option value="0">Noter ce livre</option>
+                <option value="5">★★★★★</option>
+                <option value="4">★★★★</option>
+                <option value="3">★★★</option>
+                <option value="2">★★</option>
+                <option value="1">★</option>
+            </select>
+            
+            <label for="review">Commentaire</label>
+            <textarea name="review" id="" placeholder="Ecrire un commentaire"></textarea>
+            <button type="submit">Envoyer</button>
+        </form>
+    </section>
+<% } %>
 </div>
 
 <%- include('./partials/footer') %>

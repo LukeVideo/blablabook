@@ -41,6 +41,7 @@ router.post("/deleteBookFromBookshelf", bookshelfController.deleteBookFromBooksh
 router.post("/api/addBookToDB", [authValidator, isAdmin], adminController.addBookToDB);
 
 router.get('/book/:id', bookController.bookDetails);
+router.post('/book/:id/review', bookController.handleReview);
 
 router.get("/search", bookController.search);
 router.post("/search", bookController.handleSearch);

@@ -8,31 +8,46 @@ const bookshelfController = {
         try {
         const displayRemoveButton = true;
         const reader = req.session.reader;
+
         const bookshelf = await Bookshelf.findOne({
             where: { reader_id: reader.id },
             include: {
                 model: Book,
                 as: 'books',
                 include: [
-                    { model: Author, as: 'author' }, // Récupère l'auteur de chaque livre
-                ]
-            }
+                    { model: Author, as: 'author' }, // Récupérer l'auteur du livre
+                    { model: BookInBookshelf, as: 'BookInBookshelves' },
+
+                    ],
+            },
         });
+
+        console.log(`*************bookshelf : ${bookshelf}`);
+        console.log(bookshelf);
+
+        const bookFormater = await Promise.all(bookshelf.books.map(async (book) =>{
+            const bookInBookshelfData = await BookInBookshelf.findOne({
+              where: { book_id: book.id },
+              attributes: ['book_status_id']
+            });
+            console.log(`++++++++++++++++++++++++++bookInBookshelfData : ${bookInBookshelfData}`);
+            console.log(bookInBookshelfData)
+            return bookInBookshelfData?.BookStatus;
+          }))
+          console.log(`----------------------------------bookFormater : ${bookFormater}`);
         
-        // const bookshelf = await Bookshelf.findAll({
-        //     where: {
-        //         reader_id : reader.id
-        //     },
-        //     include: {
-        //         association: 'books', include : 'author'
-        //     }
-        // })
-        // console.log('books in bookshelf :', JSON.stringify(bookshelf, null, 2))
-        // console.log('reader',reader);
-        // Recherche la bookshelf du Reader via son id en associant les livres contenus dedans
+        const statusOfBook = await BookInBookshelf.findAll({
+            where: { bookshelf_id: bookshelf.id },
+            include: {
+                model: BookStatus,
+            }
+        })
+        console.log(statusOfBook);
         
+
+
         // On renvoie le reader et la bookshelf au template
-        res.render('bookshelf', {bookshelf: bookshelf, displayRemoveButton});
+        res.render('bookshelf', {bookshelf: bookshelf, displayRemoveButton, statusOfBook});
 
         
         } catch (error) {
@@ -41,6 +56,7 @@ const bookshelfController = {
         }
     
     },
+    
     // Se déclenche lorsqu'on appuie sur le bouton "ajouter à ma bookshelf" sur la page de présentation du livre
     async addBookToBookshelf (req, res) {
         // console.log("Appel de bookshelfController.addBookToBookshelf");

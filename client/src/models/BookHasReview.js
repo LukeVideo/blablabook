@@ -18,16 +18,16 @@ BookHasReview.init(
         book_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
-          },
+        },
         
         reader_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
-          },
+        },
         note: {
             type: DataTypes.INTEGER,
             allowNull: true,
-          },
+        },
         review: {
             type: DataTypes.TEXT,
             allowNull: true,
@@ -48,7 +48,7 @@ BookHasReview.init(
     {
         sequelize,
         modelName : 'BookHasReview',
-        tableName: 'bookhasreview',
+        tableName: 'book_has_review',
         timestamps: false, // Disable automatic timestamps since we are managing them manually
         hooks: {
         beforeCreate: (bookhasreview, options) => {
