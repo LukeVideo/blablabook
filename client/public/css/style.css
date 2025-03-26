@@ -382,35 +382,67 @@ footer a {
     background-color: #e59400;
 }
 
+/* dashboardCard*/
+
 .profile-container {
-    display:inline;
-    width: auto;
+    display:flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content:flex-start;
     height: auto;
-    justify-content: left;
-    margin: 2rem;
-    
+    margin : 4 rem;
     border-radius: 12px;
     box-shadow: 5px 2.5px 2.5px black;
-    background-image: url(../images/favicon.png);
-    background-position: 99% 90%;
     background-repeat: no-repeat;
-    background-image: linear-gradient(to bottom, #3D84A8, rgba(255, 255, 255, 0.9)), url(../images/favicon.png);
-
+    background-color: #3D84A8;
   }
 
- .logo-dashboard{
-    width: auto;
-    height: 100%;
-    border-radius: 12px 0 0 12px  ;
-    float: left;
-    background-size: 100%;
-    box-shadow: 2.5px 1px 1px black;
-    margin-right: 2rem;
+
+.dashboard-name {
+    text-align: center;
+}
+
+
+
+
+.profile-info, .admin-actions {
+
+}
+
+ .avatar-dashboard{
+
+    border-radius: 12px;
+    
+
 }
 
 
   
 .admin-actions {
     display:inline-block;
+    margin-bottom: 1rem;
 
 }  
+
+.admin-boutons {
+    
+    background-color: #F4ECD0;
+    border: 1px solid #F4ECD0;
+    color: black;
+    text-align: left;
+    font-size: 10px;
+    padding: 5px;
+    margin : 2px;
+    width: auto;
+    align-items: center;
+}
+
+.admin-boutons:hover {
+ 
+        background-color: #ffffff;
+        border: 1px solid #F4ECD0;
+        color: #3D84A8;
+        text-align: center;
+        font-size: 12px;
+}
+
