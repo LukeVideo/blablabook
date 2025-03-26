@@ -392,12 +392,9 @@ footer a {
     border-radius: 12px;
     box-shadow: 5px 2.5px 2.5px black;
     background-image: url(../images/favicon.png);
-    background-position: 100% 80%;
+    background-position: 99% 90%;
     background-repeat: no-repeat;
     background-image: linear-gradient(to bottom, #3D84A8, rgba(255, 255, 255, 0.9)), url(../images/favicon.png);
-
-    background-color:white;
-
 
   }
 
@@ -411,9 +408,7 @@ footer a {
     margin-right: 2rem;
 }
 
-.profile-info {
-text-decoration:underline;
-}
+
   
 .admin-actions {
     display:inline-block;
