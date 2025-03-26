@@ -2,6 +2,7 @@
 <%- include('./partials/header') %>
 
 <section class="profile-container index-section">
+    <img class="logo-dashboard" src="/images/avatar.jpg" alt="avatar"> 
     <% if (locals.reader) { %>
         <h2>Dashboard de <%= locals.reader.nickname %></h2>
     
@@ -15,20 +16,22 @@
     <% } %>
 
 <!-- Si l'utilisateur est un admin, on peut lui offrir des actions supplémentaires -->
-    <% if (locals.isAdmin) { %>
-        <h3>Actions administratives :</h3>
-        <form action="">
-            <button>Gérer les utilisateurs </button>
-        </form>
+    <div class="admin-actions">
+        <% if (locals.isAdmin) { %>
+            <h3>Actions administratives :</h3>
+            <form action="">
+                <button>Gérer les utilisateurs </button>
+            </form>
 
-        <form action="/api/search" method="GET">
-            <button type="submit">Ajouter un livre à la base de données</button>
-        </form>
+            <form action="/api/search" method="GET">
+                <button type="submit">Ajouter un livre à la base de données</button>
+            </form>
 
-        <form action="">
-            <button>Supprimer un livre de la base de données</button>
-        </form>
-    <% } %>
+            <form action="">
+                <button>Supprimer un livre de la base de données</button>
+            </form>
+        <% } %>
+    </div>
 
 <!-- Affichage des messages, s'il y en a -->
     <% if (locals.message) { %>

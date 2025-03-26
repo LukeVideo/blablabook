@@ -50,7 +50,7 @@ const registerController = {
       const strongPass = blablaregex.checkPassword(passToVerify);
       if (!strongPass){
         res.render('register', {
-          error: 'mot de passe trop faible !',
+          error: 'le mot de passe doit contenir 12 caractères dont une majuscule, une minuscule, un chiffre et un caractère spécial !',
         });
       }
 
