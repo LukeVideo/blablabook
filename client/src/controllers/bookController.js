@@ -163,7 +163,7 @@ const bookController = {
         note: parsedNote,
         review: review
       });
-      res.render('bookCard', {book});
+      res.redirect(`/book/${bookId}`);
 
     }catch(error){
       return next(error);
