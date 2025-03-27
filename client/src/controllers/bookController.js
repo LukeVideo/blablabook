@@ -1,7 +1,7 @@
 // IMPORTER ICI
 import sanitize from 'sanitize-html';
 import {Op} from 'sequelize';
-import {Author, Book, Reader, BookHasReview} from '../models/associations.js';
+import {Author, Book, Reader, BookHasReview, Bookshelf, Role, BookStatus} from '../models/associations.js';
 import authValidator from '../utils/authentificator.js';
 
 const bookController = {
@@ -31,6 +31,8 @@ const bookController = {
   
       // Recherche des livres
       const booksToFind = await Book.findAll({
+        include :{model:Author, as: 'author'},
+
         where: {
           title: {
             [Op.iLike]: `%${searchInput}%`,
@@ -90,7 +92,7 @@ const bookController = {
             Author, as: 'author'
           },
           {model:
-            BookHasReview, as: 'BookHasReview',
+            BookHasReview, as: 'book_reviews',
             include:[{model:Reader, as: 'reader'}]
           }  
         ]
@@ -100,9 +102,9 @@ const bookController = {
         return res.status(404).send('Book not found');
       }
 
+
       // Récupérer les notes des lecteurs sous forme de tableau
       const reviews = selectedBook.BookHasReview || [];
-      // console.log('notes:', reviews);
       
       // Si c'est le cas, afficher un message d'erreur
       //  Si length > 0, map sur les notes pour les récupérer
@@ -156,13 +158,19 @@ const bookController = {
       throw new Error('Invalid note format');
       }
       
+      const date  = Date.now().toLocaleString('fr-FR');
+
       // Ajouter la note et l'avis
       await BookHasReview.create({
         book_id: bookId,
         reader_id: readerId,
         note: parsedNote,
-        review: review
+        review: review,
+        created_at: Date.now()//.toLocaleString('fr-FR'),
       });
+
+      console.log('date')
+
       res.redirect(`/book/${bookId}`);
 
     }catch(error){

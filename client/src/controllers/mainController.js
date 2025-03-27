@@ -3,7 +3,7 @@ import {Op} from 'sequelize';
 import { Sequelize } from 'sequelize'; // Pour récupérer l'objet Sequelize
 import sequelize from '../../database/connexion_db.js';
 import nodemailer from 'nodemailer';
-import {Author, Book} from '../models/associations.js';
+import {Author, Book, BookHasReview, Reader} from '../models/associations.js';
 
 const mainController = {
   async redirectHomePage(req, res) {
@@ -20,33 +20,86 @@ const mainController = {
   
   async renderHomePage(req, res, next) {
     try {
+
       
-      const Allbooks = await Book.findAll();
+      // Fonction limitDescription utilisant un littéral de gabarit
+      const limitDescription = (description, wordLimit = 30) => {
+        const words = description.split(' ');
+        return words.length > wordLimit 
+          ? `${words.slice(0, wordLimit).join(' ')}...`  // Utilisation de littéral de gabarit
+          : description;
+      };
 
       // Afficher les 5 derniers livres ajoutés :
       const latestBooks = await Book.findAll({
+        include:[
+          {model:Author, as: 'author'},
+
+          {model:
+            BookHasReview, as: 'book_reviews',
+            include:[
+              {model:Reader, as: 'reader'},
+            ]
+          }],
         order : [['createdAt', 'DESC']],
         limit: 5
       })
-      
+      // Limiter les descriptions des livres récents à 50 mots
+      latestBooks.forEach(book => {
+        book.book_description = limitDescription(book.book_description);
+      });
+      const latestBookWithAvgNote = latestBooks.map(book => {
+        if (book.dataValues.book_reviews  ) {
+          const notes = book.dataValues.book_reviews.map(review => {
+            // console.log('review.dataValues.note : **************');
+            // console.log(review.dataValues.note)
+            return review.dataValues.note
+          })
+          console.log(notes)
+
+
+          // const bookAvgNote  = notes.length > 0 ? `${Number(notes.reduce((accumulator, note) => accumulator + note, 0)).toFixed(2)  / notes.length} / 5`: "Aucune note pour ce livre";
+          // console.log(typeof(bookAvgNote))
+          const bookAvgNote = (function () {
+            if (!notes.length) {
+              return -1
+            }
+            const  avg = Number(notes.reduce((accumulator, note) => accumulator + note, 0))/ notes.length ;
+            return avg.toFixed(2);
+          })()
+
+          book.avg_note = bookAvgNote
+            
+ 
+
+          return book
+        }
+        // console.log('book review : **************');
+        // console.log(book.dataValues.book_reviews);
+      })
+      console.log(latestBookWithAvgNote)
+
       // Afficher 3 auteurs aléatoires :
       const randomAuthors = await Author.findAll({
         order: sequelize.literal('random()'), 
         limit: 3
-    });
+      });
 
-    // Récupération de l'ID des auteurs aléatoires pour gérer les liens dans l'EJS
-    const authorIds = randomAuthors.map(author => author.id);
+      // Récupération de l'ID des auteurs aléatoires pour gérer les liens dans l'EJS
+      const authorIds = randomAuthors.map(author => author.id);
 
-      res.render('index', {Allbooks, latestBooks, randomAuthors, authorIds});
+
+      res.render('index', {'latestBooks' : latestBookWithAvgNote, randomAuthors, authorIds});
+
       
     } catch (error) {
       console.error(error);
-      error.status =404
-      error.message="Problème avec index"
-      next(error)
+      error.status = 404;
+      error.message = "Problème avec index";
+      next(error);
     }
-  },
+},
+
 
   async renderCGU(req, res) {
     try {

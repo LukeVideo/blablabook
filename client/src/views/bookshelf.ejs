@@ -1,21 +1,17 @@
   <%- include('./partials/head') %>
   <%- include('./partials/header') %>
   
+  
+  <div class="index-section" >
+  <% if (!locals.reader) { %>
+    <%- include('./partials/loginNeeded') %>
+  <% } %>
   <% if (locals.reader) { %>
-    <h2><%= locals.reader.nickname %> : Ma Bookshelf</h2>
-    <section >
-        <!-- <form action="/bookshelf/search" method="POST" type="submit" name="searchFromAPI">
-            <label for="titleFromAPI">Titre :</label>
-            <input type="text" id="titleFromAPI" name="titleFromAPI" placeholder="Titre">
-            <label for="authorFromAPI">Auteur :</label>
-            <input type="text" id="authorFromAPI" name="authorFromAPI" placeholder="Auteur">
-            <label for="isbnFromAPI">ISBN :</label>
-            <input type="text" id="isbnFromAPI" name="isbnFromAPI" placeholder="ISBN">
-            <button type="submit">Rechercher</button> -->
-    
+    <h2>Bookshelf de <%= locals.reader.nickname %></h2>
+
         
-        <% if (locals.bookshelf) { %>
-          
+      <% if (locals.bookshelf) { %>
+        <section class="booklist-section">
           <ul>
             <% locals.bookshelf.books.forEach((book) => { %>
                 <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
@@ -23,15 +19,15 @@
         
             <% }); %> 
           </ul>
-        <% } %>
+        </section>
+      <% } %>
 
 
 
 
 
-    </section>
-    <p>blablabla</p>
-<% } %>  
+    <% } %>  
+  </div>
 
   
   <% if (locals.message) { %>

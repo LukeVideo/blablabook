@@ -42,7 +42,7 @@ CREATE TABLE book_status(
 
 CREATE TABLE category(
   id SERIAL PRIMARY KEY,
-  label TEXT NOT NULL,
+  label TEXT NOT NULL DEFAULT 'Non_Défini',
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 
@@ -139,7 +139,8 @@ INSERT INTO category (label) VALUES
 ('Religion'),
 ('Romance'),
 ('Science-Fiction'),
-('Thriller');
+('Thriller'),
+('Non_Défini');
 
 INSERT INTO book_status (book_status) VALUES 
 ('à lire'),
