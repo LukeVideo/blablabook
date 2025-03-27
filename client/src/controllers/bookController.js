@@ -104,7 +104,7 @@ const bookController = {
 
 
       // Récupérer les notes des lecteurs sous forme de tableau
-      const reviews = selectedBook.BookHasReview || [];
+      const reviews = selectedBook.book_reviews || [];
       
       // Si c'est le cas, afficher un message d'erreur
       //  Si length > 0, map sur les notes pour les récupérer
