@@ -111,8 +111,14 @@ const bookController = {
       const notes = reviews.map(review => review.note);
 
       // Calculer la moyenne à partir des notes récupérées et en faire une String a passer au template
-      const bookAvgNote  = notes.length > 0 ? `${Number(notes.reduce((accumulator, note) => accumulator + note, 0))  / notes.length} / 5`: "Aucune note pour ce livre";
-
+      // const bookAvgNote  = notes.length > 0 ? `${Number(notes.reduce((accumulator, note) => accumulator + note, 0))  / notes.length} / 5`: "Aucune note pour ce livre";
+      const bookAvgNote = (function () {
+        if (!notes.length) {
+          return -1
+        }
+        const  avg = Number(notes.reduce((accumulator, note) => accumulator + note, 0))/ notes.length ;
+        return avg.toFixed(2);
+      })()
 
       
     console.log('Livre sélectionné pour affichage détaillé  :', selectedBook);
