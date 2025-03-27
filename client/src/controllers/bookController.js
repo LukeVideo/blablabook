@@ -168,7 +168,6 @@ const bookController = {
         review: review,
         created_at: Date.now()//.toLocaleString('fr-FR'),
       });
-      console.log('date')
       res.redirect(`/book/${bookId}`);
 
     }catch(error){
