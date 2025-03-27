@@ -48,7 +48,47 @@ header {
     justify-content: space-between;
 }
 
+@media screen and (max-width: 680px) {
+    .primary-background{
+        background-color: red;
+    }
+    .nav-bookmark{
+        display: none;
+    }
+    footer{
+        display: none;
+    }
+    .mobil-nav{
+        width: 100%;
+        display: flex;
+        position: fixed;
+        align-items: center;
+        justify-content: space-between;
+        bottom: 10px;
+        left:0;
+        
+    }
 
+}
+
+@media screen and (min-width: 681px){
+
+    footer{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    footer a {
+        text-decoration: none;
+        color: black;
+    }
+    .mobil-nav{
+        display: none;
+    }
+
+}
+    
 .header-nav{
     display: flex;
     padding-top: 0.5rem;
@@ -63,6 +103,7 @@ header {
     margin: 0 0.2rem 0 0.2rem;
     box-shadow: 0px 0px 5px rgba(47, 46, 73, 0.542);
 }
+
 .nav-bookmark-disabled{
     margin-top: 3rem;
 }
@@ -72,7 +113,6 @@ header {
     /* padding: 0rem  0rem 3rem 0rem; */
     color: black;
 }
-
 
 .index-section {
     padding: 0rem;
@@ -104,6 +144,7 @@ header {
     /* background-color:deeppink; */
     
 }
+
 .booklist-section ul{
     height:fit-content;
     padding: 2rem 0rem;
@@ -145,17 +186,6 @@ header {
     border-radius: 1.5rem;
     width: 150px;
     height: 3rem;
-}
-
-footer{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-footer a {
-    text-decoration: none;
-    color: black;
 }
 
 .header-logo{
@@ -310,6 +340,7 @@ footer a {
 } */
 
 /*----- BookThumbnail.ejs-----*/
+
 .book_thumbnail {
     border: 2px solid #000;
     background-color: #fff;
