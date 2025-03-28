@@ -117,7 +117,9 @@ async  getBookList(req, res) {
         console.log("Données reçues pour ajouter le livre :", req.body);
 
         // Vérification des données
-        const { title, authors, isbn, releaseDate, description, image } = req.body;
+        const { title, authors, isbn, releaseDate, description, imageUrl } = req.body;
+
+        console.log(`################################${imageUrl}`)
 
         
         if (!title || !authors || !isbn) {
@@ -141,6 +143,7 @@ async  getBookList(req, res) {
             });
             console.log(`created author ${author}`)
         }
+        
 
       
         // Vérifier si le livre existe déjà via l'ISBN
@@ -157,10 +160,10 @@ async  getBookList(req, res) {
             title,
             author_id: author.id,
             isbn,
-            category_id : Number(16),
+            category_id : 6,
             release_date: releaseDate || new Date(),
             book_description: description || null,
-            book_cover: image,
+            book_cover: imageUrl,
             created_at: new Date(),
             updated_at: new Date(),
         });
