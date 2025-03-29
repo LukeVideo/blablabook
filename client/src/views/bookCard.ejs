@@ -7,7 +7,7 @@
 <div class="book_details">
     <div class="book_group">
         <div class="book_cover">
-            <img src="<%= book.book_cover || './images/DefaultBookCoverImg.png' %>" alt="Couverture du livre <%= book.title %>">
+            <img src="<%= book.book_cover || '/images/DefaultBookCoverImg.png' %>" alt="Couverture du livre <%= book.title %>">
         </div>
         <div class="book_settings">
             <button>Statut</button>
@@ -53,7 +53,7 @@
 <div class="book_reviews">
     <article class="book_readerReview">
         <div class="Reader_avatar">
-            <img src="avatar.jpg" alt="Avatar de l'utilisateur">
+            <img src="/images/avatar.jpg" alt="Avatar de l'utilisateur">
         </div>
         <div class="Reader_nickname">Pseudo de l'utilisateur</div>
         <div class="review_date">Date de dépôt de l'avis</div>

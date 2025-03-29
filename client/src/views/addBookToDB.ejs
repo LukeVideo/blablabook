@@ -19,10 +19,11 @@
         
         <ul>
           <% locals.bookList.forEach((book) => { %>
+            <% console.log(book) %>
             <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
             <li>
-              <% if (book.imageLinks) { %>
-                <img src="<%= book.imageLinks %>" alt="">
+              <% if (book.imageLink) { %>
+                <img src="<%= book.imageLink %>" alt="">
                 <% }else{ %>
                 <p>'image non disponible'</p>
               <% } %>
@@ -40,7 +41,7 @@
               <input type="hidden" name="isbn" value="<%= book.isbn10 ? book.isbn10 : book.isbn13 %>">
               <input type="hidden" name="releaseDate" value="<%= book.releaseDate %>">
               <input type="hidden" name="description" value="<%= book.description %>">
-              <input type="hidden" name="image" value="<%= book.imageLinks ? book.imageLinks.thumbnail : 'https://i.scdn.co/image/ab67616d0000b273908a375e3e4976eb7e94c94d' %>">
+              <input type="hidden" name="book_cover" value="<%= book.imageLink ? book.imageLink : 'https://i.scdn.co/image/ab67616d0000b273908a375e3e4976eb7e94c94d' %>">
               <input type="hidden" name="link" value="<%= book.selfLink %>">
               
               <button type="submit">Ajouter à la base de données</button>
