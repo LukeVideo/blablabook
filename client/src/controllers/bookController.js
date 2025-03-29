@@ -174,6 +174,7 @@ const bookController = {
         review: review,
         created_at: Date.now()//.toLocaleString('fr-FR'),
       });
+
       res.redirect(`/book/${bookId}`);
 
     }catch(error){
