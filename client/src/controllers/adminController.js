@@ -84,11 +84,12 @@ async  getBookList(req, res) {
 
       // Requête API Google Books
       const response = await axios.get(apiUrl);
-      const books = response.data.items || [];
+      const books = await response.data.items || [];
 
       if (books.length === 0) {
           return res.render("addBookToDB", { message: "Aucun résultat trouvé !" });
       }
+      
 
       // Extraction des informations essentielles des livres
       const bookList = books.map(item => ({
@@ -99,7 +100,7 @@ async  getBookList(req, res) {
           description: item.volumeInfo?.description || "Pas de description",
           isbn10: item.volumeInfo?.industryIdentifiers?.[0]?.identifier || "Non disponible",
           isbn13: item.volumeInfo?.industryIdentifiers?.[1]?.identifier || "Non disponible",
-          imageLinks: item.volumeInfo?.imageLinks?.thumbnail || "no thumbnail"
+          imageLink: item.volumeInfo?.imageLinks?.thumbnail || "https://i.pinimg.com/originals/5a/1f/44/5a1f446dca198627eed60bd3ee5ca9f2.png"
       }));
 
       return res.render("addBookToDB", { bookList });
@@ -117,9 +118,9 @@ async  getBookList(req, res) {
         console.log("Données reçues pour ajouter le livre :", req.body);
 
         // Vérification des données
-        const { title, authors, isbn, releaseDate, description, imageUrl } = req.body;
+        const { title, authors, isbn, releaseDate, description, book_cover } = req.body;
 
-        console.log(`################################${imageUrl}`)
+        console.log(`################################${book_cover}`)
 
         
         if (!title || !authors || !isbn) {
@@ -163,7 +164,7 @@ async  getBookList(req, res) {
             category_id : 6,
             release_date: releaseDate || new Date(),
             book_description: description || null,
-            book_cover: imageUrl,
+            book_cover: book_cover,
             created_at: new Date(),
             updated_at: new Date(),
         });
