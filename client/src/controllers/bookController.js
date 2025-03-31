@@ -104,15 +104,21 @@ const bookController = {
 
 
       // Récupérer les notes des lecteurs sous forme de tableau
-      const reviews = selectedBook.BookHasReview || [];
+      const reviews = selectedBook.book_reviews || [];
       
       // Si c'est le cas, afficher un message d'erreur
       //  Si length > 0, map sur les notes pour les récupérer
       const notes = reviews.map(review => review.note);
 
       // Calculer la moyenne à partir des notes récupérées et en faire une String a passer au template
-      const bookAvgNote  = notes.length > 0 ? `${Number(notes.reduce((accumulator, note) => accumulator + note, 0))  / notes.length} / 5`: "Aucune note pour ce livre";
-
+      // const bookAvgNote  = notes.length > 0 ? `${Number(notes.reduce((accumulator, note) => accumulator + note, 0))  / notes.length} / 5`: "Aucune note pour ce livre";
+      const bookAvgNote = (function () {
+        if (!notes.length) {
+          return -1
+        }
+        const  avg = Number(notes.reduce((accumulator, note) => accumulator + note, 0))/ notes.length ;
+        return avg.toFixed(2);
+      })()
 
       
     console.log('Livre sélectionné pour affichage détaillé  :', selectedBook);
@@ -168,7 +174,7 @@ const bookController = {
         review: review,
         created_at: Date.now()//.toLocaleString('fr-FR'),
       });
-      console.log('date')
+
       res.redirect(`/book/${bookId}`);
 
     }catch(error){

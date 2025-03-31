@@ -7,7 +7,7 @@
 <div class="book_details">
     <div class="book_group">
         <div class="book_cover">
-            <img src="<%= book.book_cover || './images/DefaultBookCoverImg.png' %>" alt="Couverture du livre <%= book.title %>">
+            <img src="<%= book.book_cover || '/images/DefaultBookCoverImg.png' %>" alt="Couverture du livre <%= book.title %>">
         </div>
         <div class="book_settings">
             <button>Statut</button>
@@ -62,4 +62,116 @@
     </article>
 </div>
 
+<% if (locals.reader) { %>    
+ 
+
+    <section>
+ 
+
+        <form action="/book/<%= book.id %>/review" method="POST">
+ 
+
+            <label for="note">Note</label>
+ 
+
+            <select name="note" id="note">
+ 
+
+                <option value="0">Noter ce livre</option>
+ 
+
+                <option value="5">★★★★★</option>
+ 
+
+                <option value="4">★★★★</option>
+ 
+
+                <option value="3">★★★</option>
+ 
+
+                <option value="2">★★</option>
+ 
+
+                <option value="1">★</option>
+ 
+
+            </select>
+ 
+            <label for="review">Commentaire</label>
+ 
+
+            <textarea name="review" id="" placeholder="Ecrire un commentaire"></textarea>
+ 
+
+            <button type="submit">Envoyer</button>
+ 
+
+        </form>
+ 
+
+    </section>
+    <% } %>
+
+
+ 
+
+    <section>
+ 
+
+        <h2>Avis des lecteurs</h2>
+ 
+
+
+ 
+
+        <p>Note moyenne : <% if (bookAvgNote > 0) { %>
+            <%= bookAvgNote %> / 5
+            <% } else { %>
+             No NOter xD
+        <% } %> </p>
+ 
+
+
+ 
+
+        <% if (book.book_reviews && book.book_reviews.length > 0) { %>
+ 
+
+            <ul>
+ 
+
+                <% book.book_reviews.forEach(review => { %>
+ 
+
+                    <li>
+ 
+
+                        <p><%= review.reader.firstname %> <%= review.reader.lastname %>:</p>
+ 
+
+                        <p>Note : <%= review.note %>/5 </p>
+ 
+
+                        <p>"<%= review.review %>"</p>
+ 
+
+                    </li>
+ 
+
+                <% }) %>
+ 
+
+            </ul>
+ 
+
+        <% } else { %>
+ 
+
+            <p>Aucun avis pour ce livre.</p>
+ 
+
+        <% } %>
+ 
+
+    </section>
 <%- include('./partials/footer') %>
