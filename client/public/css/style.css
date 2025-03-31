@@ -187,20 +187,7 @@ header {
     width: 150px;
     height: 3rem;
 }
-<<<<<<< HEAD
-footer{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
 
-footer a {
-    text-decoration: none;
-    color: black;
-}
-=======
-
->>>>>>> 6b7ad4488b14a4cd8aaf60011ff0a0fed79a3039
 .header-logo{
     width: 200px;
 }
@@ -215,7 +202,7 @@ footer a {
 }
 
 .random_authors_link{
-    /*The link will appear as a button*/
+    /*le lien aura l'apparence d'un bouton*/
     border-radius: 1.5rem;
     margin : 1rem;
     padding : 1rem;
