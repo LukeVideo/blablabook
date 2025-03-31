@@ -1,0 +1,5 @@
+# General rules for all web crawlers 
+User-agent: * 
+Allow: /public/
+# Sitemap location
+Sitemap: https://www.votresite.com/public/sitemap.xml
