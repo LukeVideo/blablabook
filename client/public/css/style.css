@@ -48,7 +48,47 @@ header {
     justify-content: space-between;
 }
 
+@media screen and (max-width: 680px) {
+    .primary-background{
+        background-color: red;
+    }
+    .nav-bookmark{
+        display: none;
+    }
+    footer{
+        display: none;
+    }
+    .mobil-nav{
+        width: 100%;
+        display: flex;
+        position: fixed;
+        align-items: center;
+        justify-content: space-between;
+        bottom: 10px;
+        left:0;
+        
+    }
 
+}
+
+@media screen and (min-width: 681px){
+
+    footer{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    footer a {
+        text-decoration: none;
+        color: black;
+    }
+    .mobil-nav{
+        display: none;
+    }
+
+}
+    
 .header-nav{
     display: flex;
     padding-top: 0.5rem;
@@ -63,6 +103,7 @@ header {
     margin: 0 0.2rem 0 0.2rem;
     box-shadow: 0px 0px 5px rgba(47, 46, 73, 0.542);
 }
+
 .nav-bookmark-disabled{
     margin-top: 3rem;
 }
@@ -104,6 +145,7 @@ header {
     /* background-color:deeppink; */
     
 }
+
 .booklist-section ul{
     height:fit-content;
     padding: 2rem 0rem;
@@ -146,7 +188,6 @@ header {
     width: 150px;
     height: 3rem;
 }
-
 footer{
     display: flex;
     flex-direction: row;
@@ -157,7 +198,6 @@ footer a {
     text-decoration: none;
     color: black;
 }
-
 .header-logo{
     width: 200px;
 }
@@ -172,7 +212,7 @@ footer a {
 }
 
 .random_authors_link{
-    /*le lien aura l'apparence d'un bouton*/
+    /*The link will appear as a button*/
     border-radius: 1.5rem;
     margin : 1rem;
     padding : 1rem;
@@ -310,6 +350,7 @@ footer a {
 } */
 
 /*----- BookThumbnail.ejs-----*/
+
 .book_thumbnail {
     border: 2px solid #000;
     background-color: #fff;
@@ -397,39 +438,27 @@ footer a {
     box-shadow: 5px 2.5px 2.5px black;
     background-repeat: no-repeat;
     background-color: #3D84A8;
-  }
+}
 
 
 .dashboard-name {
     text-align: center;
 }
 
-
-
-
 .profile-info, .admin-actions {
     margin-top : 2rem;
-
 }
 
- .avatar-dashboard{
-
+.avatar-dashboard{
     border-radius: 12px;
-    
-
 }
-
-
   
 .admin-actions {
     display:inline-block;
     margin-bottom: 1rem;   
-
-
 }  
 
 .admin-boutons {
-    
     background-color: #F4ECD0;
     border: 1px solid #F4ECD0;
     color: black;
@@ -442,11 +471,9 @@ footer a {
 }
 
 .admin-boutons:hover {
- 
-        background-color: #ffffff;
-        border: 1px solid #F4ECD0;
-        color: #3D84A8;
-        text-align: center;
-        font-size: 12px;
+    background-color: #ffffff;
+    border: 1px solid #F4ECD0;
+    color: #3D84A8;
+    text-align: center;
+    font-size: 12px;
 }
-
