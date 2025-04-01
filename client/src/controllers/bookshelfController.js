@@ -9,28 +9,6 @@ const bookshelfController = {
         const displayRemoveButton = true;
         const reader = req.session.reader;
 
-        // const bookshelf = await Bookshelf.findOne({
-        //     where: { reader_id: reader.id },
-        //     include: {
-        //         model: Book,
-        //         as: 'books',
-        //         include: [
-        //             {
-        //                 model: Author,
-        //                 as: 'author' }, // Récupérer l'auteur du livre
-        //             { 
-        //                 model: BookInBookshelf,
-        //                 as: 'BookInBookshelves',
-        //                 include:[
-        //                     { 
-        //                         model: BookStatus,
-        //                         as: 'BookStatus'
-        //                     }
-        //                 ]
-        //             },
-        //         ],
-        //     },
-        // });
 
         const bookshelf = await Bookshelf.findOne({
             where: { reader_id: reader.id },
@@ -104,11 +82,7 @@ const bookshelfController = {
             const book = req.body.book_id;
             //console.log(`Id du livre à ajouter ${book}`);
             const bookToAdd = await Book.findByPk(book);
-
-            // On récupère l'id de la bookshelf du reader
-            const myBookshelf = await Bookshelf.findOne({where:{reader_id: `${reader}`}});  
-            //console.log('bookshelf id', myBookshelf?.id);
-
+            const myBookshelf = await Bookshelf.findOne({ where: { reader_id: `${reader}` } });  
             // On vérifie que le livre n'est pas déjà dans la bookshelf en comparant les id de bookToAdd et des livres dans MyBookshelf
             const alreadyInBookshelf = await BookInBookshelf.findOne({where:{book_id: `${bookToAdd.id}`, bookshelf_id: `${myBookshelf.id}`}});
             //console.log('already in bookshelf :', JSON.stringify(alreadyInBookshelf, null, 2))
@@ -118,7 +92,7 @@ const bookshelfController = {
                 return res.render('bookshelf', {message : 'Ce livre est déjà dans votre bookshelf.'});
 
             }
-            
+
 
             // On ajoute les données du livre dans la bookshelf du reader
             // Par défaut, le statut du livre est "A lire"
@@ -181,10 +155,28 @@ const bookshelfController = {
     
     },
     async handleStatus (req, res) {
+        try {
 
-        console.log("coucou je handle le status !!!!!");
-        console.log("req.body");
-        res.redirect('/bookshelf');
+            console.log("coucou je handle le status !!!!!");
+            console.log(req.body);
+            const {BookInBookshelf_id, status} = req.body;
+            
+            const updatedStatus = await BookInBookshelf.update({
+                book_status_id: status
+                },
+                { where: {id: BookInBookshelf_id}}
+            )
+            res.redirect('/bookshelf');
+        }
+        catch (error) {
+        console.error('Erreur lors de la mise à jour du status : ', error);
+        
+      }
+
+
+
+
+
     }
 
 

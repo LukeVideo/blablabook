@@ -17,10 +17,11 @@
             <% if (locals.book_status) { %>
                 <form action="/status/<%= book.id %>/<%= locals.book_status.id %>/" method="post">
                     <label for="status">Status:</label>
+                    <input type="hidden" id="BookInBookshelf_id" name="BookInBookshelf_id" value="<%= BookInBookshelf_id %>">
                     <select id="status" name="status" onchange="this.form.submit()">
                         <% locals.statuses.forEach((status) => { %>
                             <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
-                        <option value="<%- status.book_status %>"
+                        <option value="<%- status.id %>"
                              <% if (status.book_status === locals.book_status.book_status) { %>
                         selected 
                         <% } %>><%- status.book_status %></option>
