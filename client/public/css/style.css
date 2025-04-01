@@ -467,3 +467,27 @@ header {
     text-align: center;
     font-size: 12px;
 }
+
+/* lastReviews*/
+.lastReviews {
+display: flex;
+justify-content: start;
+padding-left: 2rem;
+
+
+
+}
+.lastReviews ul{
+    height:fit-content;
+    padding: 2rem 0rem;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.lastReviews li {
+    border: 1px solid #ffa500;
+    border-radius: 10px;
+    background-color: white;
+    padding : 5px;
+}

@@ -4,6 +4,7 @@ import { Sequelize } from 'sequelize'; // Pour récupérer l'objet Sequelize
 import sequelize from '../../database/connexion_db.js';
 import nodemailer from 'nodemailer';
 import {Author, Book, BookHasReview, Reader} from '../models/associations.js';
+import getLastReviews from '../utils/lastReviews.js';
 
 const mainController = {
   async redirectHomePage(req, res) {
@@ -89,7 +90,9 @@ const mainController = {
       const authorIds = randomAuthors.map(author => author.id);
 
 
-      res.render('index', {'latestBooks' : latestBookWithAvgNote, randomAuthors, authorIds});
+      const lastReviews = await getLastReviews();
+
+      res.render('index', {'latestBooks' : latestBookWithAvgNote, randomAuthors, authorIds, lastReviews});
 
       
     } catch (error) {
