@@ -51,7 +51,7 @@ router.get("/bookshelf", [authValidator], bookshelfController.displayBookshelf);
 router.get("/author/:id", authorController.renderAuthorPage);
 
 
-router.post("/status/:book_id/:status_id", bookshelfController.handleStatus);
+router.post("/status/:book_in_bookshelf_id/:status_id", bookshelfController.handleStatus);
 
 
 

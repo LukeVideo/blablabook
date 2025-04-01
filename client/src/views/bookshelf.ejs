@@ -20,7 +20,7 @@
           <ul>
             <% locals.bookshelf.BookInBookshelves.forEach((bookshelfItem) => { %>
                 <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
-            <li><%- include('partials/bookThumbnail', {book: bookshelfItem.Book, book_status:bookshelfItem.BookStatus}) %></li>
+            <li><%- include('partials/bookThumbnail', {book: bookshelfItem.Book, book_status:bookshelfItem.BookStatus, BookInBookshelf_id:bookshelfItem.id}) %></li>
         
             <% }); %> 
           </ul>
