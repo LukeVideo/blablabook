@@ -168,6 +168,9 @@ const mainController = {
     return next(error);
   }
 },
+async test(reg, res, next){
+  console.log("coucou Status de la LIbertéééééééééééééé")
+}
   
 }
 

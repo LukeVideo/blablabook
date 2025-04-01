@@ -1,21 +1,26 @@
   <%- include('./partials/head') %>
   <%- include('./partials/header') %>
   
-  
+  <script>
+    const localsData = <%- JSON.stringify(locals) %>;
+    console.log(localsData);
+  </script>
+
+
+
   <div class="index-section" >
   <% if (!locals.reader) { %>
     <%- include('./partials/loginNeeded') %>
   <% } %>
   <% if (locals.reader) { %>
     <h2>Bookshelf de <%= locals.reader.nickname %></h2>
-
-        
+ 
       <% if (locals.bookshelf) { %>
         <section class="booklist-section">
           <ul>
-            <% locals.bookshelf.books.forEach((book) => { %>
+            <% locals.bookshelf.BookInBookshelves.forEach((bookshelfItem) => { %>
                 <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
-            <li><%- include('partials/bookThumbnail', {book: book}) %></li>
+            <li><%- include('partials/bookThumbnail', {book: bookshelfItem.Book, book_status:bookshelfItem.BookStatus}) %></li>
         
             <% }); %> 
           </ul>

@@ -9,45 +9,81 @@ const bookshelfController = {
         const displayRemoveButton = true;
         const reader = req.session.reader;
 
+        // const bookshelf = await Bookshelf.findOne({
+        //     where: { reader_id: reader.id },
+        //     include: {
+        //         model: Book,
+        //         as: 'books',
+        //         include: [
+        //             {
+        //                 model: Author,
+        //                 as: 'author' }, // Récupérer l'auteur du livre
+        //             { 
+        //                 model: BookInBookshelf,
+        //                 as: 'BookInBookshelves',
+        //                 include:[
+        //                     { 
+        //                         model: BookStatus,
+        //                         as: 'BookStatus'
+        //                     }
+        //                 ]
+        //             },
+        //         ],
+        //     },
+        // });
+
         const bookshelf = await Bookshelf.findOne({
             where: { reader_id: reader.id },
             include: {
-                model: Book,
-                as: 'books',
+                model: BookInBookshelf,
+                as: 'BookInBookshelves',
                 include: [
-                    { model: Author, as: 'author' }, // Récupérer l'auteur du livre
-                    { model: BookInBookshelf, as: 'BookInBookshelves' },
-
-                    ],
+                    { 
+                        model: BookStatus,
+                        as: 'BookStatus'
+                    },
+                    { 
+                        model: Book,
+                        as: 'Book',
+                        include:[
+                            {
+                                model: Author,
+                                as: 'author'
+                            },
+                        ]
+                    },
+                ],
             },
         });
-
         console.log(`*************bookshelf : ${bookshelf}`);
         console.log(bookshelf);
 
-        const bookFormater = await Promise.all(bookshelf.books.map(async (book) =>{
-            const bookInBookshelfData = await BookInBookshelf.findOne({
-              where: { book_id: book.id },
-              attributes: ['book_status_id']
-            });
-            console.log(`++++++++++++++++++++++++++bookInBookshelfData : ${bookInBookshelfData}`);
-            console.log(bookInBookshelfData)
-            return bookInBookshelfData?.BookStatus;
-          }))
-          console.log(`----------------------------------bookFormater : ${bookFormater}`);
+        // const bookFormater = await Promise.all(bookshelf.books.map(async (book) =>{
+        //     const bookInBookshelfData = await BookInBookshelf.findOne({
+        //       where: { book_id: book.id },
+        //       attributes: ['book_status_id']
+        //     });
+        //     console.log(`++++++++++++++++++++++++++bookInBookshelfData : ${bookInBookshelfData}`);
+        //     // console.log(bookInBookshelfData)
+        //     console.log(`book in bookshelf status ${bookInBookshelfData?.BookStatus}`);
+            
+        //     return bookInBookshelfData?.BookStatus;
+        //   }))
+        //   console.log(`----------------------------------bookFormater : ${bookFormater}`);
         
-        const statusOfBook = await BookInBookshelf.findAll({
-            where: { bookshelf_id: bookshelf.id },
-            include: {
-                model: BookStatus,
-            }
-        })
-        console.log(statusOfBook);
-        
+        // const statusOfBook = await BookInBookshelf.findAll({
+        //     where: { bookshelf_id: bookshelf.id },
+        //     include: {
+        //         model: BookStatus, as: 'BookStatus',
+        //     }
+        // })
+        // console.log("statusOfBook");
+        // console.log(statusOfBook.BookStatus);
 
+        const statuses = await BookStatus.findAll();
 
         // On renvoie le reader et la bookshelf au template
-        res.render('bookshelf', {bookshelf: bookshelf, displayRemoveButton, statusOfBook});
+        res.render('bookshelf', {bookshelf: bookshelf, displayRemoveButton, statuses});
 
         
         } catch (error) {
@@ -143,6 +179,12 @@ const bookshelfController = {
             res.status(500).render("not_found");
         }
     
+    },
+    async handleStatus (req, res) {
+
+        console.log("coucou je handle le status !!!!!");
+        console.log("req.body");
+        res.redirect('/bookshelf');
     }
 
 
