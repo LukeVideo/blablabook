@@ -12,7 +12,24 @@
         <div class="book_thumbnail_image">
             <img class="book_thumbnail_image_cover" src="<%= book.book_cover|| './images/DefaultBookCoverImg.png' %>" alt="Couverture du livre <%= book.title %>">
         </div>
-        <div class="book_thumbnail_summary">
+        <div class="book_thumbnail_summary">   
+            
+            <% if (locals.book_status) { %>
+                <form action="/status/<%= book.id %>/<%= locals.book_status.id %>/" method="post">
+                    <label for="status">Status:</label>
+                    <select id="status" name="status" onchange="this.form.submit()">
+                        <% locals.statuses.forEach((status) => { %>
+                            <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
+                        <option value="<%- status.book_status %>"
+                             <% if (status.book_status === locals.book_status.book_status) { %>
+                        selected 
+                        <% } %>><%- status.book_status %></option>
+                    
+                        <% }); %> 
+                    </select>
+                  </form>   
+            <% } %>
+
             <p>Résumé :</p>
             <p><%= book.book_description %></p>
 
