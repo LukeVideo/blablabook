@@ -100,7 +100,7 @@ async  getBookList(req, res) {
           description: item.volumeInfo?.description || "Pas de description",
           isbn10: item.volumeInfo?.industryIdentifiers?.[0]?.identifier || "Non disponible",
           isbn13: item.volumeInfo?.industryIdentifiers?.[1]?.identifier || "Non disponible",
-          imageLink: item.volumeInfo?.imageLinks?.thumbnail || "https://i.pinimg.com/originals/5a/1f/44/5a1f446dca198627eed60bd3ee5ca9f2.png"
+          imageLink: item.volumeInfo?.imageLinks?.thumbnail || "/images/DefaultBookCoverImg.png"
       }));
 
       return res.render("addBookToDB", { bookList });
