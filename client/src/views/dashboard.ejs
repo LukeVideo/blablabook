@@ -2,8 +2,10 @@
 <%- include('./partials/header') %>
 
 <section class="profile-container index-section">
+   <div class="dashboard-name"> <h2>Dashboard de <%= locals.reader.nickname %></h2>
+    <img class="avatar-dashboard" src="/images/avatar.jpg" alt="avatar"> 
+   </div> 
     <% if (locals.reader) { %>
-        <h2>Dashboard de <%= locals.reader.nickname %></h2>
     
     <!-- Affichage des informations du profil de l'utilisateur -->
         <div class="profile-info">
@@ -11,24 +13,27 @@
             <p>Nom : <%= locals.reader.lastname %></p>
             <p>Prénom : <%= locals.reader.firstname %></p>
             <p>Email : <%= locals.reader.email %></p>
+            <p><a href="/bookshelf">Ma Bibliothèque  </a></p>
         </div>
     <% } %>
 
 <!-- Si l'utilisateur est un admin, on peut lui offrir des actions supplémentaires -->
-    <% if (locals.isAdmin) { %>
-        <h3>Actions administratives :</h3>
-        <form action="">
-            <button>Gérer les utilisateurs </button>
-        </form>
+    <div class="admin-actions">
+        <% if (locals.isAdmin) { %>
+            <h3>Actions administratives:</h3>
+            <form action="">
+                <button class="admin-boutons">Gérer les utilisateurs </button>
+            </form>
 
-        <form action="/api/search" method="GET">
-            <button type="submit">Ajouter un livre à la base de données</button>
-        </form>
+            <form action="/api/search" method="GET">
+                <button class="admin-boutons" type="submit">Ajouter un livre à la BDD</button>
+            </form>
 
-        <form action="">
-            <button>Supprimer un livre de la base de données</button>
-        </form>
-    <% } %>
+            <form action="">
+                <button class="admin-boutons">Supprimer un livre de la BDD</button>
+            </form>
+        <% } %>
+    </div>
 
 <!-- Affichage des messages, s'il y en a -->
     <% if (locals.message) { %>
@@ -37,3 +42,5 @@
 </section>
 
 <%- include('./partials/footer') %>
+
+

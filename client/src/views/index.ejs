@@ -1,6 +1,8 @@
 <%- include('./partials/head') %>
 
 <%- include('./partials/header') %>
+
+
 <div class="index-section">
 
 
@@ -20,6 +22,32 @@
     </ul>
   </section>
 <% } %>
+
+<!-- add last comments -->
+
+<h2>Derniers avis des lecteurs</h2>
+<div class="lastReviews">
+<% if (locals.lastReviews && locals.lastReviews.length > 0) { %>
+
+  <ul>
+        <% locals.lastReviews.forEach(review => { %>
+            <li>
+                <p><%= review.book_review.title %></p>
+                <p>Note : <%= review.note %>/5</p>
+                <p>"<%= review.review %>"</p>
+                
+                
+                <small>Posté le <%= new Date(review.created_at).toLocaleDateString('fr-FR') %></small> par <%= review.reader.nickname %> 
+            </li>
+        <% }) %>
+    </ul>
+<% } else { %>
+    <p>Aucun avis pour le moment.</p>
+<% } %>
+</div>
+<!-- end of add last comments -->
+
+
 
 <% if (locals.randomAuthors && locals.randomAuthors.length > 0) { %>
   <section class="random-authors-section">

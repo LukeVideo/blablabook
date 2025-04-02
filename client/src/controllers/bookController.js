@@ -172,7 +172,7 @@ const bookController = {
         reader_id: readerId,
         note: parsedNote,
         review: review,
-        created_at: Date.now()//.toLocaleString('fr-FR'),
+        created_at: Date.now(),
       });
 
       res.redirect(`/book/${bookId}`);
@@ -184,7 +184,10 @@ const bookController = {
     
   },
 
-}
 
+
+
+
+}
 
 export default bookController

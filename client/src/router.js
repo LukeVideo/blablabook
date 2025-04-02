@@ -16,6 +16,7 @@ const router = Router();
 // Routes du mainController (concerne la navigation sur les pages d'accueil, login, register et compte utilisateur)
 router.get("/", mainController.redirectHomePage);
 router.get("/index", mainController.renderHomePage);
+
 router.get("/cgu", mainController.renderCGU);
 router.get("/mentions", mainController.renderMentionsPage);
 
@@ -49,6 +50,8 @@ router.post("/search", bookController.handleSearch);
 router.get("/bookshelf", [authValidator], bookshelfController.displayBookshelf);
 
 router.get("/author/:id", authorController.renderAuthorPage);
+
+// router.get("/index", bookController.getLastReviews);
 
 
 router.post("/status/:book_in_bookshelf_id/:status_id", bookshelfController.handleStatus);
