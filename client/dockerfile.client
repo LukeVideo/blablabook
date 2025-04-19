@@ -16,6 +16,7 @@ RUN npm install
 # Copie du reste des fichiers du dossier client dans le conteneur
 COPY  . .
 
+CMD npm run dev
 
 EXPOSE 10000
 
