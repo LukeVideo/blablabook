@@ -1,7 +1,7 @@
 services:
   - type: web
     name: blablabook
-    runtime: docker
+    runtime: image
     image:
       url: docker.io/lukevideo/blablabook:latest
     region: oregon
