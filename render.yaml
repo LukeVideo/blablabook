@@ -2,10 +2,8 @@ services:
   - type: web
     name: blablabook
     runtime: docker
-    docker:
-      registry: docker.io
-      repo: lukevideo/blablabook
-      tag: latest
+    image:
+      url: docker.io/lukevideo/blablabook:latest
     region: oregon
     plan: free
     numInstances: 1
