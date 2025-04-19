@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: my-app
+    env: docker
+    docker:
+      registry: docker.io
+      repo: lukevideo/blablabook
+      tag: latest
+    region: oregon
+    plan: free
+    numInstances: 1
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+    autoDeploy: false
