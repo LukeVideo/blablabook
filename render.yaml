@@ -1,7 +1,7 @@
 services:
   - type: web
     name: blablabook
-    env: docker
+    runtime: docker
     docker:
       registry: docker.io
       repo: lukevideo/blablabook
