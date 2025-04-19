@@ -1,18 +1,11 @@
-
 services:
   client :
       # On définit une image de Node.js comme base en indiquant la version utilisée
       container_name : Client
-      # user: docker:docker
       build:
         context: ./client
         dockerfile: ./dockerfile.client
 
-      # commande a executer avant de lancer le serveur
-      # RUN npm install
-
-      # Lancement du script "npm run dev" pour démarrer l'application
-      # command : ["npm","run", "dev"]
       volumes:
         - ./client:/client
         - /client/node_modules
@@ -45,3 +38,5 @@ services:
       - pg_data:/var/lib/postgresql/data/
 volumes:
   pg_data:
+
+
