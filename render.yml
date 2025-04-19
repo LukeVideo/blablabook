@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: my-app
+    name: blablabook
     env: docker
     docker:
       registry: docker.io
