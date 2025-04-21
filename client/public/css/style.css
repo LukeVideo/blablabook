@@ -136,25 +136,34 @@ header {
     /* padding: 2rem 0rem; */
     display: flex;
     justify-content: start;
+    width: 100%;
     
     
     /* flex-direction: row; */
     /* align-items: center; */
-    align-items: stretch;
+    /* align-items: stretch; */
     /* background-color:deeppink; */
     
+    
+    /* Horyzontal scroll */
+    overflow-y: scroll;
+    transform: rotate(-90deg);
 }
 
 .booklist-section ul{
-    height:fit-content;
+    /* height:fit-content; */
     padding: 2rem 0rem;
     display: flex;
     flex-direction: row;
     overflow-y: scroll;
     align-items: stretch;
     gap: 1rem;
-    /* background-color:deeppink; */
+
+
+
+    transform: rotate(90deg);
 }
+
 
 .login-section {
     flex: 1;
