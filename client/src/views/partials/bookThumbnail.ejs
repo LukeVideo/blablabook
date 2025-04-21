@@ -46,7 +46,7 @@
             <% if (!locals.displayRemoveButton) { %>
                 <form action="/addBookToBookshelf" method="POST">
                     <input type="hidden" name="book_id" value="<%= book.id %>">
-                    <button  class="book_thumbnail_button"type="submit" alt="Ajouter <%= book.title %> à ma Bookshelf">
+                    <button  class="book_thumbnail_button" type="submit" aria-label="Ajouter <%= book.title %> à ma Bookshelf">
                         Ajouter à ma Bookshelf
                     </button>
                 </form>
