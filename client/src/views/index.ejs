@@ -9,9 +9,16 @@
   <% if (locals.message) { %>
     <p><%= locals.message %></p>
 <% } %>
-
+<section class="presentation-section second-background">
+        
+  <h1>Blablabook c'est quoi ?</h1>
+  <p>BlaBlaBook est une plateforme de gestion de bibliothèque en ligne mais pas seulement !</p>
+  <p>Vous pouvez également échanger avec
+      d’autres lecteurs, partager votre avis et bien d’autres choses  ! Pour nous rejoindre, c’est par ici !</p>
+  <a href="/register"><button type="button">Rejoignez nous!</button></a>
+</section>
 <% if (locals.latestBooks && locals.latestBooks.length > 0) { %>
-  <h2>Les 5 derniers livres ajoutés :</h2>
+  <h2>Les derniers livres ajoutés :</h2>
   <section class="booklist-section">
     <ul>
       <% locals.latestBooks.forEach((book) => { %>
