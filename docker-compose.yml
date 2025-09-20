@@ -4,7 +4,7 @@ services:
       container_name : Client
       build:
         context: ./client
-        dockerfile: ./dockerfile.client
+        dockerfile: ./Dockerfile
 
       volumes:
         - ./client:/client

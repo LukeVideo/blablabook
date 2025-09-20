@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .bookmark {
+    @apply relative px-4 py-2 text-peacock bg-beige font-medium;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+  }
+
+  .bookmark-disabled {
+    @apply relative px-4 py-2 text-gray-400 bg-gray-200 cursor-not-allowed;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+  }
+}
