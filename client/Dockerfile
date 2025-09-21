@@ -4,9 +4,9 @@ WORKDIR /client
 
 COPY ./package*.json ./
 
-# Install dependencies including Tailwind CSS globally
+# Install dependencies including Tailwind CSS and concurrently globally
 RUN npm install
-RUN npm install -g tailwindcss
+RUN npm install -g tailwindcss concurrently
 
 COPY . .
 
@@ -14,4 +14,4 @@ COPY . .
 # RUN npx tailwindcss init
 
 EXPOSE 3000
-CMD ["sh", "-c", "ls -la /client && node index.js"]
+CMD ["npm", "run", "dev"]

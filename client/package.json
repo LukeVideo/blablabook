@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js & tailwindcss -i ./public/css/styleTW.css -o ./public/css/output.css --watch",
+    "dev": "concurrently \"nodemon index.js\" \"tailwindcss -i ./public/css/styleTW.css -o ./public/css/output.css --watch\"",
     "dev:server": "nodemon index.js"
   },
   "author": "",

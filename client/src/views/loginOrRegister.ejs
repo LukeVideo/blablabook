@@ -5,27 +5,33 @@
 
   <section class="container mx-auto px-4 py-8 max-w-md">
     <div class="bg-white rounded-lg shadow-md p-6">
-      <div class="flex mb-6 border-b">
-        <button id="login-btn" 
-                class="flex-1 py-3 text-center font-medium transition-colors hover:text-peacock border-b-2 border-transparent active:border-peacock active">
-          Connexion
-        </button>
-        <button id="register-btn" 
-                class="flex-1 py-3 text-center font-medium transition-colors hover:text-peacock border-b-2 border-transparent">
-          Inscription
-        </button>
-      </div>
-
       <% if (locals.reader) { %>
-        <form class="space-y-4" action="/logout" method="POST">
-          <h2 class="text-xl font-bold text-peacock"><%= locals.reader.nickname %></h2>
-          <p class="text-gray-600">Voulez-vous vous déconnecter ?</p>
-          <button class="w-full bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors" 
-                  type="submit" name="logout">
-            Déconnexion
-          </button>
-        </form>
+        <!-- Section utilisateur connecté -->
+        <div class="text-center">
+          <h2 class="text-2xl font-bold text-peacock mb-4">Bonjour <%= locals.reader.nickname %> !</h2>
+          <p class="text-gray-600 mb-6">Vous êtes connecté à votre compte BlaBlaBook.</p>
+          <form class="space-y-4" action="/logout" method="POST">
+            <button class="w-full bg-red-600 text-white py-3 px-4 rounded-lg hover:bg-red-700 transition-colors" 
+                    type="submit" name="logout">
+              Se déconnecter
+            </button>
+          </form>
+        </div>
       <% } else { %>
+        <!-- Onglets de navigation -->
+        <div class="flex mb-6 border-b">
+          <button id="login-btn" 
+                  onclick="showTab('login')"
+                  class="flex-1 py-3 text-center font-medium transition-colors hover:text-peacock border-b-2 border-peacock">
+            Connexion
+          </button>
+          <button id="register-btn" 
+                  onclick="showTab('register')"
+                  class="flex-1 py-3 text-center font-medium transition-colors hover:text-peacock border-b-2 border-transparent">
+            Inscription
+          </button>
+        </div>
+        
         <form id="login-form" class="space-y-4" action="/login" method="POST">
           <div class="space-y-2">
             <label for="email" class="block text-gray-700 font-medium">Adresse mail:</label>
@@ -95,14 +101,43 @@
           </button>
         </form>
 
-        <% if (locals.error) { %>
-          <p class="mt-4 text-red-600 text-center"><%= locals.error %></p>
-        <% } %>
+      <!-- Messages de succès ou d'erreur -->
+      <% if (locals.message) { %>
+        <div class="mt-4 p-4 rounded-lg text-center <%= locals.error ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700' %>">
+          <%= locals.message %>
+        </div>
+      <% } %>
+
+      <% if (locals.error) { %>
+        <div class="mt-4 p-4 bg-red-100 text-red-700 rounded-lg text-center">
+          <%= locals.error %>
+        </div>
+      <% } %>
       <% } %>
     </div>
   </section>
 
   <%- include('./partials/footer') %>
 
-  <!-- Keep your existing JavaScript -->
+  <script>
+    function showTab(tabName) {
+      // Mettre à jour les classes des boutons
+      document.getElementById('login-btn').classList.toggle('border-peacock', tabName === 'login');
+      document.getElementById('register-btn').classList.toggle('border-peacock', tabName === 'register');
+      
+      // Afficher/masquer les formulaires
+      document.getElementById('login-form').classList.toggle('hidden', tabName !== 'login');
+      document.getElementById('register-form').classList.toggle('hidden', tabName !== 'register');
+
+      // Mettre à jour le titre de la page si nécessaire
+      document.title = tabName === 'login' ? 'Connexion - BlaBlaBook' : 'Inscription - BlaBlaBook';
+    }
+
+    // Définir l'onglet initial en fonction de l'URL ou des paramètres
+    document.addEventListener('DOMContentLoaded', function() {
+      const params = new URLSearchParams(window.location.search);
+      const tab = params.get('tab') || 'login';
+      showTab(tab);
+    });
+  </script>
 </body>

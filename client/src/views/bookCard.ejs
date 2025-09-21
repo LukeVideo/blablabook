@@ -1,8 +1,6 @@
 <%- include('./partials/head') %>
 <%- include('./partials/header') %>
-<% if (locals.reader) { %>
-    <%- include('./partials/nickname', {nickname: locals.reader.nickname}) %>
-<% } %>
+
 
 <div class="container mx-auto px-4 py-8">
     <div class="flex flex-col md:flex-row gap-8 bg-white rounded-lg shadow-lg p-6 mb-8">
@@ -10,7 +8,8 @@
             <div class="max-h-[400px] aspect-[2/3] overflow-hidden rounded-lg shadow-md mx-auto">
                 <img src="<%= book.book_cover || '/images/DefaultBookCoverImg.png' %>" 
                      alt="Couverture du livre <%= book.title %>"
-                     class="w-full h-full object-cover">
+                     class="w-full h-full object-cover"
+                     onerror="this.onerror=null; this.src='/images/DefaultBookCoverImg.png';">
             </div>
             <div class="mt-4 space-y-4">
                 <button class="w-full bg-peacock text-white py-2 px-4 rounded-lg hover:bg-peacock/90 transition-colors">Statut</button>
@@ -49,8 +48,23 @@
                 </div>
             </div>
             <div class="mt-6 space-y-2">
-                <div class="text-amber-500 font-medium">Note Moyenne : </div>
-                <div class="text-gray-600">Nombre d'avis: </div>
+                <div class="text-amber-500 font-medium">Note Moyenne : 
+                    <% if (bookAvgNote > 0) { %>
+                        <span class="text-amber-500 font-medium"><%= bookAvgNote %> / 5</span>
+                    <% } else { %>
+                        <span class="text-gray-500">Non noté</span>
+                    <% } %>
+                </div>
+                <div class="text-gray-600">
+                    Nombre d'avis : 
+                    <span class="font-medium">
+                        <% if (reviewCount > 0) { %>
+                            <%= reviewCount %> avis
+                        <% } else { %>
+                            Aucun avis
+                        <% } %>
+                    </span>
+                </div>
             </div>
             <div class="mt-8">
                 <h2 class="text-xl font-semibold text-gray-800 mb-4">Synopsis :</h2>

@@ -1,55 +1,70 @@
 <%- include('partials/head') %>
 <%- include('partials/header') %>
 
-<div class="index-section">
-
+<div class="container mx-auto px-4 py-8">
   <% if (!locals.reader) { %>
     <%- include('./partials/loginNeeded') %>
   <% } %>
 
   <% if (locals.reader) { %>
-    <h2>Recherche</h2>
-    <div class="searchInfo">
+    <h2 class="text-2xl font-bold text-peacock mb-4">Recherche</h2>
+    <% if (locals.message) { %>
+      <div class="bg-green-100 text-green-700 p-4 rounded-lg mb-6">
         <p><%= locals.message %></p>
-    </div>
+      </div>
+    <% } %>
   <% } %> 
 
   <!-- BARRE DE RECHERCHE FIXE -->
-  <div class="search-bar-container">
-    <form class="search-bar" action="/search" method="POST">
-      <input type="text" id="query" name="query" placeholder="Titre d'un livre recherché...">
-      <button type="submit">Rechercher</button>
+  <div class="sticky top-4 z-10 bg-white shadow-md rounded-lg p-4 mb-8">
+    <form class="flex gap-4" action="/search" method="POST">
+      <input type="text" 
+             id="query" 
+             name="query" 
+             placeholder="Titre d'un livre recherché..." 
+             class="flex-1 rounded-lg border-gray-300 shadow-sm focus:border-peacock focus:ring-peacock">
+      <button type="submit" 
+              class="bg-peacock text-white px-6 py-2 rounded-lg hover:bg-peacock/90 transition-colors">
+        Rechercher
+      </button>
     </form>
   </div>
 
-  <% if (locals.searchInput) { %>
-    <p>Vous avez recherché : <span><%= locals.searchInput %></span></p> 
-  <% } %>
+  <div class="space-y-6">
+    <% if (locals.searchInput) { %>
+      <p class="text-gray-600">Vous avez recherché : <span class="font-medium text-peacock"><%= locals.searchInput %></span></p> 
+    <% } %>
 
-  <% if (locals.noresult && locals.searchInput) { %>
-    <p>Aucun résultat pour <%= locals.searchInput %></p>
-  <% } %>
+    <% if (locals.noresult && locals.searchInput) { %>
+      <p class="text-red-600">Aucun résultat pour <span class="font-medium"><%= locals.searchInput %></span></p>
+    <% } %>
 
-  <% if (locals.booksToFind) { %>
-    <ul>
-      <% locals.booksToFind.forEach((book) => { %>
-        <li><%- include('partials/bookThumbnail', {book: book}) %></li>
-      <% }); %> 
-    </ul>
-  <% } %>
+    <% if (locals.booksToFind) { %>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <% locals.booksToFind.forEach((book) => { %>
+          <div class="w-full"><%- include('partials/bookThumbnail', {book: book}) %></div>
+        <% }); %> 
+      </div>
+    <% } %>
 
-  <% if (locals.authorToFind && locals.authorToFind.length > 0) { %>
-    <h2>Auteurs trouvés :</h2>
-    <ul>
-      <% locals.authorToFind.forEach((author) => { %>
-        <li><a href="/author/<%= author.id %>"><%= author.firstname %> <%= author.lastname %></a></li>
-      <% }); %> 
-    </ul>
-  <% } %>
+    <% if (locals.authorToFind && locals.authorToFind.length > 0) { %>
+      <div class="mt-8">
+        <h2 class="text-xl font-bold text-peacock mb-4">Auteurs trouvés :</h2>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <% locals.authorToFind.forEach((author) => { %>
+            <li class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
+              <a href="/author/<%= author.id %>" class="text-peacock hover:underline">
+                <%= author.firstname %> <%= author.lastname %>
+              </a>
+            </li>
+          <% }); %> 
+        </ul>
+      </div>
+    <% } %>
 
-  <% if (locals.result) { %>
-    <p><%= locals.result %></p>
-  <% } %>
+    <% if (locals.result) { %>
+      <p class="text-gray-600"><%= locals.result %></p>
+    <% } %>
 
 </div>
 

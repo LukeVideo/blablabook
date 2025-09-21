@@ -80,6 +80,11 @@
 
                     <form action="/api/addBookToDB" method="POST" class="mt-4">
                       <input type="hidden" name="title" value="<%= book.title %>">
+                      <input type="hidden" name="authors" value="<%= book.authors ? book.authors[0] : 'Inconnu' %>">
+                      <input type="hidden" name="isbn" value="<%= book.isbn13 || book.isbn10 %>">
+                      <input type="hidden" name="releaseDate" value="<%= book.releaseDate %>">
+                      <input type="hidden" name="description" value="<%= book.description %>">
+                      <input type="hidden" name="book_cover" value="<%= book.imageLink %>">
                       <button type="submit" 
                               class="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">
                         Ajouter à la base de données
