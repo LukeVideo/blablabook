@@ -23,27 +23,30 @@ async handleLogin(req, res) {
   
   const email = sanitize(req.body.email);
   const password = sanitize(req.body.password);
-  // console.log(`email :${email}`)
-  // const readerSession = req.session.reader;
-  // const loginPassword = req.body.password
+
   try {
     // Check that user is registered in the database
-    const reader = await  Reader.findOne({where:{email: `${email}`}});
-    // console.log(reader)
+    const reader = await Reader.findOne({where:{email: email}});
+    
     if(!reader){
-    res.render('loginOrRegister', {message:"identifiants incorrects"})
+      return res.render('loginOrRegister', {
+        message: "identifiants incorrects",
+        error: null
+      });
     }
       
     // compare the hashed password in input with hashedPassword in database
-    // si les mots de passes concordent && email valide = connexion réussie
-    const  loginSuccess =  await blablapass.verifyPassword(reader.reader_password, password)
-    // console.log(`loginSuccess :${loginSuccess}`);
+    const loginSuccess = await blablapass.verifyPassword(reader.reader_password, password);
+    
     if (!loginSuccess) {
-      res.render('loginOrRegister', {message:"identifiants incorrects"})
-      // console.log ('mot de passe incorrect')
+      return res.render('loginOrRegister', {
+        message: "identifiants incorrects",
+        error: null
+      });
     }
+
     // Delete the password used to log in the session
-    reader.reader_password  =  null;
+    reader.reader_password = null;
 
     // Add user datas to the session
     req.session.reader = {
@@ -54,10 +57,13 @@ async handleLogin(req, res) {
       email: reader.email,
       reader_role_id: reader.reader_role_id,
     };
-    // console.log(`req.session.reader :${JSON.stringify(req.session.reader)}`);
 
-    // Envoie message (login successfull) + redirection homepage
-    res.render('loginOrRegister', {message: `Welcome to Blablabook ${req.session.reader.nickname}`, reader:`${req.session.reader}`})
+    // Redirection vers la page d'accueil après connexion réussie
+    return res.render('loginOrRegister', {
+      message: `Welcome to Blablabook ${req.session.reader.nickname}`,
+      reader: req.session.reader,
+      error: null
+    });
     
 
   } catch (error) {

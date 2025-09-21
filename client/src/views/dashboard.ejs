@@ -1,44 +1,46 @@
 <%- include('./partials/head') %>
 <%- include('./partials/header') %>
 
-<section class="profile-container index-section">
-   <div class="dashboard-name"> <h2>Dashboard de <%= locals.reader.nickname %></h2>
-    <img class="avatar-dashboard" src="/images/avatar.jpg" alt="avatar"> 
+<section class="container mx-auto px-4 py-8">
+   <div class="flex items-center gap-6 bg-white rounded-lg shadow-md p-6 mb-8">
+      <h2 class="text-2xl font-bold text-peacock">Dashboard de <%= locals.reader.nickname %></h2>
+      <img class="w-20 h-20 rounded-full object-cover shadow-md" src="/images/avatar.jpg" alt="avatar"> 
    </div> 
-    <% if (locals.reader) { %>
-    
-    <!-- Affichage des informations du profil de l'utilisateur -->
-        <div class="profile-info">
-            <p>Pseudo : <%= locals.reader.nickname %></p>
-            <p>Nom : <%= locals.reader.lastname %></p>
-            <p>Prénom : <%= locals.reader.firstname %></p>
-            <p>Email : <%= locals.reader.email %></p>
-            <p><a href="/bookshelf">Ma Bibliothèque  </a></p>
-        </div>
-    <% } %>
 
-<!-- Si l'utilisateur est un admin, on peut lui offrir des actions supplémentaires -->
-    <div class="admin-actions">
-        <% if (locals.isAdmin) { %>
-            <h3>Actions administratives:</h3>
-            <form action="">
-                <button class="admin-boutons">Gérer les utilisateurs </button>
-            </form>
+   <div class="grid md:grid-cols-2 gap-8">
+      <% if (locals.reader) { %>
+      <div class="bg-white rounded-lg shadow-md p-6 space-y-4">
+          <p class="text-gray-700"><span class="font-semibold">Pseudo :</span> <%= locals.reader.nickname %></p>
+          <p class="text-gray-700"><span class="font-semibold">Nom :</span> <%= locals.reader.lastname %></p>
+          <p class="text-gray-700"><span class="font-semibold">Prénom :</span> <%= locals.reader.firstname %></p>
+          <p class="text-gray-700"><span class="font-semibold">Email :</span> <%= locals.reader.email %></p>
+          <p><a href="/bookshelf" class="inline-flex items-center text-peacock hover:text-peacock/80 transition-colors">
+            📚 <span class="ml-2">Ma Bibliothèque</span>
+          </a></p>
+      </div>
+      <% } %>
 
-            <form action="/api/search" method="GET">
-                <button class="admin-boutons" type="submit">Ajouter un livre à la BDD</button>
-            </form>
-
-            <form action="">
-                <button class="admin-boutons">Supprimer un livre de la BDD</button>
-            </form>
-        <% } %>
-    </div>
-
-<!-- Affichage des messages, s'il y en a -->
-    <% if (locals.message) { %>
-        <p><%= locals.message %></p>
-    <% } %>
+      <% if (locals.isAdmin) { %>
+      <div class="bg-white rounded-lg shadow-md p-6 space-y-4">
+          <h3 class="text-xl font-semibold text-peacock mb-4">⚙️ Actions administratives :</h3>
+          <form class="space-y-3">
+            <button class="w-full bg-peacock text-white py-2 px-4 rounded-lg hover:bg-peacock/90 transition-colors text-left">
+              👤 Gérer les utilisateurs
+            </button>
+          </form>
+          <form action="/api/search" method="GET">
+              <button class="w-full bg-peacock text-white py-2 px-4 rounded-lg hover:bg-peacock/90 transition-colors text-left" type="submit">
+                ➕ Ajouter un livre
+              </button>
+          </form>
+          <form>
+            <button class="w-full bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors text-left">
+              ❌ Supprimer un livre
+            </button>
+          </form>
+      </div>
+      <% } %>
+   </div>
 </section>
 
 <%- include('./partials/footer') %>

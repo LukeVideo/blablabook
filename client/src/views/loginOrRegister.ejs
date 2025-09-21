@@ -3,79 +3,141 @@
 <body>
   <%- include('./partials/header') %>
 
-  <section class="login-section">
-    <div class="auth-toggle">
-      <button id="login-btn" class="auth-btn active">Login</button>
-      <button id="register-btn" class="auth-btn">Register</button>
-    </div>
-
-    <% if (locals.reader) { %>
-      <!-- Si l'utilisateur est connecté, afficher la déconnexion -->
-      <form class="second-background" action="/logout" method="POST">
-        <h2><%= locals.reader.nickname %></h2>
-        <p>Voulez-vous vous déconnecter ?</p>
-        <button class="fourth-background" type="submit" name="logout">Déconnexion</button>
-      </form>
-    <% } else { %>
-      <!-- Formulaire de Connexion -->
-      <form id="login-form" class="second-background" action="/login" method="POST">
-        <div>
-          <label for="email">Adresse mail:</label>
-          <input type="text" id="email" name="email" placeholder="Votre adresse mail" required>
+  <section class="container mx-auto px-4 py-8 max-w-md">
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <% if (locals.reader) { %>
+        <!-- Section utilisateur connecté -->
+        <div class="text-center">
+          <h2 class="text-2xl font-bold text-peacock mb-4">Bonjour <%= locals.reader.nickname %> !</h2>
+          <p class="text-gray-600 mb-6">Vous êtes connecté à votre compte BlaBlaBook.</p>
+          <form class="space-y-4" action="/logout" method="POST">
+            <button class="w-full bg-red-600 text-white py-3 px-4 rounded-lg hover:bg-red-700 transition-colors" 
+                    type="submit" name="logout">
+              Se déconnecter
+            </button>
+          </form>
         </div>
-        <div>
-          <label for="password">Mot de passe:</label>
-          <input type="password" id="password" name="password" placeholder="Votre mot de passe" required>
+      <% } else { %>
+        <!-- Onglets de navigation -->
+        <div class="flex mb-6 border-b">
+          <button id="login-btn" 
+                  onclick="showTab('login')"
+                  class="flex-1 py-3 text-center font-medium transition-colors hover:text-peacock border-b-2 border-peacock">
+            Connexion
+          </button>
+          <button id="register-btn" 
+                  onclick="showTab('register')"
+                  class="flex-1 py-3 text-center font-medium transition-colors hover:text-peacock border-b-2 border-transparent">
+            Inscription
+          </button>
         </div>
-        <button class="fourth-background" type="submit">Connexion</button>
-      </form>
+        
+        <form id="login-form" class="space-y-4" action="/login" method="POST">
+          <div class="space-y-2">
+            <label for="email" class="block text-gray-700 font-medium">Adresse mail:</label>
+            <input type="email" id="email" name="email" 
+                   class="w-full rounded-lg border-gray-300 shadow-sm focus:border-peacock focus:ring-peacock"
+                   placeholder="Votre adresse mail" required>
+          </div>
+          <div class="space-y-2">
+            <label for="password" class="block text-gray-700 font-medium">Mot de passe:</label>
+            <input type="password" id="password" name="password" 
+                   class="w-full rounded-lg border-gray-300 shadow-sm focus:border-peacock focus:ring-peacock"
+                   placeholder="Votre mot de passe" required>
+          </div>
+          <button class="w-full bg-peacock text-white py-2 px-4 rounded-lg hover:bg-peacock/90 transition-colors" 
+                  type="submit">
+            Connexion
+          </button>
+        </form>
 
-      <!-- Formulaire d'Inscription -->
-      <form id="register-form" class="second-background" action="/register" method="POST" style="display: none;">
-        <label for="identity">Identité</label>
-        <input type="text" id="identity" name="firstname" placeholder="Prénom" required>
-        <input type="text" id="identity" name="lastname" placeholder="Nom de famille" required>
-        <input type="text" id="identity" name="nickname" placeholder="Pseudonyme" required>
+        <form id="register-form" class="space-y-4 hidden" action="/register" method="POST">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <label for="firstname" class="block text-gray-700 font-medium">Prénom</label>
+              <input type="text" id="firstname" name="firstname" 
+                     class="w-full rounded-lg border-gray-300 shadow-sm focus:border-peacock focus:ring-peacock"
+                     placeholder="Prénom" required>
+            </div>
+            <div class="space-y-2">
+              <label for="lastname" class="block text-gray-700 font-medium">Nom</label>
+              <input type="text" id="lastname" name="lastname" 
+                     class="w-full rounded-lg border-gray-300 shadow-sm focus:border-peacock focus:ring-peacock"
+                     placeholder="Nom de famille" required>
+            </div>
+          </div>
+          
+          <div class="space-y-2">
+            <label for="nickname" class="block text-gray-700 font-medium">Pseudonyme</label>
+            <input type="text" id="nickname" name="nickname" 
+                   class="w-full rounded-lg border-gray-300 shadow-sm focus:border-peacock focus:ring-peacock"
+                   placeholder="Pseudonyme" required>
+          </div>
 
-        <label for="email">Email:</label>
-        <input type="text" id="email" name="email" placeholder="Adresse mail" required>
+          <div class="space-y-2">
+            <label for="register-email" class="block text-gray-700 font-medium">Email</label>
+            <input type="email" id="register-email" name="email" 
+                   class="w-full rounded-lg border-gray-300 shadow-sm focus:border-peacock focus:ring-peacock"
+                   placeholder="Adresse mail" required>
+          </div>
 
-        <label for="password">Mot de passe:</label>
-        <input type="password" id="password" name="password" placeholder="Mot de passe" required>
-        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirmer le mot de passe" required>
+          <div class="space-y-2">
+            <label for="register-password" class="block text-gray-700 font-medium">Mot de passe</label>
+            <input type="password" id="register-password" name="password" 
+                   class="w-full rounded-lg border-gray-300 shadow-sm focus:border-peacock focus:ring-peacock"
+                   placeholder="Mot de passe" required>
+          </div>
 
-        <button class="fourth-background" type="submit">S'inscrire</button>
-      </form>
+          <div class="space-y-2">
+            <label for="confirm_password" class="block text-gray-700 font-medium">Confirmer</label>
+            <input type="password" id="confirm_password" name="confirm_password" 
+                   class="w-full rounded-lg border-gray-300 shadow-sm focus:border-peacock focus:ring-peacock"
+                   placeholder="Confirmer le mot de passe" required>
+          </div>
+
+          <button class="w-full bg-peacock text-white py-2 px-4 rounded-lg hover:bg-peacock/90 transition-colors" 
+                  type="submit">
+            S'inscrire
+          </button>
+        </form>
+
+      <!-- Messages de succès ou d'erreur -->
+      <% if (locals.message) { %>
+        <div class="mt-4 p-4 rounded-lg text-center <%= locals.error ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700' %>">
+          <%= locals.message %>
+        </div>
+      <% } %>
 
       <% if (locals.error) { %>
-        <p style="color: crimson;"><%= locals.error %></p>
+        <div class="mt-4 p-4 bg-red-100 text-red-700 rounded-lg text-center">
+          <%= locals.error %>
+        </div>
       <% } %>
-    <% } %>
+      <% } %>
+    </div>
   </section>
 
   <%- include('./partials/footer') %>
 
-  <!-- JavaScript DOM pour switch entre connexion et inscription -->
   <script>
-    const loginBtn = document.getElementById('login-btn');
-    const registerBtn = document.getElementById('register-btn');
-    const loginForm = document.getElementById('login-form');
-    const registerForm = document.getElementById('register-form');
+    function showTab(tabName) {
+      // Mettre à jour les classes des boutons
+      document.getElementById('login-btn').classList.toggle('border-peacock', tabName === 'login');
+      document.getElementById('register-btn').classList.toggle('border-peacock', tabName === 'register');
+      
+      // Afficher/masquer les formulaires
+      document.getElementById('login-form').classList.toggle('hidden', tabName !== 'login');
+      document.getElementById('register-form').classList.toggle('hidden', tabName !== 'register');
 
-    // Bascule entre les formulaires
-    loginBtn.addEventListener('click', function() {
-      loginForm.style.display = 'block';
-      registerForm.style.display = 'none';
-      loginBtn.classList.add('active');
-      registerBtn.classList.remove('active');
-    });
+      // Mettre à jour le titre de la page si nécessaire
+      document.title = tabName === 'login' ? 'Connexion - BlaBlaBook' : 'Inscription - BlaBlaBook';
+    }
 
-    registerBtn.addEventListener('click', function() {
-      registerForm.style.display = 'block';
-      loginForm.style.display = 'none';
-      registerBtn.classList.add('active');
-      loginBtn.classList.remove('active');
+    // Définir l'onglet initial en fonction de l'URL ou des paramètres
+    document.addEventListener('DOMContentLoaded', function() {
+      const params = new URLSearchParams(window.location.search);
+      const tab = params.get('tab') || 'login';
+      showTab(tab);
     });
   </script>
-
 </body>

@@ -1,70 +1,109 @@
-  <%- include('./partials/head') %>
+<%- include('./partials/head') %>
 <body> 
   <%- include('./partials/header') %>
   
   <% if (locals.reader) { %>
-    <h2> Recherche d'un livre sur l'API Google Books</h2>
-    <section>
-        <form action="/api/getBookList" method="POST" type="submit" name="searchFromAPI">
-            <label for="titleFromAPI">Titre :</label>
-            <input type="text" id="titleFromAPI" name="titleFromAPI" placeholder="Titre">
-            <label for="authorFromAPI">Auteur :</label>
-            <input type="text" id="authorFromAPI" name="authorFromAPI" placeholder="Auteur">
-            <label for="isbnFromAPI">ISBN :</label>
-            <input type="text" id="isbnFromAPI" name="isbnFromAPI" placeholder="ISBN">
-            <button type="submit">Rechercher</button>
-          </form>
-    
-      <% if (locals.bookList) { %>
-        
-        <ul>
-          <% locals.bookList.forEach((book) => { %>
-            <% console.log(book) %>
-            <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
-            <li>
-              <% if (book.imageLink) { %>
-                <img src="<%= book.imageLink %>" alt="">
-                <% }else{ %>
-                <p>'image non disponible'</p>
-              <% } %>
-            
-              Titre: <%= book.title ? book.title : 'Non renseigné' %><br>
-              Auteur: <%= book.authors ? book.authors.join(', ')  : 'Inconnu' %> <br>
-              ISBN-10: <%= book.isbn10 ? book.isbn10 : 'Non renseigné' %><br>
-              ISBN-13: <%= book.isbn13 ? book.isbn13 : 'Non renseigné' %><br>
-              Description <%= book.description ? book.description : 'Non renseigné' %><br>
-            
-            <!-- Formulaire pour ajouter le livre à la base de données -->
-            <form action="/api/addBookToDB" method="POST">
-              <input type="hidden" name="title" value="<%= book.title %>">
-              <input type="hidden" name="authors" value="<%= book.authors ? book.authors.join(', ') : 'Inconnu' %>">
-              <input type="hidden" name="isbn" value="<%= book.isbn10 ? book.isbn10 : book.isbn13 %>">
-              <input type="hidden" name="releaseDate" value="<%= book.releaseDate %>">
-              <input type="hidden" name="description" value="<%= book.description %>">
-              <input type="hidden" name="book_cover" value="<%= book.imageLink ? book.imageLink : 'https://i.scdn.co/image/ab67616d0000b273908a375e3e4976eb7e94c94d' %>">
-              <input type="hidden" name="link" value="<%= book.selfLink %>">
-              
-              <button type="submit">Ajouter à la base de données</button>
-            </form>
-            </li>
-            <% }); %>
-        </ul>
-        
+    <div class="container mx-auto px-4 py-8">
+      <h2 class="text-2xl font-bold text-peacock mb-6 text-center">Recherche d'un livre sur l'API Google Books</h2>
+      <section class="max-w-2xl mx-auto">
+        <form action="/api/getBookList" method="POST" class="bg-white rounded-lg shadow-md p-6 mb-8 space-y-4">
+          <div class="space-y-2">
+            <label for="titleFromAPI" class="block text-gray-700 font-medium">Titre :</label>
+            <input type="text" 
+                   id="titleFromAPI" 
+                   name="titleFromAPI" 
+                   placeholder="Titre"
+                   class="w-full rounded-lg border-gray-300 shadow-sm focus:border-peacock focus:ring-peacock">
+          </div>
+          
+          <div class="space-y-2">
+            <label for="authorFromAPI" class="block text-gray-700 font-medium">Auteur :</label>
+            <input type="text" 
+                   id="authorFromAPI" 
+                   name="authorFromAPI" 
+                   placeholder="Auteur"
+                   class="w-full rounded-lg border-gray-300 shadow-sm focus:border-peacock focus:ring-peacock">
+          </div>
+          
+          <div class="space-y-2">
+            <label for="isbnFromAPI" class="block text-gray-700 font-medium">ISBN :</label>
+            <input type="text" 
+                   id="isbnFromAPI" 
+                   name="isbnFromAPI" 
+                   placeholder="ISBN"
+                   class="w-full rounded-lg border-gray-300 shadow-sm focus:border-peacock focus:ring-peacock">
+          </div>
+          
+          <button type="submit" 
+                  class="w-full bg-peacock text-white py-2 px-4 rounded-lg hover:bg-peacock/90 transition-colors">
+            Rechercher
+          </button>
+        </form>
 
+        <% if (locals.bookList) { %>
+          <ul class="space-y-6">
+            <% locals.bookList.forEach((book) => { %>
+              <li class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex flex-col md:flex-row gap-6">
+                  <div class="md:w-1/3">
+                    <% if (book.imageLink) { %>
+                      <img src="<%= book.imageLink %>" 
+                           alt="Couverture du livre"
+                           class="w-full rounded-lg shadow-sm">
+                    <% } else { %>
+                      <div class="bg-gray-200 rounded-lg p-4 text-center text-gray-500">
+                        Image non disponible
+                      </div>
+                    <% } %>
+                  </div>
 
-      <% } %>
+                  <div class="md:w-2/3 space-y-4">
+                    <h3 class="text-xl font-bold text-peacock">
+                      <%= book.title ? book.title : 'Non renseigné' %>
+                    </h3>
+                    <p class="text-gray-700">
+                      <span class="font-medium">Auteur:</span> 
+                      <%= book.authors ? book.authors.join(', ') : 'Inconnu' %>
+                    </p>
+                    <p class="text-gray-700">
+                      <span class="font-medium">ISBN-10:</span> 
+                      <%= book.isbn10 ? book.isbn10 : 'Non renseigné' %>
+                    </p>
+                    <p class="text-gray-700">
+                      <span class="font-medium">ISBN-13:</span> 
+                      <%= book.isbn13 ? book.isbn13 : 'Non renseigné' %>
+                    </p>
+                    <p class="text-gray-600 text-sm line-clamp-3">
+                      <span class="font-medium">Description:</span> 
+                      <%= book.description ? book.description : 'Non renseigné' %>
+                    </p>
 
+                    <form action="/api/addBookToDB" method="POST" class="mt-4">
+                      <input type="hidden" name="title" value="<%= book.title %>">
+                      <input type="hidden" name="authors" value="<%= book.authors ? book.authors[0] : 'Inconnu' %>">
+                      <input type="hidden" name="isbn" value="<%= book.isbn13 || book.isbn10 %>">
+                      <input type="hidden" name="releaseDate" value="<%= book.releaseDate %>">
+                      <input type="hidden" name="description" value="<%= book.description %>">
+                      <input type="hidden" name="book_cover" value="<%= book.imageLink %>">
+                      <button type="submit" 
+                              class="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">
+                        Ajouter à la base de données
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </li>
+            <% }) %>
+          </ul>
+        <% } %>
+      </section>
+    </div>
+  <% } %>  
 
-
-
-
-    </section>
-    <p>blablabla</p>
-<% } %>  
-
-  
   <% if (locals.message) { %>
-    <p><%= locals.message %></p>
+    <p class="text-center text-peacock bg-beige p-4 rounded-lg mx-4 mb-8">
+      <%= locals.message %>
+    </p>
   <% } %>
   
   <%- include('./partials/footer') %>

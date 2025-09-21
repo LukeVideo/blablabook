@@ -2,82 +2,86 @@
 
 <%- include('./partials/header') %>
 
-
-<div class="index-section">
-
-
+<div class="container mx-auto px-4 py-8">
   <% if (locals.message) { %>
-    <p><%= locals.message %></p>
-<% } %>
+    <p class="text-center text-peacock bg-beige p-4 rounded-lg mb-8"><%= locals.message %></p>
+  <% } %>
 
-<% if (locals.latestBooks && locals.latestBooks.length > 0) { %>
-  <h2>Les 5 derniers livres ajoutés :</h2>
-  <section class="booklist-section">
-    <ul>
-      <% locals.latestBooks.forEach((book) => { %>
-        <li>
-          <%- include('partials/bookThumbnail', {book: book}) %> 
-        </li>
-      <% }); %> 
-    </ul>
+  <section class="bg-beige rounded-lg p-8 mb-12 text-center">
+    <h1 class="text-4xl font-bold text-peacock mb-4">Blablabook c'est quoi ?</h1>
+    <p class="text-lg text-gray-700 mb-2">BlaBlaBook est une plateforme de gestion de bibliothèque en ligne mais pas seulement !</p>
+    <p class="text-lg text-gray-700 mb-6">Vous pouvez également échanger avec d'autres lecteurs, partager votre avis et bien d'autres choses ! Pour nous rejoindre, c'est par ici !</p>
+    <a href="/register">
+      <button type="button" class="bg-peacock text-white px-6 py-3 rounded-lg hover:bg-peacock/90 transition-colors font-medium">Rejoignez nous!</button>
+    </a>
   </section>
-<% } %>
 
-<!-- add last comments -->
+  <% if (locals.latestBooks && locals.latestBooks.length > 0) { %>
+    <h2 class="text-2xl font-bold text-peacock mb-6">Les derniers livres ajoutés :</h2>
+    <section class="mb-12">
+      <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% locals.latestBooks.forEach((book) => { %>
+          <li>
+            <%- include('partials/bookThumbnail', {book: book}) %> 
+          </li>
+        <% }); %> 
+      </ul>
+    </section>
+  <% } %>
 
-<h2>Derniers avis des lecteurs</h2>
-<div class="lastReviews">
-<% if (locals.lastReviews && locals.lastReviews.length > 0) { %>
-
-  <ul>
+  <h2 class="text-2xl font-bold text-peacock mb-6">Derniers avis des lecteurs</h2>
+  <div class="bg-white rounded-lg shadow-md p-6 mb-12">
+    <% if (locals.lastReviews && locals.lastReviews.length > 0) { %>
+      <ul class="space-y-6">
         <% locals.lastReviews.forEach(review => { %>
-            <li>
-                <p><%= review.book_review.title %></p>
-                <p>Note : <%= review.note %>/5</p>
-                <p>"<%= review.review %>"</p>
-                
-                
-                <small>Posté le <%= new Date(review.created_at).toLocaleDateString('fr-FR') %></small> par <%= review.reader.nickname %> 
-            </li>
+          <li class="border-b border-gray-200 pb-4 last:border-0">
+            <p class="font-semibold text-lg text-peacock"><%= review.book_review.title %></p>
+            <p class="text-amber-500 font-medium my-2">Note : <%= review.note %>/5</p>
+            <p class="text-gray-600 italic">"<%= review.review %>"</p>
+            <div class="mt-2 text-sm text-gray-500">
+              Posté le <%= new Date(review.created_at).toLocaleDateString('fr-FR') %> par 
+              <span class="font-medium"><%= review.reader.nickname %></span>
+            </div>
+          </li>
         <% }) %>
-    </ul>
-<% } else { %>
-    <p>Aucun avis pour le moment.</p>
-<% } %>
-</div>
-<!-- end of add last comments -->
-
-
-
-<% if (locals.randomAuthors && locals.randomAuthors.length > 0) { %>
-  <section class="random-authors-section">
-    <h2>Auteurs aléatoires :</h2>
-    <ul>
-      <% locals.randomAuthors.forEach((author) => { %>
-        <li>
-          <a class="random_authors_link" href="/author/<%= author.id %>"><%= author.firstname %> <%= author.lastname %></a>
-        </li>
-      <% }); %>
-    </ul>
-  </section>
-<% } %>
-
-<% if (locals.bookList) { %>
-  <section class="booklist-section">
-    
-    <ul>
-      
-      <% locals.bookList.forEach((book) => { %>
-        <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
-        
-        <li><%- include('partials/bookThumbnail', {book: book}) %></li>
-        
-      <% }); %> 
-    </ul>
-      
+      </ul>
+    <% } else { %>
+      <p class="text-gray-500 text-center">Aucun avis pour le moment.</p>
     <% } %>
-    
-    
-  </section>
+  </div>
+
+  <% if (locals.randomAuthors && locals.randomAuthors.length > 0) { %>
+    <section class="bg-white rounded-lg shadow-md p-6 mb-12">
+      <h2 class="text-2xl font-bold text-peacock mb-6 text-center">Auteurs aléatoires :</h2>
+      <div class="max-w-4xl mx-auto">
+        <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-items-center">
+          <% locals.randomAuthors.forEach((author) => { %>
+            <li class="w-full max-w-xs">
+              <a 
+                href="/author/<%= author.id %>"
+                class="block w-full text-center px-6 py-3 bg-beige text-peacock rounded-lg 
+                       hover:bg-peacock hover:text-white transition-all duration-300 
+                       transform hover:scale-105 shadow-sm hover:shadow-md 
+                       font-medium"
+              >
+                <%= author.firstname %> <%= author.lastname %>
+              </a>
+            </li>
+          <% }); %>
+        </ul>
+      </div>
+    </section>
+  <% } %>
+
+  <% if (locals.bookList) { %>
+    <section>
+      <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% locals.bookList.forEach((book) => { %>
+          <li><%- include('partials/bookThumbnail', {book: book}) %></li>
+        <% }); %> 
+      </ul>
+    </section>
+  <% } %>
 </div>
+
 <%- include('./partials/footer') %>

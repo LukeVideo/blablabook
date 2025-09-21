@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: blablabook
+    runtime: image
+    image:
+      url: docker.io/lukevideo/blablabook:latest
+    region: oregon
+    plan: free
+    numInstances: 1
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+    autoDeploy: false
