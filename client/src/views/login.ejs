@@ -1,43 +1,45 @@
 <%- include('./partials/head') %>
 
-
 <%- include('./partials/header') %>
 
-
-<section class="login-section">
+<section class="container mx-auto px-4 py-8 max-w-md">
+  <div class="bg-white rounded-lg shadow-md p-6">
     <% if (locals.message) { %>
-        <h2><%= locals.message %></h2>
-        <% } %>
+      <h2 class="text-xl font-bold text-peacock mb-4"><%= locals.message %></h2>
+    <% } %>
 
     <% if (locals.reader) { %>
-        <form class="second-background" action="/logout" method="POST">
-        <h2><%= locals.reader.nickname %></h2>
-        <p>Voulez-vous vous déconnecter ? </p>
-            <button class="fourth-background" type="submit" name="logout">déconnexion</button>
-        </form>
-        
-        <% } %>    
-        
-        <% if (!locals.reader) { %>
-            <form class="second-background" action="/login" method="POST">
-                <div>
-                    <label for="email">Adresse mail:</label>
-                    <input type="text" id="email" name="email" placeholder="Votre adresse mail" required>
-                </div>
-                <div>
-                    <label for="password">Mot de passe:</label>
-                    <input type="password" id="password" name="password" placeholder="Votre mot de passe" required>
-                </div>
-                    <button class="fourth-background" type="submit">Connexion</button>
-                
-            </form>
-            <% } %>   
-            
-            
+      <form class="space-y-4" action="/logout" method="POST">
+        <h2 class="text-xl font-bold text-peacock"><%= locals.reader.nickname %></h2>
+        <p class="text-gray-600">Voulez-vous vous déconnecter ?</p>
+        <button class="w-full bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors" 
+                type="submit" name="logout">
+          Déconnexion
+        </button>
+      </form>
+    <% } %>    
+
+    <% if (!locals.reader) { %>
+      <form class="space-y-4" action="/login" method="POST">
+        <div class="space-y-2">
+          <label for="email" class="block text-gray-700 font-medium">Adresse mail:</label>
+          <input type="email" id="email" name="email" 
+                 class="w-full rounded-lg border-gray-300 shadow-sm focus:border-peacock focus:ring-peacock"
+                 placeholder="Votre adresse mail" required>
+        </div>
+        <div class="space-y-2">
+          <label for="password" class="block text-gray-700 font-medium">Mot de passe:</label>
+          <input type="password" id="password" name="password" 
+                 class="w-full rounded-lg border-gray-300 shadow-sm focus:border-peacock focus:ring-peacock"
+                 placeholder="Votre mot de passe" required>
+        </div>
+        <button class="w-full bg-peacock text-white py-2 px-4 rounded-lg hover:bg-peacock/90 transition-colors" 
+                type="submit">
+          Connexion
+        </button>
+      </form>
+    <% } %>   
+  </div>
 </section>
 
-
-
-
 <%- include('./partials/footer') %>
-

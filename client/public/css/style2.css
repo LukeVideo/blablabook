@@ -1,0 +1,1283 @@
+/* * {
+    border: solid black 1px
+} */
+
+@import url(https://fonts.bunny.net/css?family=roboto);
+ *{
+    margin: 0;
+    padding: 0;
+ }
+
+ 
+html {
+    height: 100vh;
+    margin: 0;
+  }
+
+body{
+    font-family: 'roboto', sans-serif;
+
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-x: hidden;
+    align-items: stretch;
+
+}
+/* ===== Header & Menu Modernisé ===== */
+header {
+    height: 6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    background-color: #ffffff; /* couleur neutre moderne */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-logo {
+    width: 180px;
+    transition: transform 0.3s ease;
+}
+
+.header-logo:hover {
+    transform: scale(1.05);
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-bookmark {
+    position: relative;
+    background-color: #f4ecd0; /* couleur type parchemin/livre */
+    color: #333;
+    padding: 0.5rem 1rem;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-weight: 500;
+    text-align: center;
+}
+
+.nav-bookmark a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-bookmark:hover {
+    background-color: #eec124; /* accent couleur “doré” */
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.nav-bookmark-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.mobil-nav {
+    display: none;
+}
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 680px) {
+    .nav-bookmark {
+        display: none;
+    }
+
+    footer {
+        display: none;
+    }
+
+    .mobil-nav {
+        width: 100%;
+        display: flex;
+        position: fixed;
+        align-items: center;
+        justify-content: space-between;
+        bottom: 10px;
+        left: 0;
+        background-color: #ffffff;
+        padding: 0.5rem 1rem;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 12px 12px 0 0;
+    }
+}
+
+@media screen and (min-width: 681px) {
+    footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    footer a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .mobil-nav {
+        display: none;
+    }
+}
+
+/* ===== BookThumbnail Modernisé ===== */
+/* ===== BookThumbnail Modern & Uniform ===== */
+.book_thumbnail {
+    background-color: #fff8f0; /* papier léger */
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 600px;
+    min-height: 420px; /* même hauteur pour toutes les vignettes */
+}
+
+.book_thumbnail:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.book_thumbnail_header {
+    background-color: #f4ecd0; /* parchemin doux */
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid #e0d5b7;
+}
+
+.book_thumbnail_title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #3D3D3D;
+    margin: 0;
+}
+
+.book_thumbnail_author {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #6b6b6b;
+    margin-left: 0.5rem;
+}
+
+.book_thumbnail_infos {
+    display: flex;
+    padding: 1rem;
+    gap: 1rem;
+    flex: 1;
+}
+
+.book_thumbnail_image {
+    flex: 0 0 150px;  /* largeur fixe */
+    height: 225px;    /* hauteur fixe */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    background-color: #e0d5b7; /* couleur neutre si pas d'image */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.book_thumbnail_image:hover {
+    transform: scale(1.05);
+}
+
+.book_thumbnail_image_cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.book_thumbnail_summary {
+    flex: 1;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* garde l'espacement moderne */
+}
+
+.book_thumbnail_summary p:first-of-type {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.book_thumbnail_options {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 1rem;
+    border-top: 1px solid #e0d5b7;
+    background-color: #fdf5ec;
+    gap: 0.5rem;
+}
+
+.book_thumbnail_button {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    background-color: #eec124;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.book_thumbnail_button:hover {
+    background-color: #d4a91f;
+    transform: translateY(-2px);
+}
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 1024px) {
+    .booklist-section ul {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 680px) {
+    .booklist-section ul {
+        grid-template-columns: 1fr;
+    }
+
+    .book_thumbnail_infos {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .book_thumbnail_image {
+        width: 80%;
+        height: 225px; /* toujours même hauteur */
+    }
+}
+
+
+
+/* ===== Booklist Section Grid Responsive ===== */
+.booklist-section ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    padding: 1rem;
+    list-style: none;
+}
+
+.booklist-section li {
+    display: flex;
+    justify-content: flex-start; /* au lieu de center */
+}
+
+
+/* Tablette */
+@media screen and (max-width: 1024px) {
+    .booklist-section ul {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile */
+@media screen and (max-width: 680px) {
+    .booklist-section ul {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== Profile Page Modern 2 Colonnes ===== */
+.profile-container {
+    background-color: #fff8f0;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    max-width: 1100px;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Nom + avatar centré */
+.dashboard-name {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.dashboard-name h2 {
+    font-size: 1.8rem;
+    color: #3D3D3D;
+    margin: 0;
+}
+
+.avatar-dashboard {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #eec124;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* === DEUX COLONNES === */
+.profile-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 colonnes équilibrées */
+    gap: 2rem;
+    align-items: start;
+}
+
+/* Bloc infos */
+.profile-info {
+    background-color: #fdf5ec;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    font-size: 1rem;
+}
+
+.profile-info p {
+    margin: 0;
+    color: #3D3D3D;
+}
+
+.profile-info a {
+    text-decoration: none;
+    color: #eec124;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.profile-info a:hover {
+    color: #d4a91f;
+}
+
+/* Bloc admin */
+.admin-actions {
+    background-color: #fdf5ec;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.admin-actions h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.2rem;
+    color: #3D3D3D;
+}
+
+.admin-boutons {
+    background-color: #eec124;
+    border: none;
+    color: white;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.admin-boutons:hover {
+    background-color: #d4a91f;
+    transform: translateY(-2px);
+}
+
+/* === Responsive : pile les colonnes en mobile === */
+@media screen and (max-width: 880px) {
+    .profile-columns {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== Login/Register Form (isolé) ===== */
+.login-section {
+    max-width: 480px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: #fff8f0; /* fond parchemin */
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+}
+
+/* Toggle Login/Register */
+.login-section .auth-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.login-section .auth-btn {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #f4ecd0;
+    color: #3D3D3D;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-section .auth-btn.active {
+    background-color: #eec124;
+    color: #fff;
+}
+
+.login-section .auth-btn:hover:not(.active) {
+    background-color: #e0d5b7;
+}
+
+/* Form styling */
+.login-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+    background-color: #fdf5ec;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.login-section form label {
+    font-weight: 600;
+    color: #3D3D3D;
+}
+
+.login-section form input {
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #e0d5b7;
+    border-radius: 8px;
+    font-family: 'roboto', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.login-section form input:focus {
+    border-color: #eec124;
+    box-shadow: 0 0 5px rgba(238,193,36,0.3);
+}
+
+/* Submit buttons */
+.login-section form .fourth-background {
+    padding: 0.7rem 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #eec124;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-section form .fourth-background:hover {
+    background-color: #d4a91f;
+}
+
+/* Connected user block */
+.login-section form h2,
+.login-section form p {
+    text-align: center;
+    color: #3D3D3D;
+}
+
+/* Error messages */
+.login-section form p[style*="color: crimson"] {
+    text-align: center;
+    font-weight: 600;
+}
+
+/* Responsive */
+@media screen and (max-width: 500px) {
+    .login-section {
+        margin: 2rem 1rem;
+        padding: 1.5rem;
+    }
+
+    .login-section .auth-btn,
+    .login-section form .fourth-background {
+        font-size: 0.95rem;
+        padding: 0.5rem 0.8rem;
+    }
+
+    .login-section form input {
+        font-size: 0.95rem;
+        padding: 0.5rem 0.6rem;
+    }
+}
+
+/* ===== Formulaire d'inscription ===== */
+.login-section #register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+    background-color: #fdf5ec; /* parchemin doux */
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Labels */
+.login-section #register-form label {
+    font-weight: 600;
+    color: #3D3D3D;
+}
+
+/* Inputs */
+.login-section #register-form input {
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #e0d5b7;
+    border-radius: 8px;
+    font-family: 'roboto', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.2s ease;
+}
+
+.login-section #register-form input:focus {
+    border-color: #eec124;
+    box-shadow: 0 0 5px rgba(238,193,36,0.3);
+}
+
+/* Bouton d'inscription */
+.login-section #register-form .fourth-background {
+    padding: 0.7rem 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #eec124;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.login-section #register-form .fourth-background:hover {
+    background-color: #d4a91f;
+    transform: translateY(-2px);
+}
+
+/* Inputs identité (prenom, nom, pseudo) sur la même ligne en desktop */
+.login-section #register-form .identity-group {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap; /* pour mobile */
+}
+
+.login-section #register-form .identity-group input {
+    flex: 1;
+    min-width: 100px;
+}
+
+/* Erreurs */
+.login-section #register-form p[style*="color: crimson"] {
+    text-align: center;
+    color: crimson;
+    font-weight: 600;
+}
+
+/* Responsive */
+@media screen and (max-width: 500px) {
+    .login-section #register-form {
+        padding: 1rem;
+    }
+
+    .login-section #register-form .fourth-background {
+        font-size: 0.95rem;
+        padding: 0.6rem 0.8rem;
+    }
+
+    .login-section #register-form input {
+        font-size: 0.95rem;
+        padding: 0.5rem 0.6rem;
+    }
+
+    .login-section #register-form .identity-group {
+        flex-direction: column;
+    }
+}
+
+
+/* ===== Search Section ===== */
+.index-section form {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #fff8f0; /* fond parchemin */
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Labels */
+.index-section form label {
+    font-weight: 600;
+    color: #3D3D3D;
+}
+
+/* Inputs */
+.index-section form input[type="text"] {
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #e0d5b7;
+    border-radius: 8px;
+    font-family: 'roboto', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.2s ease;
+}
+
+.index-section form input[type="text"]:focus {
+    border-color: #eec124;
+    box-shadow: 0 0 5px rgba(238,193,36,0.3);
+}
+
+/* Bouton rechercher */
+.index-section form button[type="submit"] {
+    padding: 0.7rem 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #eec124;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.index-section form button[type="submit"]:hover {
+    background-color: #d4a91f;
+    transform: translateY(-2px);
+}
+
+/* Messages et résultats */
+.index-section p {
+    color: #3D3D3D;
+    font-size: 1rem;
+    margin: 0.5rem 0;
+}
+
+.index-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+/* Auteurs trouvés */
+.index-section ul li a {
+    text-decoration: none;
+    color: #eec124;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.index-section ul li a:hover {
+    color: #d4a91f;
+}
+
+/* Responsive */
+@media screen and (max-width: 500px) {
+    .index-section form {
+        padding: 1rem;
+        margin: 1.5rem auto;
+    }
+
+    .index-section form button[type="submit"] {
+        font-size: 0.95rem;
+        padding: 0.6rem 0.8rem;
+    }
+
+    .index-section form input[type="text"] {
+        font-size: 0.95rem;
+        padding: 0.5rem 0.6rem;
+    }
+
+    .index-section ul {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== Add Book to DB Section (isolé) ===== */
+.addbook-section {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #fff8f0; /* fond parchemin */
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+}
+
+/* Formulaire de recherche via API */
+.addbook-section form.search-api {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.addbook-section form.search-api label {
+    font-weight: 600;
+    color: #3D3D3D;
+}
+
+.addbook-section form.search-api input[type="text"] {
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #e0d5b7;
+    border-radius: 8px;
+    font-family: 'roboto', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.2s ease;
+}
+
+.addbook-section form.search-api input[type="text"]:focus {
+    border-color: #eec124;
+    box-shadow: 0 0 5px rgba(238,193,36,0.3);
+}
+
+/* Bouton rechercher (utiliser la classe globale) */
+.addbook-section form.search-api button.fourth-background {
+    cursor: pointer;
+}
+
+/* Résultats des livres */
+.addbook-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.addbook-section ul li {
+    background-color: #fdf5ec;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.addbook-section ul li img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Formulaire "Ajouter à la DB" dans chaque résultat */
+.addbook-section ul li form.add-to-db {
+    margin-top: 0.5rem;
+}
+
+.addbook-section ul li form.add-to-db button.fourth-background {
+    padding: 0.5rem 0.8rem;
+    cursor: pointer;
+}
+
+/* Messages */
+.addbook-section p {
+    color: #3D3D3D;
+    font-size: 1rem;
+    margin: 0.5rem 0;
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+    .addbook-section {
+        padding: 1rem;
+    }
+
+    .addbook-section ul {
+        grid-template-columns: 1fr;
+    }
+
+    .addbook-section form.search-api input[type="text"],
+    .addbook-section ul li form.add-to-db button.fourth-background {
+        font-size: 0.95rem;
+        padding: 0.5rem 0.6rem;
+    }
+
+    .addbook-section ul li img {
+        height: 200px;
+    }
+}
+
+
+/* ===== Section Présentation ===== */
+.presentation-section {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff8f0;  /* fond doux */
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.presentation-section h1 {
+    font-size: 2rem;
+    color: #3D3D3D;
+    margin-bottom: 1rem;
+}
+
+.presentation-section p {
+    font-size: 1rem;
+    color: #3D3D3D;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.presentation-section a button {
+    padding: 0.6rem 1.2rem;
+    background-color: #eec124;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.presentation-section a button:hover {
+    background-color: #d4a91f;
+    transform: translateY(-2px);
+}
+
+/* ===== Derniers avis de lecteurs ===== */
+.lastReviews {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.lastReviews h2 {
+    font-size: 1.5rem;
+    color: #3D3D3D;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.lastReviews ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.lastReviews ul li {
+    background-color: #fdf5ec;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.lastReviews ul li p {
+    margin: 0.3rem 0;
+    font-size: 0.95rem;
+    color: #3D3D3D;
+}
+
+.lastReviews ul li small {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: #6b6b6b;
+}
+
+/* ===== Auteurs aléatoires ===== */
+.random-authors-section {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 1rem 2rem;
+    background-color: #fff8f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.random-authors-section h2 {
+    font-size: 1.5rem;
+    color: #3D3D3D;
+    margin-bottom: 1rem;
+}
+
+.random-authors-section ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+}
+
+.random-authors-section li a.random_authors_link {
+    padding: 0.4rem 0.8rem;
+    background-color: #eec124;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.random-authors-section li a.random_authors_link:hover {
+    background-color: #d4a91f;
+    transform: translateY(-2px);
+}
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 680px) {
+    .presentation-section, .lastReviews, .random-authors-section {
+        padding: 1rem;
+        margin: 1rem;
+    }
+}
+
+/* ===== Conteneur principal du livre ===== */
+.book_details {
+    max-width: 1000px;
+    margin: 2rem auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    background-color: #fff8f0;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    padding: 2rem;
+}
+
+/* ===== Colonne couverture + actions ===== */
+.book_group {
+    flex: 1 1 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.book_cover img {
+    width: 100%;
+    max-width: 250px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.book_settings {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    width: 100%;
+    align-items: center;
+}
+
+/* Boutons */
+.book_thumbnail_button button,
+.book_settings button {
+    padding: 0.6rem 1.2rem;
+    background-color: #eec124;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+}
+
+.book_thumbnail_button button:hover,
+.book_settings button:hover {
+    background-color: #d4a91f;
+    transform: translateY(-2px);
+}
+
+/* ===== Colonne informations du livre ===== */
+.book_infos {
+    flex: 2 1 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.book_infos_header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.book_title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #3D3D3D;
+}
+
+.book_author a {
+    color: #eec124;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.book_author a:hover {
+    color: #d4a91f;
+}
+
+.book_infos_review {
+    display: flex;
+    gap: 2rem;
+    font-weight: 500;
+    color: #3D3D3D;
+}
+
+/* Synopsis */
+.book_description p {
+    line-height: 1.5;
+    color: #3D3D3D;
+    margin-bottom: 1rem;
+}
+
+/* ===== Avis des lecteurs ===== */
+.book_reviews {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.book_reviews h2 {
+    font-size: 1.5rem;
+    color: #3D3D3D;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.book_reviews ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.book_reviews ul li,
+.book_readerReview {
+    background-color: #fdf5ec;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.book_readerReview {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.Reader_avatar img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #eec124;
+}
+
+.Reader_nickname,
+.review_date,
+.Reader_reviewNote,
+.Reader_comment {
+    font-size: 0.9rem;
+    color: #3D3D3D;
+}
+
+/* ===== Formulaire ajout avis ===== */
+section form {
+    max-width: 500px;
+    margin: 1rem auto 2rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 1rem;
+    background-color: #fff8f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+section form label {
+    font-weight: 600;
+    color: #3D3D3D;
+}
+
+section form select,
+section form textarea {
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid #e0d5b7;
+    font-family: inherit;
+    font-size: 1rem;
+    resize: vertical;
+}
+
+section form textarea {
+    min-height: 80px;
+}
+
+section form button {
+    align-self: flex-start;
+    padding: 0.6rem 1.2rem;
+    background-color: #eec124;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+section form button:hover {
+    background-color: #d4a91f;
+    transform: translateY(-2px);
+}
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 880px) {
+    .book_details {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .book_group, .book_infos {
+        width: 100%;
+    }
+
+    .book_infos_review {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+
+
+/* Conteneur de la barre de recherche */
+.search-bar-container {
+    position: sticky;
+    top: 70px; /* ajuste selon la hauteur de ton header */
+    background-color: #fff8f0;
+    padding: 1rem;
+    z-index: 100;
+    border-bottom: 2px solid #eec124;
+}
+
+/* Formulaire aligné à gauche */
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 2rem; /* marge à gauche */
+    margin-right: 2rem; /* optionnel pour ne pas coller au bord droit */
+}
+
+/* Champ texte */
+.search-bar input[type="text"] {
+    flex: 1;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    min-width: 250px; /* pour éviter qu'il devienne trop petit */
+}
+
+/* Bouton */
+.search-bar button {
+    padding: 0.8rem 1.5rem;
+    background-color: #eec124;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.search-bar button:hover {
+    background-color: #d4a91f;
+    transform: translateY(-2px);
+}
+
+
+/* ---------- OVERRIDE pour la barre de recherche (search) ---------- */
+/* Doit être placé après .index-section form dans le fichier CSS */
+
+.search-bar-container {
+    position: sticky;
+    top: 6rem;               /* ou 70px si tu préfères ; ajuste à la hauteur header */
+    background-color: #fff8f0;
+    padding: 1rem 2rem;      /* marge intérieure -> la barre sera "à gauche" par rapport au contenu centré */
+    z-index: 100;
+    border-bottom: 2px solid #eec124;
+}
+
+/* Selector plus spécifique que .index-section form -> écrase margin / flex-direction */
+.search-bar-container .search-bar {
+    display: flex;
+    flex-direction: row;     /* forcer input + bouton côte à côte */
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;               /* annule margin:2rem auto de .index-section form */
+    width: 100%;             /* prend la largeur du container (qui a padding gauche/droite) */
+    max-width: none;         /* s'assure qu'il n'est pas limité par max-width */
+    justify-content: flex-start; /* aligne à gauche */
+}
+
+/* Input prend l'espace restant, bouton reste à droite du champ */
+.search-bar-container .search-bar input[type="text"] {
+    flex: 1;
+    min-width: 200px;        /* évite qu'il rétrécisse trop */
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+/* Bouton stylé (tu as déjà .fourth-background globalement — garde si tu veux) */
+.search-bar-container .search-bar button {
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    background-color: #eec124;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+/* mobile : si tu veux qu'ils restent côte-à-côte jusqu'à un point */
+@media screen and (max-width: 420px) {
+    .search-bar-container .search-bar {
+        flex-direction: column; /* optionnel : passe sous l'autre sur très petit écran */
+        gap: 0.6rem;
+    }
+}

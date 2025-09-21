@@ -1,44 +1,41 @@
-  <%- include('./partials/head') %>
-  <%- include('./partials/header') %>
+<%- include('./partials/head') %>
+<%- include('./partials/header') %>
   
-  <script>
-    const localsData = <%- JSON.stringify(locals) %>;
-    console.log(localsData);
-  </script>
+<script>
+  const localsData = <%- JSON.stringify(locals) %>;
+  console.log(localsData);
+</script>
 
-
-
-  <div class="index-section" >
+<div class="container mx-auto px-4 py-8">
   <% if (!locals.reader) { %>
     <%- include('./partials/loginNeeded') %>
   <% } %>
+  
   <% if (locals.reader) { %>
-    <h2>Bookshelf de <%= locals.reader.nickname %></h2>
+    <h2 class="text-2xl font-bold text-peacock mb-8">Bookshelf de <%= locals.reader.nickname %></h2>
  
-      <% if (locals.bookshelf) { %>
-        <section class="booklist-section">
-          <ul>
-            <% locals.bookshelf.BookInBookshelves.forEach((bookshelfItem) => { %>
-                <!-- Gestion des erreurs en cas de champ vide avec une ternaire -->
-            <li><%- include('partials/bookThumbnail', {book: bookshelfItem.Book, book_status:bookshelfItem.BookStatus, BookInBookshelf_id:bookshelfItem.id}) %></li>
-        
-            <% }); %> 
-          </ul>
-        </section>
-      <% } %>
+    <% if (locals.bookshelf) { %>
+      <section class="mb-8">
+        <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <% locals.bookshelf.BookInBookshelves.forEach((bookshelfItem) => { %>
+            <li>
+              <%- include('partials/bookThumbnail', {
+                book: bookshelfItem.Book, 
+                book_status: bookshelfItem.BookStatus, 
+                BookInBookshelf_id: bookshelfItem.id
+              }) %>
+            </li>
+          <% }); %> 
+        </ul>
+      </section>
+    <% } %>
+  <% } %>  
+</div>
 
-
-
-
-
-    <% } %>  
-  </div>
-
+<% if (locals.message) { %>
+  <p class="text-center text-peacock bg-beige p-4 rounded-lg mx-4 mb-8"><%= locals.message %></p>
+<% } %>
   
-  <% if (locals.message) { %>
-    <p><%= locals.message %></p>
-  <% } %>
-  
-  <%- include('./partials/footer') %>
+<%- include('./partials/footer') %>
 
 

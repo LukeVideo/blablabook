@@ -3,29 +3,97 @@
 <body>
 <%- include('./partials/header') %>
 
-<section class="login-section">
+<section class="container mx-auto px-4 py-8 max-w-md">
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-2xl font-bold text-peacock mb-6 text-center">Inscription</h2>
+        
+        <form class="space-y-4" action="/register" method="POST">
+            <!-- Identité -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-2">
+                    <label for="firstname" class="block text-gray-700 font-medium">Prénom</label>
+                    <input type="text" 
+                           id="firstname" 
+                           name="firstname" 
+                           class="w-full rounded-lg border-gray-300 shadow-sm focus:border-peacock focus:ring-peacock"
+                           placeholder="Votre prénom" 
+                           required>
+                </div>
+                <div class="space-y-2">
+                    <label for="lastname" class="block text-gray-700 font-medium">Nom</label>
+                    <input type="text" 
+                           id="lastname" 
+                           name="lastname" 
+                           class="w-full rounded-lg border-gray-300 shadow-sm focus:border-peacock focus:ring-peacock"
+                           placeholder="Votre nom" 
+                           required>
+                </div>
+            </div>
 
-    <form class="second-background" action="/register" method="POST">
-        
-        <label for="identity">Identité</label>
-        <input type="text" id="identity" name="firstname" placeholder="prénom" required>
-        <input type="text" id="identity" name="lastname" placeholder="nom de famille" required> 
-        <input type="text" id="identity" name="nickname" placeholder="Pseudonyme" required>
-        
-        <label for="email">Email:</label>
-        <input type="text" id="email" name="email" placeholder="adresse mail" required>
-        
-        <label for="password">Mot de passe:</label>
-        <input type="password" id="password" name="password" placeholder="mot de passe" required>
-        <input type="password" id="password" name="confirm_password" placeholder="Confirmer le mot de passe" required>
-        
-        <button class="fourth-background" type="submit">Connexion</button>
-        
-        <% if (locals.error) { %>
-            <p style="color: crimson;"><%= locals.error %></p>
+            <!-- Pseudonyme -->
+            <div class="space-y-2">
+                <label for="nickname" class="block text-gray-700 font-medium">Pseudonyme</label>
+                <input type="text" 
+                       id="nickname" 
+                       name="nickname" 
+                       class="w-full rounded-lg border-gray-300 shadow-sm focus:border-peacock focus:ring-peacock"
+                       placeholder="Choisissez un pseudonyme" 
+                       required>
+            </div>
+
+            <!-- Email -->
+            <div class="space-y-2">
+                <label for="email" class="block text-gray-700 font-medium">Email</label>
+                <input type="email" 
+                       id="email" 
+                       name="email" 
+                       class="w-full rounded-lg border-gray-300 shadow-sm focus:border-peacock focus:ring-peacock"
+                       placeholder="Votre adresse email" 
+                       required>
+            </div>
+
+            <!-- Mot de passe -->
+            <div class="space-y-2">
+                <label for="password" class="block text-gray-700 font-medium">Mot de passe</label>
+                <input type="password" 
+                       id="password" 
+                       name="password" 
+                       class="w-full rounded-lg border-gray-300 shadow-sm focus:border-peacock focus:ring-peacock"
+                       placeholder="Choisissez un mot de passe" 
+                       required>
+            </div>
+
+            <!-- Confirmation mot de passe -->
+            <div class="space-y-2">
+                <label for="confirm_password" class="block text-gray-700 font-medium">Confirmer le mot de passe</label>
+                <input type="password" 
+                       id="confirm_password" 
+                       name="confirm_password" 
+                       class="w-full rounded-lg border-gray-300 shadow-sm focus:border-peacock focus:ring-peacock"
+                       placeholder="Confirmez votre mot de passe" 
+                       required>
+            </div>
+
+            <!-- Message d'erreur -->
+            <% if (locals.error) { %>
+                <div class="p-4 bg-red-100 text-red-700 rounded-lg">
+                    <%= locals.error %>
+                </div>
             <% } %>
-            
+
+            <!-- Bouton de soumission -->
+            <button type="submit" 
+                    class="w-full bg-peacock text-white py-3 px-4 rounded-lg hover:bg-peacock/90 transition-colors">
+                S'inscrire
+            </button>
+
+            <!-- Lien vers la connexion -->
+            <p class="text-center text-gray-600 mt-4">
+                Déjà inscrit ? 
+                <a href="/login" class="text-peacock hover:underline">Connectez-vous</a>
+            </p>
         </form>
+    </div>
 </section>
 <%- include('./partials/footer') %>
 
