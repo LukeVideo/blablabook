@@ -1,14 +1,39 @@
 <%- include('./partials/head') %>
 
-<body> 
+<body class="bg-gray-50"> 
 <%- include('./partials/header') %>
 
-<% if (locals.author) { %>
+<div class="container mx-auto px-4 py-8">
+    <% if (locals.author) { %>
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-4xl mx-auto">
+            <div class="space-y-6">
+                <h1 class="text-3xl font-bold text-peacock border-b pb-4">
+                    <%= locals.author.firstname %> <%= locals.author.lastname %>
+                </h1>
 
-  <h2><%= locals.author.firstname %> <%= locals.author.lastname %></h2>
+                <div class="text-gray-700 prose max-w-none">
+                    <p class="text-lg leading-relaxed">
+                        <%= locals.author.biography %>
+                    </p>
+                </div>
 
-  <p><%= locals.author.biography %></p>
-
-<% } %>
+                <div class="mt-8 pt-6 border-t">
+                    <h2 class="text-2xl font-semibold text-peacock mb-4">Livres de l'auteur</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <% if (locals.author.books && locals.author.books.length > 0) { %>
+                            <% locals.author.books.forEach(book => { %>
+                                <%- include('./partials/bookThumbnail', { book }) %>
+                            <% }) %>
+                        <% } else { %>
+                            <p class="text-gray-600 col-span-full text-center py-4">
+                                Aucun livre disponible pour cet auteur.
+                            </p>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% } %>
+</div>
 
 <%- include('./partials/footer') %>

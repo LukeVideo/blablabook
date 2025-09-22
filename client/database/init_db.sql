@@ -178,5 +178,9 @@ INSERT INTO book (isbn, title, author_id, category_id, release_date, book_descri
 ('9782221126380', 'Les Fourmis', 10, 14, '1991-09-01 00:00:00', 'Une épopée fascinante sur le monde des fourmis.', 'https://example.com/werber.jpg');
 
 
+INSERT INTO reader (firstname, lastname, nickname, email, reader_password, reader_role_id) VALUES 
+('Antoine', 'Motte', 'Antoine3D', 'antoine3D@mail.com', 'Constructions3D!', 1),
+('Julien', 'Mille', 'Julien', 'julien@mail.com', 'RogalDorn1!', 1),
+
 
 COMMIT;

@@ -1,0 +1,69 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main class="container mx-auto px-4 py-8 max-w-4xl">
+    <h1 class="text-3xl font-bold mb-8 text-indigo-600">📜 Mentions légales – Blablabook</h1>
+
+    <section class="mb-8">
+        <h2 class="text-2xl font-semibold mb-4 text-indigo-500">1. Éditeur du site</h2>
+        <div class="space-y-4 text-gray-700">
+            <p>Le site Blablabook est un projet de fin d'études développé par :</p>
+            
+            <ul class="list-none space-y-2 pl-4">
+                <li class="font-medium">Aurélien Bessaguet</li>
+                <li class="font-medium">Luke Martin</li>
+                <li class="font-medium">Julien Mille</li>
+            </ul>
+            
+            <p class="mt-4">
+                📍 Adresse : <a href="https://fr.wikipedia.org/wiki/R%27lyeh" alt="R'Lyeh" class="text-indigo-600 hover:text-indigo-800 underline">47° 09′ S, 126° 43′ O</a>
+                <span class="text-sm italic block mt-2">(Si vous trouvez cette adresse, félicitations, vous êtes tout prêt de ... là où il vaut mieux ne pas trop traîner. Un indice ? Ph'nglui mglw'nafh Cthulhu R'lyeh wgah'nagl fhtagn.)</span>
+            </p>
+            <p>📧 E-mail de contact : <span class="font-medium">blablabook.ratatosk@gmail.com</span></p>
+        </div>
+    </section>
+
+    <section class="mb-8">
+        <h2 class="text-2xl font-semibold mb-4 text-indigo-500">2. Hébergement</h2>
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 text-gray-700">
+            <p>🚧 Actuellement, Blablabook n'est pas encore hébergé sur un serveur public. Cette section sera mise à jour lorsque le site aura un hébergeur.</p>
+        </div>
+    </section>
+    
+    <section class="mb-8">
+        <h2 class="text-2xl font-semibold mb-4 text-indigo-500">3. Propriété intellectuelle</h2>
+        <p class="text-gray-700">Le contenu du site Blablabook (textes, images, logos, design) est protégé par le droit d'auteur et appartient à ses créateurs, sauf mention contraire. Toute reproduction ou utilisation sans autorisation est interdite.</p>
+    </section>
+    
+    <section class="mb-8">
+        <h2 class="text-2xl font-semibold mb-4 text-indigo-500">4. Responsabilité</h2>
+        <p class="text-gray-700">Blablabook est un site non lucratif qui permet aux utilisateurs d'organiser leur bibliothèque virtuelle. L'équipe du site ne peut être tenue responsable des données récupérées par l'API Google Books ou des actions des utilisateurs sur la plateforme.</p>
+    </section>
+    
+    <section class="mb-8">
+        <h2 class="text-2xl font-semibold mb-4 text-indigo-500">5. Données personnelles et cookies</h2>
+        <div class="space-y-4 text-gray-700">
+            <p>Blablabook ne collecte que des cookies fonctionnels pour assurer le bon fonctionnement du site.</p>
+            <p>Les recherches effectuées via l'API Google Books peuvent entraîner la collecte de données par Google. Pour plus d'informations, consultez les conditions de Google Books :</p>
+            <p><a href="https://developers.google.com/books/terms" class="text-indigo-600 hover:text-indigo-800 underline">🔗 Conditions d'utilisation de Google Books</a></p>
+            <p>Les utilisateurs peuvent supprimer leur compte à tout moment via leur profil.</p>
+        </div>
+    </section>
+
+    <section class="mb-8">
+        <h2 class="text-2xl font-semibold mb-4 text-indigo-500">6. Règles d'utilisation</h2>
+        <div class="bg-blue-50 border-l-4 border-blue-400 p-4 text-gray-700">
+            <p>Les utilisateurs s'engagent à respecter les règles du site, notamment en matière de politesse dans les commentaires. Les messages contenant insultes, incitation à la haine ou propos illégaux pourront être supprimés et entraîner la suppression du compte.</p>
+        </div>
+    </section>
+    
+    <section class="mb-8">
+        <h2 class="text-2xl font-semibold mb-4 text-indigo-500">7. Contact</h2>
+        <div class="text-gray-700">
+            <p>Pour toute question ou demande, vous pouvez nous contacter à l'adresse suivante :</p>
+            <p class="mt-2 font-medium">📧 E-mail de contact : <span class="text-indigo-600">blablabook.ratatosk@gmail.com</span></p>
+        </div>
+    </section>
+</main>
+
+<%- include('partials/footer') %>
