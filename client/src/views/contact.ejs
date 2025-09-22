@@ -1,21 +1,41 @@
 <%- include('./partials/head') %>
     <%- include('./partials/header') %>
 
-    <main>
-        <h1>Formulaire de contact</h1>
+    <main class="container mx-auto px-4 py-8 max-w-2xl">
+        <h1 class="text-3xl font-bold mb-6 text-indigo-600">Formulaire de contact</h1>
 
-        <section>
-            <p>Une question, une remarque, un problème ou une suggestion ? </p>
-            <p>Ecrivez votre Blabla ici et nous vous répondrons avec le nôtre rapidement !</p>
+        <section class="bg-white shadow-lg rounded-lg p-8">
+            <div class="mb-6 space-y-2 text-gray-700">
+                <p>Une question, une remarque, un problème ou une suggestion ? </p>
+                <p>Ecrivez votre Blabla ici et nous vous répondrons avec le nôtre rapidement !</p>
+            </div>
 
-            <form action="/contact" method="POST">
-                <label for="email">Votre adresse e-mail :</label>
-                <input type="email" id="email" name="userEmail" required placeholder="Adresse email">
+            <form action="/contact" method="POST" class="space-y-6">
+                <div class="space-y-2">
+                    <label for="email" class="block text-sm font-medium text-gray-700">Votre adresse e-mail :</label>
+                    <input type="email" 
+                           id="email" 
+                           name="userEmail" 
+                           required 
+                           placeholder="Adresse email" 
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                </div>
 
-                <label for="message">Votre message :</label>
-                <textarea id="message" name="userMessage" required placeholder="Écrivez votre message ici..."></textarea>
+                <div class="space-y-2">
+                    <label for="message" class="block text-sm font-medium text-gray-700">Votre message :</label>
+                    <textarea id="message" 
+                            name="userMessage" 
+                            required 
+                            placeholder="Écrivez votre message ici..." 
+                            rows="6"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+                </div>
 
-                <button action= "/sendMailToAdmin" type="submit">Envoyer</button>
+                <button action="/sendMailToAdmin" 
+                        type="submit"
+                        class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Envoyer
+                </button>
             </form>
         </section>
     </main>
